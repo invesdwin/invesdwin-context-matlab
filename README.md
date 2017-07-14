@@ -43,7 +43,7 @@ You are free to choose which integration method you prefer by selecting the appr
 This is a minimal example of the famous `Hello World!` as a script:
 
 ```java
-final AScriptTaskR<String> script = new AScriptTaskR<String>() {
+final AScriptTaskMatlab<String> script = new AScriptTaskMatlab<String>() {
 
     @Override
     public void populateInputs(final IScriptTaskInputs inputs) {
@@ -53,9 +53,9 @@ final AScriptTaskR<String> script = new AScriptTaskR<String>() {
     @Override
     public void executeScript(final IScriptTaskEngine engine) {
 	//execute this script inline:
-	engine.eval("world <- paste(\"Hello \", hello, \"!\", sep=\"\")");
+	engine.eval("world = strcat({'Hello '}, hello, '!')");
 	//or run it from a file:
-	//engine.eval(new ClassPathResource("HelloWorldScript.R", getClass()));
+	//engine.eval(new ClassPathResource("HelloWorldScript.m", getClass()));
     }
 
     @Override
@@ -67,11 +67,7 @@ final String result = script.run(); //optionally pass a specific runner as an ar
 Assertions.assertThat(result).isEqualTo("Hello World!");
 ```
 
-For more elaborate examples of the R script integration, have a look at the `invesdwin-context-r-optimalf` module or the test cases in `invesdwin-context-r-runtime-contract` which are executed in each individual runtime module test suite.
-
-## Recommended Editors
-
-For working with R we recommend using [StatET](http://www.walware.de/goto/statet) if you are mainly using Eclipse. The included editor suffices if you only run the scripts using `invesdwin-context-r`. So no complicated R setup with eclipse is needed, just install the plugin from the marketplace and run your scripts with `invesdwin-context-r-runtime-rcaller` (add this module as a `test` scope dependency) during development to get R console output as you are used to from an interactive R shell (you also need to add a dependecy to the type `test-jar` for the log level to get activated, or alternatively change the log level of `de.invesdwin.context.r.runtime.contract.IScriptTaskRunnerR` to `DEBUG` on your own). The actual deployment distribution can choose a different runtime then as a hard dependency (again see the `invesdwin-context-r-optimalf` module as an example for this). For experimenting with R it might be interesting to use [RStudio](https://www.rstudio.com/) as a standalone development environment. It supports a nice variable viewer and has a nice integration of the R documentation, which helps a lot during R learning and development. It also comes with a comfortable debugger for R scripts.
+For more elaborate examples of the Matlab/Octave script integration, have a look at the `invesdwin-context-matlab-ornsteinuhlenbeck` module or the test cases in `invesdwin-context-matlab-runtime-contract` which are executed in each individual runtime module test suite.
 
 ## Support
 
