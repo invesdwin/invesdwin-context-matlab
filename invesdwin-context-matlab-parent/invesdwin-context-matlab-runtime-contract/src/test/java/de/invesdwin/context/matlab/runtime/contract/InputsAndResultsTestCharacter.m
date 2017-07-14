@@ -1,54 +1,54 @@
-print("getCharacter")
-if(exists("getCharacter")){
-	stop("getCharacter already defined!")
-}
-getCharacter <- putCharacter
-print(typeof(getCharacter))
-print(getCharacter)
-if(typeof(getCharacter) != "character"){
-	stop("getCharacter not character!")
-}
+disp("getCharacter")
+if exist("getCharacter")
+	error("getCharacter already defined!")
+end
+getCharacter = putCharacter
+disp(class(getCharacter))
+disp(getCharacter)
+if ~isa(getCharacter, 'char')
+	error("getCharacter not char!")
+end
 
-print("getCharacterVector")
-if(exists("getCharacterVector")){
-	stop("getCharacterVector already defined!")
-}
-getCharacterVector <- putCharacterVector
-print(typeof(getCharacterVector))
-print(getCharacterVector)
-if(typeof(getCharacterVector) != "character"){
-	stop("getCharacterVector not character!")
-}
+disp("getCharacterVector")
+if exist("getCharacterVector")
+	error("getCharacterVector already defined!")
+end
+getCharacterVector = putCharacterVector
+disp(class(getCharacterVector))
+disp(getCharacterVector)
+if ~isa(getCharacterVector, 'cell')
+	error("getCharacterVector not cell!")
+end
 
-print("getCharacterVectorAsList")
-if(exists("getCharacterVectorAsList")){
-	stop("getCharacterVectorAsList already defined!")
-}
-getCharacterVectorAsList <- putCharacterVectorAsList
-print(typeof(getCharacterVectorAsList))
-print(getCharacterVectorAsList)
-if(typeof(getCharacterVectorAsList) != "character"){
-	stop("getCharacterVectorAsList not character!")
-}
+disp("getCharacterVectorAsList")
+if exist("getCharacterVectorAsList")
+	error("getCharacterVectorAsList already defined!")
+end
+getCharacterVectorAsList = putCharacterVectorAsList
+disp(class(getCharacterVectorAsList))
+disp(getCharacterVectorAsList)
+if ~isa(getCharacterVectorAsList, 'cell')
+	error("getCharacterVectorAsList not cell!")
+end
 
-print("getCharacterMatrix")
-if(exists("getCharacterMatrix")){
-	stop("getCharacterMatrix already defined!")
-}
-getCharacterMatrix <- putCharacterMatrix
-print(typeof(getCharacterMatrix))
-print(getCharacterMatrix)
-if(typeof(getCharacterMatrix) != "character"){
-	stop("getCharacterMatrix not character!")
-}
+disp("getCharacterMatrix")
+if exist("getCharacterMatrix")
+	error("getCharacterMatrix already defined!")
+end
+getCharacterMatrix = putCharacterMatrix
+disp(class(getCharacterMatrix))
+disp(getCharacterMatrix)
+if ~isa(getCharacterMatrix, 'cell')
+	error("getCharacterMatrix not cell!")
+end
 
-print("getCharacterMatrixAsList")
-if(exists("getCharacterMatrixAsList")){
-	stop("getCharacterMatrixAsList already defined!")
-}
-getCharacterMatrixAsList <- putCharacterMatrixAsList
-print(typeof(getCharacterMatrixAsList))
-print(getCharacterMatrixAsList)
-if(typeof(getCharacterMatrixAsList) != "character"){
-	stop("getCharacterMatrixAsList not character!")
-}
+disp("getCharacterMatrixAsList")
+if exist("getCharacterMatrixAsList")
+	error("getCharacterMatrixAsList already defined!")
+end
+getCharacterMatrixAsList = putCharacterMatrixAsList
+disp(class(getCharacterMatrixAsList))
+disp(getCharacterMatrixAsList)
+if ~isa(getCharacterMatrixAsList, 'cell')
+	error("getCharacterMatrixAsList not cell!")
+end

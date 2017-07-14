@@ -1,54 +1,54 @@
-print("getFloat")
-if(exists("getFloat")){
-	stop("getFloat already defined!")
-}
-getFloat <- putFloat
-print(typeof(getFloat))
-print(getFloat)
-if(typeof(getFloat) != "double"){
-	stop("getFloat not double!")
-}
+disp("getFloat")
+if exist("getFloat")
+	error("getFloat already defined!")
+end
+getFloat = putFloat
+disp(class(getFloat))
+disp(getFloat)
+if ~isa(getFloat, 'double')
+	error("getFloat not double!")
+end
 
-print("getFloatVector")
-if(exists("getFloatVector")){
-	stop("getFloatVector already defined!")
-}
-getFloatVector <- putFloatVector
-print(typeof(getFloatVector))
-print(getFloatVector)
-if(typeof(getFloatVector) != "double"){
-	stop("getFloatVector not double!")
-}
+disp("getFloatVector")
+if exist("getFloatVector")
+	error("getFloatVector already defined!")
+end
+getFloatVector = putFloatVector
+disp(class(getFloatVector))
+disp(getFloatVector)
+if ~isa(getFloatVector, 'double')
+	error("getFloatVector not double!")
+end
 
-print("getFloatVectorAsList")
-if(exists("getFloatVectorAsList")){
-	stop("getFloatVectorAsList already defined!")
-}
-getFloatVectorAsList <- putFloatVectorAsList
-print(typeof(getFloatVectorAsList))
-print(getFloatVectorAsList)
-if(typeof(getFloatVectorAsList) != "double"){
-	stop("getFloatVectorAsList not double!")
-}
+disp("getFloatVectorAsList")
+if exist("getFloatVectorAsList")
+	error("getFloatVectorAsList already defined!")
+end
+getFloatVectorAsList = putFloatVectorAsList
+disp(class(getFloatVectorAsList))
+disp(getFloatVectorAsList)
+if ~isa(getFloatVectorAsList, 'double')
+	error("getFloatVectorAsList not double!")
+end
 
-print("getFloatMatrix")
-if(exists("getFloatMatrix")){
-	stop("getFloatMatrix already defined!")
-}
-getFloatMatrix <- putFloatMatrix
-print(typeof(getFloatMatrix))
-print(getFloatMatrix)
-if(typeof(getFloatMatrix) != "double"){
-	stop("getFloatMatrix not double!")
-}
+disp("getFloatMatrix")
+if exist("getFloatMatrix")
+	error("getFloatMatrix already defined!")
+end
+getFloatMatrix = putFloatMatrix
+disp(class(getFloatMatrix))
+disp(getFloatMatrix)
+if ~isa(getFloatMatrix, 'double')
+	error("getFloatMatrix not double!")
+end
 
-print("getFloatMatrixAsList")
-if(exists("getFloatMatrixAsList")){
-	stop("getFloatMatrixAsList already defined!")
-}
-getFloatMatrixAsList <- putFloatMatrixAsList
-print(typeof(getFloatMatrixAsList))
-print(getFloatMatrixAsList)
-if(typeof(getFloatMatrixAsList) != "double"){
-	stop("getFloatMatrixAsList not double!")
-}
+disp("getFloatMatrixAsList")
+if exist("getFloatMatrixAsList")
+	error("getFloatMatrixAsList already defined!")
+end
+getFloatMatrixAsList = putFloatMatrixAsList
+disp(class(getFloatMatrixAsList))
+disp(getFloatMatrixAsList)
+if ~isa(getFloatMatrixAsList, 'double')
+	error("getFloatMatrixAsList not double!")
+end

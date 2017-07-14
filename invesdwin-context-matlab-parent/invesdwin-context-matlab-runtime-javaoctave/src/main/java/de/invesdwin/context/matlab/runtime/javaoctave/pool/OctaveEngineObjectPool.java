@@ -11,8 +11,6 @@ import javax.inject.Named;
 
 import org.springframework.beans.factory.FactoryBean;
 
-import com.github.rcaller.rstuff.RCaller;
-
 import de.invesdwin.context.matlab.runtime.javaoctave.pool.internal.OctaveEnginePoolableObjectFactory;
 import de.invesdwin.context.pool.AObjectPool;
 import de.invesdwin.util.assertions.Assertions;
@@ -21,31 +19,33 @@ import de.invesdwin.util.concurrent.Threads;
 import de.invesdwin.util.concurrent.WrappedExecutorService;
 import de.invesdwin.util.time.duration.Duration;
 import de.invesdwin.util.time.fdate.FDate;
+import dk.ange.octave.OctaveEngine;
 
 @ThreadSafe
 @Named
-public final class OctaveEngineObjectPool extends AObjectPool<RCaller> implements FactoryBean<OctaveEngineObjectPool> {
+public final class OctaveEngineObjectPool extends AObjectPool<OctaveEngine>
+        implements FactoryBean<OctaveEngineObjectPool> {
 
     public static final OctaveEngineObjectPool INSTANCE = new OctaveEngineObjectPool();
 
     private final WrappedExecutorService timeoutMonitorExecutor = Executors
             .newFixedCallerRunsThreadPool(getClass().getSimpleName() + "_timeout", 1);
     @GuardedBy("this")
-    private final List<RCallerWrapper> rCallerRotation = new ArrayList<RCallerWrapper>();
+    private final List<OctaveEngineWrapper> octaveEngineRotation = new ArrayList<OctaveEngineWrapper>();
 
     private OctaveEngineObjectPool() {
         super(OctaveEnginePoolableObjectFactory.INSTANCE);
-        timeoutMonitorExecutor.execute(new RCallerTimoutMonitor());
+        timeoutMonitorExecutor.execute(new OctaveEngineTimoutMonitor());
     }
 
     @Override
-    protected synchronized RCaller internalBorrowObject() throws Exception {
-        if (rCallerRotation.isEmpty()) {
+    protected synchronized OctaveEngine internalBorrowObject() throws Exception {
+        if (octaveEngineRotation.isEmpty()) {
             return factory.makeObject();
         }
-        final RCallerWrapper rCaller = rCallerRotation.remove(0);
-        if (rCaller != null) {
-            return rCaller.getRCaller();
+        final OctaveEngineWrapper octaveEngine = octaveEngineRotation.remove(0);
+        if (octaveEngine != null) {
+            return octaveEngine.getOctaveEngine();
         } else {
             return factory.makeObject();
         }
@@ -53,41 +53,41 @@ public final class OctaveEngineObjectPool extends AObjectPool<RCaller> implement
 
     @Override
     public synchronized int getNumIdle() {
-        return rCallerRotation.size();
+        return octaveEngineRotation.size();
     }
 
     @Override
-    public synchronized Collection<RCaller> internalClear() throws Exception {
-        final Collection<RCaller> removed = new ArrayList<RCaller>();
-        while (!rCallerRotation.isEmpty()) {
-            removed.add(rCallerRotation.remove(0).getRCaller());
+    public synchronized Collection<OctaveEngine> internalClear() throws Exception {
+        final Collection<OctaveEngine> removed = new ArrayList<OctaveEngine>();
+        while (!octaveEngineRotation.isEmpty()) {
+            removed.add(octaveEngineRotation.remove(0).getOctaveEngine());
         }
         return removed;
     }
 
     @Override
-    protected synchronized RCaller internalAddObject() throws Exception {
-        final RCaller pooled = factory.makeObject();
-        rCallerRotation.add(new RCallerWrapper(factory.makeObject()));
+    protected synchronized OctaveEngine internalAddObject() throws Exception {
+        final OctaveEngine pooled = factory.makeObject();
+        octaveEngineRotation.add(new OctaveEngineWrapper(factory.makeObject()));
         return pooled;
     }
 
     @Override
-    protected synchronized void internalReturnObject(final RCaller obj) throws Exception {
-        rCallerRotation.add(new RCallerWrapper(obj));
+    protected synchronized void internalReturnObject(final OctaveEngine obj) throws Exception {
+        octaveEngineRotation.add(new OctaveEngineWrapper(obj));
     }
 
     @Override
-    protected void internalInvalidateObject(final RCaller obj) throws Exception {
+    protected void internalInvalidateObject(final OctaveEngine obj) throws Exception {
         //Nothing happens
     }
 
     @Override
-    protected synchronized void internalRemoveObject(final RCaller obj) throws Exception {
-        rCallerRotation.remove(new RCallerWrapper(obj));
+    protected synchronized void internalRemoveObject(final OctaveEngine obj) throws Exception {
+        octaveEngineRotation.remove(new OctaveEngineWrapper(obj));
     }
 
-    private class RCallerTimoutMonitor implements Runnable {
+    private class OctaveEngineTimoutMonitor implements Runnable {
         @Override
         public void run() {
             try {
@@ -95,11 +95,12 @@ public final class OctaveEngineObjectPool extends AObjectPool<RCaller> implement
                     Threads.throwIfInterrupted();
                     TimeUnit.MILLISECONDS.sleep(100);
                     synchronized (OctaveEngineObjectPool.this) {
-                        if (!rCallerRotation.isEmpty()) {
-                            final List<RCallerWrapper> copy = new ArrayList<RCallerWrapper>(rCallerRotation);
-                            for (final RCallerWrapper rCaller : copy) {
-                                if (rCaller.isTimeoutExceeded()) {
-                                    Assertions.assertThat(rCallerRotation.remove(rCaller)).isTrue();
+                        if (!octaveEngineRotation.isEmpty()) {
+                            final List<OctaveEngineWrapper> copy = new ArrayList<OctaveEngineWrapper>(
+                                    octaveEngineRotation);
+                            for (final OctaveEngineWrapper octaveEngine : copy) {
+                                if (octaveEngine.isTimeoutExceeded()) {
+                                    Assertions.assertThat(octaveEngineRotation.remove(octaveEngine)).isTrue();
                                 }
                             }
                         }
@@ -111,18 +112,18 @@ public final class OctaveEngineObjectPool extends AObjectPool<RCaller> implement
         }
     }
 
-    private final class RCallerWrapper {
+    private final class OctaveEngineWrapper {
 
-        private final RCaller rCaller;
+        private final OctaveEngine octaveEngine;
         private final FDate timeoutStart;
 
-        RCallerWrapper(final RCaller rCaller) {
-            this.rCaller = rCaller;
+        OctaveEngineWrapper(final OctaveEngine octaveEngine) {
+            this.octaveEngine = octaveEngine;
             this.timeoutStart = new FDate();
         }
 
-        public RCaller getRCaller() {
-            return rCaller;
+        public OctaveEngine getOctaveEngine() {
+            return octaveEngine;
         }
 
         public boolean isTimeoutExceeded() {
@@ -131,16 +132,16 @@ public final class OctaveEngineObjectPool extends AObjectPool<RCaller> implement
 
         @Override
         public int hashCode() {
-            return rCaller.hashCode();
+            return octaveEngine.hashCode();
         }
 
         @Override
         public boolean equals(final Object obj) {
-            if (obj instanceof RCallerWrapper) {
-                final RCallerWrapper cObj = (RCallerWrapper) obj;
-                return rCaller.equals(cObj.getRCaller());
-            } else if (obj instanceof RCaller) {
-                return rCaller.equals(obj);
+            if (obj instanceof OctaveEngineWrapper) {
+                final OctaveEngineWrapper cObj = (OctaveEngineWrapper) obj;
+                return octaveEngine.equals(cObj.getOctaveEngine());
+            } else if (obj instanceof OctaveEngine) {
+                return octaveEngine.equals(obj);
             } else {
                 return false;
             }

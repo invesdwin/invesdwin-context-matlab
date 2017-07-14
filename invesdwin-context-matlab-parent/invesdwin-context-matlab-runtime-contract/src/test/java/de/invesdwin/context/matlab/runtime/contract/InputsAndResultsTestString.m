@@ -1,138 +1,138 @@
-print("getString")
-if(exists("getString")){
-	stop("getString already defined!")
-}
-getString <- putString
-print(typeof(getString))
-print(getString)
-if(typeof(getString) != "character"){
-	stop("getString not character!")
-}
+disp("getString")
+if exist("getString")
+	error("getString already defined!")
+end
+getString = putString
+disp(class(getString))
+disp(getString)
+if ~isa(getString, 'char')
+	error("getString not char!")
+end
 
-print("getStringWithNull")
-if(exists("getStringWithNull")){
-	stop("getStringWithNull already defined!")
-}
-getStringWithNull <- putStringWithNull
-print(typeof(getStringWithNull))
-print(getStringWithNull)
-if(typeof(getStringWithNull) != "character"){
-	stop("getStringWithNull not character!")
-}
-if(!is.na(getStringWithNull)){
-	stop("getStringWithNull not na!")
-}
+disp("getStringWithNull")
+if exist("getStringWithNull")
+	error("getStringWithNull already defined!")
+end
+getStringWithNull = putStringWithNull
+disp(class(getStringWithNull))
+disp(getStringWithNull)
+if ~isa(getStringWithNull, 'char')
+	error("getStringWithNull not char!")
+end
+if ~isempty(getStringWithNull)
+	error("getStringWithNull not empty!")
+end
 
-print("getStringVector")
-if(exists("getStringVector")){
-	stop("getStringVector already defined!")
-}
-getStringVector <- putStringVector
-print(typeof(getStringVector))
-print(getStringVector)
-if(typeof(getStringVector) != "character"){
-	stop("getStringVector not character!")
-}
-
-
-print("getStringVectorWithNull")
-if(exists("getStringVectorWithNull")){
-	stop("getStringVectorWithNull already defined!")
-}
-getStringVectorWithNull <- putStringVectorWithNull
-print(typeof(getStringVectorWithNull))
-print(getStringVectorWithNull)
-if(typeof(getStringVectorWithNull) != "character"){
-	stop("getStringVectorWithNull not character!")
-}
-if(!is.na(getStringVectorWithNull[2])){
-	stop("getStringVectorWithNull[2] not na!")
-}
-
-print("getStringVectorAsList")
-if(exists("getStringVectorAsList")){
-	stop("getStringVectorAsList already defined!")
-}
-getStringVectorAsList <- putStringVectorAsList
-print(typeof(getStringVectorAsList))
-print(getStringVectorAsList)
-if(typeof(getStringVectorAsList) != "character"){
-	stop("getStringVectorAsList not character!")
-}
-
-print("getStringVectorAsListWithNull")
-if(exists("getStringVectorAsListWithNull")){
-	stop("getStringVectorAsListWithNull already defined!")
-}
-getStringVectorAsListWithNull <- putStringVectorAsListWithNull
-print(typeof(getStringVectorAsListWithNull))
-print(getStringVectorAsListWithNull)
-if(typeof(getStringVectorAsListWithNull) != "character"){
-	stop("getStringVectorAsListWithNull not character!")
-}
-if(!is.na(getStringVectorAsListWithNull[2])){
-	stop("getStringVectorAsListWithNull[2] not na!")
-}
-
-print("getStringMatrix")
-if(exists("getStringMatrix")){
-	stop("getStringMatrix already defined!")
-}
-getStringMatrix <- putStringMatrix
-print(typeof(getStringMatrix))
-print(getStringMatrix)
-if(typeof(getStringMatrix) != "character"){
-	stop("getStringMatrix not character!")
-}
+disp("getStringVector")
+if exist("getStringVector")
+	error("getStringVector already defined!")
+end
+getStringVector = putStringVector
+disp(class(getStringVector))
+disp(getStringVector)
+if ~isa(getStringVector, 'cell')
+	error("getStringVector not cell!")
+end
 
 
-print("getStringMatrixWithNull")
-if(exists("getStringMatrixWithNull")){
-	stop("getStringMatrixWithNull already defined!")
-}
-getStringMatrixWithNull <- putStringMatrixWithNull
-print(typeof(getStringMatrixWithNull))
-print(getStringMatrixWithNull)
-if(typeof(getStringMatrixWithNull) != "character"){
-	stop("getStringMatrixWithNull not character!")
-}
-if(!is.na(getStringMatrixWithNull[1][1])){
-	stop("getStringMatrixWithNull[1][1] not na!")
-}
-if(!is.na(getStringMatrixWithNull[2][2])){
-	stop("getStringMatrixWithNull[2][2] not na!")
-}
-if(!is.na(getStringMatrixWithNull[3][3])){
-	stop("getStringMatrixWithNull[3][3] not na!")
-}
+disp("getStringVectorWithNull")
+if exist("getStringVectorWithNull")
+	error("getStringVectorWithNull already defined!")
+end
+getStringVectorWithNull = putStringVectorWithNull
+disp(class(getStringVectorWithNull))
+disp(getStringVectorWithNull)
+if ~isa(getStringVectorWithNull, 'cell')
+	error("getStringVectorWithNull not cell!")
+end
+if ~isempty(getStringVectorWithNull{2})
+	error("getStringVectorWithNull{2} not empty!")
+end
 
-print("getStringMatrixAsList")
-if(exists("getStringMatrixAsList")){
-	stop("getStringMatrixAsList already defined!")
-}
-getStringMatrixAsList <- putStringMatrixAsList
-print(typeof(getStringMatrixAsList))
-print(getStringMatrixAsList)
-if(typeof(getStringMatrixAsList) != "character"){
-	stop("getStringMatrixAsList not character!")
-}
+disp("getStringVectorAsList")
+if exist("getStringVectorAsList")
+	error("getStringVectorAsList already defined!")
+end
+getStringVectorAsList = putStringVectorAsList
+disp(class(getStringVectorAsList))
+disp(getStringVectorAsList)
+if ~isa(getStringVectorAsList, 'cell')
+	error("getStringVectorAsList not cell!")
+end
 
-print("getStringMatrixAsListWithNull")
-if(exists("getStringMatrixAsListWithNull")){
-	stop("getStringMatrixAsListWithNull already defined!")
-}
-getStringMatrixAsListWithNull <- putStringMatrixAsListWithNull
-print(typeof(getStringMatrixAsListWithNull))
-print(getStringMatrixAsListWithNull)
-if(typeof(getStringMatrixAsListWithNull) != "character"){
-	stop("getStringMatrixAsListWithNull not character!")
-}
-if(!is.na(getStringMatrixAsListWithNull[1][1])){
-	stop("getStringMatrixAsListWithNull[1][1] not na!")
-}
-if(!is.na(getStringMatrixAsListWithNull[2][2])){
-	stop("getStringMatrixAsListWithNull[2][2] not na!")
-}
-if(!is.na(getStringMatrixAsListWithNull[3][3])){
-	stop("getStringMatrixAsListWithNull[3][3] not na!")
-}
+disp("getStringVectorAsListWithNull")
+if exist("getStringVectorAsListWithNull")
+	error("getStringVectorAsListWithNull already defined!")
+end
+getStringVectorAsListWithNull = putStringVectorAsListWithNull
+disp(class(getStringVectorAsListWithNull))
+disp(getStringVectorAsListWithNull)
+if ~isa(getStringVectorAsListWithNull, 'cell')
+	error("getStringVectorAsListWithNull not cell!")
+end
+if ~isempty(getStringVectorAsListWithNull{2})
+	error("getStringVectorAsListWithNull{2} not empty!")
+end
+
+disp("getStringMatrix")
+if exist("getStringMatrix")
+	error("getStringMatrix already defined!")
+end
+getStringMatrix = putStringMatrix
+disp(class(getStringMatrix))
+disp(getStringMatrix)
+if ~isa(getStringMatrix, 'cell')
+	error("getStringMatrix not cell!")
+end
+
+
+disp("getStringMatrixWithNull")
+if exist("getStringMatrixWithNull")
+	error("getStringMatrixWithNull already defined!")
+end
+getStringMatrixWithNull = putStringMatrixWithNull
+disp(class(getStringMatrixWithNull))
+disp(getStringMatrixWithNull)
+if ~isa(getStringMatrixWithNull, 'cell')
+	error("getStringMatrixWithNull not cell!")
+end
+if ~isempty(getStringMatrixWithNull{1,1})
+	error("getStringMatrixWithNull{1,1} not empty!")
+end
+if ~isempty(getStringMatrixWithNull{2,2})
+	error("getStringMatrixWithNull{2,2} not empty!")
+end
+if ~isempty(getStringMatrixWithNull{3,3})
+	error("getStringMatrixWithNull{3,3} not empty!")
+end
+
+disp("getStringMatrixAsList")
+if exist("getStringMatrixAsList")
+	error("getStringMatrixAsList already defined!")
+end
+getStringMatrixAsList = putStringMatrixAsList
+disp(class(getStringMatrixAsList))
+disp(getStringMatrixAsList)
+if ~isa(getStringMatrixAsList, 'cell')
+	error("getStringMatrixAsList not cell!")
+end
+
+disp("getStringMatrixAsListWithNull")
+if exist("getStringMatrixAsListWithNull")
+	error("getStringMatrixAsListWithNull already defined!")
+end
+getStringMatrixAsListWithNull = putStringMatrixAsListWithNull
+disp(class(getStringMatrixAsListWithNull))
+disp(getStringMatrixAsListWithNull)
+if ~isa(getStringMatrixAsListWithNull, 'cell')
+	error("getStringMatrixAsListWithNull not cell!")
+end
+if ~isempty(getStringMatrixAsListWithNull{1,1})
+	error("getStringMatrixAsListWithNull{1,1} not empty!")
+end
+if ~isempty(getStringMatrixAsListWithNull{2,2})
+	error("getStringMatrixAsListWithNull{2,2} not empty!")
+end
+if ~isempty(getStringMatrixAsListWithNull{3,3})
+	error("getStringMatrixAsListWithNull{3,3} not empty!")
+end

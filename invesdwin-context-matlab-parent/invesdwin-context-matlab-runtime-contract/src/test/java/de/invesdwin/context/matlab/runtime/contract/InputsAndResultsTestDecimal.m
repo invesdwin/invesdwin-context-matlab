@@ -1,54 +1,54 @@
-print("getDecimal")
-if(exists("getDecimal")){
-	stop("getDecimal already defined!")
-}
-getDecimal <- putDecimal
-print(typeof(getDecimal))
-print(getDecimal)
-if(typeof(getDecimal) != "double"){
-	stop("getDecimal not double!")
-}
+disp("getDecimal")
+if exist("getDecimal")
+	error("getDecimal already defined!")
+end
+getDecimal = putDecimal
+disp(class(getDecimal))
+disp(getDecimal)
+if ~isa(getDecimal, 'double')
+	error("getDecimal not double!")
+end
 
-print("getDecimalVector")
-if(exists("getDecimalVector")){
-	stop("getDecimalVector already defined!")
-}
-getDecimalVector <- putDecimalVector
-print(typeof(getDecimalVector))
-print(getDecimalVector)
-if(typeof(getDecimalVector) != "double"){
-	stop("getDecimalVector not double!")
-}
+disp("getDecimalVector")
+if exist("getDecimalVector")
+	error("getDecimalVector already defined!")
+end
+getDecimalVector = putDecimalVector
+disp(class(getDecimalVector))
+disp(getDecimalVector)
+if ~isa(getDecimalVector, 'double')
+	error("getDecimalVector not double!")
+end
 
-print("getDecimalVectorAsList")
-if(exists("getDecimalVectorAsList")){
-	stop("getDecimalVectorAsList already defined!")
-}
-getDecimalVectorAsList <- putDecimalVectorAsList
-print(typeof(getDecimalVectorAsList))
-print(getDecimalVectorAsList)
-if(typeof(getDecimalVectorAsList) != "double"){
-	stop("getDecimalVectorAsList not double!")
-}
+disp("getDecimalVectorAsList")
+if exist("getDecimalVectorAsList")
+	error("getDecimalVectorAsList already defined!")
+end
+getDecimalVectorAsList = putDecimalVectorAsList
+disp(class(getDecimalVectorAsList))
+disp(getDecimalVectorAsList)
+if ~isa(getDecimalVectorAsList, 'double')
+	error("getDecimalVectorAsList not double!")
+end
 
-print("getDecimalMatrix")
-if(exists("getDecimalMatrix")){
-	stop("getDecimalMatrix already defined!")
-}
-getDecimalMatrix <- putDecimalMatrix
-print(typeof(getDecimalMatrix))
-print(getDecimalMatrix)
-if(typeof(getDecimalMatrix) != "double"){
-	stop("getDecimalMatrix not double!")
-}
+disp("getDecimalMatrix")
+if exist("getDecimalMatrix")
+	error("getDecimalMatrix already defined!")
+end
+getDecimalMatrix = putDecimalMatrix
+disp(class(getDecimalMatrix))
+disp(getDecimalMatrix)
+if ~isa(getDecimalMatrix, 'double')
+	error("getDecimalMatrix not double!")
+end
 
-print("getDecimalMatrixAsList")
-if(exists("getDecimalMatrixAsList")){
-	stop("getDecimalMatrixAsList already defined!")
-}
-getDecimalMatrixAsList <- putDecimalMatrixAsList
-print(typeof(getDecimalMatrixAsList))
-print(getDecimalMatrixAsList)
-if(typeof(getDecimalMatrixAsList) != "double"){
-	stop("getDecimalMatrixAsList not double!")
-}
+disp("getDecimalMatrixAsList")
+if exist("getDecimalMatrixAsList")
+	error("getDecimalMatrixAsList already defined!")
+end
+getDecimalMatrixAsList = putDecimalMatrixAsList
+disp(class(getDecimalMatrixAsList))
+disp(getDecimalMatrixAsList)
+if ~isa(getDecimalMatrixAsList, 'double')
+	error("getDecimalMatrixAsList not double!")
+end

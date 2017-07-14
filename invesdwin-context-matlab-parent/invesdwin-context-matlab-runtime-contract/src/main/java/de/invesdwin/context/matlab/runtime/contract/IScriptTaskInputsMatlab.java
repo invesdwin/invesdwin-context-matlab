@@ -95,17 +95,31 @@ public interface IScriptTaskInputsMatlab extends IScriptTaskInputs {
 
     @Override
     default void putExpression(final String variable, final String expression) {
-        getEngine().eval(variable + " <- " + expression);
+        if (IScriptTaskRunnerMatlab.LOG.isDebugEnabled()) {
+            getEngine().eval(variable + " = " + expression);
+        } else {
+            getEngine().eval(variable + " = " + expression + ";");
+        }
     }
 
+    /**
+     * Matlab/Octave support for null is really bad, so we use empty string instead
+     */
     @Override
     default void putNull(final String variable) {
-        putExpression(variable, "NA");
+        putExpression(variable, "''");
+    }
+
+    /**
+     * And we define empty as empty matrix, since empty string is null
+     */
+    default void putEmpty(final String variable) {
+        putExpression(variable, "double([])");
     }
 
     @Override
     default void remove(final String variable) {
-        getEngine().eval("rm(list=c(\"" + variable + "\"))");
+        getEngine().eval("clear('" + variable + "')");
     }
 
 }

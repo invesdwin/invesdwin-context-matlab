@@ -1,54 +1,54 @@
-print("getByte")
-if(exists("getByte")){
-	stop("getByte already defined!")
-}
-getByte <- putByte
-print(typeof(getByte))
-print(getByte)
-if(typeof(getByte) != "integer"){
-	stop("getByte not integer!")
-}
+disp("getByte")
+if exist("getByte")
+	error("getByte already defined!")
+end
+getByte = putByte
+disp(class(getByte))
+disp(getByte)
+if ~isa(getByte, 'int32')
+	error("getByte not int32!")
+end
 
-print("getByteVector")
-if(exists("getByteVector")){
-	stop("getByteVector already defined!")
-}
-getByteVector <- putByteVector
-print(typeof(getByteVector))
-print(getByteVector)
-if(typeof(getByteVector) != "integer"){
-	stop("getByteVector not integer!")
-}
+disp("getByteVector")
+if exist("getByteVector")
+	error("getByteVector already defined!")
+end
+getByteVector = putByteVector
+disp(class(getByteVector))
+disp(getByteVector)
+if ~isa(getByteVector, 'int32')
+	error("getByteVector not int32!")
+end
 
-print("getByteVectorAsList")
-if(exists("getByteVectorAsList")){
-	stop("getByteVectorAsList already defined!")
-}
-getByteVectorAsList <- putByteVectorAsList
-print(typeof(getByteVectorAsList))
-print(getByteVectorAsList)
-if(typeof(getByteVectorAsList) != "integer"){
-	stop("getByteVectorAsList not integer!")
-}
+disp("getByteVectorAsList")
+if exist("getByteVectorAsList")
+	error("getByteVectorAsList already defined!")
+end
+getByteVectorAsList = putByteVectorAsList
+disp(class(getByteVectorAsList))
+disp(getByteVectorAsList)
+if ~isa(getByteVectorAsList, 'int32')
+	error("getByteVectorAsList not int32!")
+end
 
-print("getByteMatrix")
-if(exists("getByteMatrix")){
-	stop("getByteMatrix already defined!")
-}
-getByteMatrix <- putByteMatrix
-print(typeof(getByteMatrix))
-print(getByteMatrix)
-if(typeof(getByteMatrix) != "integer"){
-	stop("getByteMatrix not integer!")
-}
+disp("getByteMatrix")
+if exist("getByteMatrix")
+	error("getByteMatrix already defined!")
+end
+getByteMatrix = putByteMatrix
+disp(class(getByteMatrix))
+disp(getByteMatrix)
+if ~isa(getByteMatrix, 'int32')
+	error("getByteMatrix not int32!")
+end
 
-print("getByteMatrixAsList")
-if(exists("getByteMatrixAsList")){
-	stop("getByteMatrixAsList already defined!")
-}
-getByteMatrixAsList <- putByteMatrixAsList
-print(typeof(getByteMatrixAsList))
-print(getByteMatrixAsList)
-if(typeof(getByteMatrixAsList) != "integer"){
-	stop("getByteMatrixAsList not integer!")
-}
+disp("getByteMatrixAsList")
+if exist("getByteMatrixAsList")
+	error("getByteMatrixAsList already defined!")
+end
+getByteMatrixAsList = putByteMatrixAsList
+disp(class(getByteMatrixAsList))
+disp(getByteMatrixAsList)
+if ~isa(getByteMatrixAsList, 'int32')
+	error("getByteMatrixAsList not int32!")
+end

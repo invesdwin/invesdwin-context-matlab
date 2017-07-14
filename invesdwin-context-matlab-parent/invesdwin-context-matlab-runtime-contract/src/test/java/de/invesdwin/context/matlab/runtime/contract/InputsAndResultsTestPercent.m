@@ -1,54 +1,54 @@
-print("getPercent")
-if(exists("getPercent")){
-	stop("getPercent already defined!")
-}
-getPercent <- putPercent
-print(typeof(getPercent))
-print(getPercent)
-if(typeof(getPercent) != "double"){
-	stop("getPercent not double!")
-}
+disp("getPercent")
+if exist("getPercent")
+	error("getPercent already defined!")
+end
+getPercent = putPercent
+disp(class(getPercent))
+disp(getPercent)
+if ~isa(getPercent, 'double')
+	error("getPercent not double!")
+end
 
-print("getPercentVector")
-if(exists("getPercentVector")){
-	stop("getPercentVector already defined!")
-}
-getPercentVector <- putPercentVector
-print(typeof(getPercentVector))
-print(getPercentVector)
-if(typeof(getPercentVector) != "double"){
-	stop("getPercentVector not double!")
-}
+disp("getPercentVector")
+if exist("getPercentVector")
+	error("getPercentVector already defined!")
+end
+getPercentVector = putPercentVector
+disp(class(getPercentVector))
+disp(getPercentVector)
+if ~isa(getPercentVector, 'double')
+	error("getPercentVector not double!")
+end
 
-print("getPercentVectorAsList")
-if(exists("getPercentVectorAsList")){
-	stop("getPercentVectorAsList already defined!")
-}
-getPercentVectorAsList <- putPercentVectorAsList
-print(typeof(getPercentVectorAsList))
-print(getPercentVectorAsList)
-if(typeof(getPercentVectorAsList) != "double"){
-	stop("getPercentVectorAsList not double!")
-}
+disp("getPercentVectorAsList")
+if exist("getPercentVectorAsList")
+	error("getPercentVectorAsList already defined!")
+end
+getPercentVectorAsList = putPercentVectorAsList
+disp(class(getPercentVectorAsList))
+disp(getPercentVectorAsList)
+if ~isa(getPercentVectorAsList, 'double')
+	error("getPercentVectorAsList not double!")
+end
 
-print("getPercentMatrix")
-if(exists("getPercentMatrix")){
-	stop("getPercentMatrix already defined!")
-}
-getPercentMatrix <- putPercentMatrix
-print(typeof(getPercentMatrix))
-print(getPercentMatrix)
-if(typeof(getPercentMatrix) != "double"){
-	stop("getPercentMatrix not double!")
-}
+disp("getPercentMatrix")
+if exist("getPercentMatrix")
+	error("getPercentMatrix already defined!")
+end
+getPercentMatrix = putPercentMatrix
+disp(class(getPercentMatrix))
+disp(getPercentMatrix)
+if ~isa(getPercentMatrix, 'double')
+	error("getPercentMatrix not double!")
+end
 
-print("getPercentMatrixAsList")
-if(exists("getPercentMatrixAsList")){
-	stop("getPercentMatrixAsList already defined!")
-}
-getPercentMatrixAsList <- putPercentMatrixAsList
-print(typeof(getPercentMatrixAsList))
-print(getPercentMatrixAsList)
-if(typeof(getPercentMatrixAsList) != "double"){
-	stop("getPercentMatrixAsList not double!")
-}
+disp("getPercentMatrixAsList")
+if exist("getPercentMatrixAsList")
+	error("getPercentMatrixAsList already defined!")
+end
+getPercentMatrixAsList = putPercentMatrixAsList
+disp(class(getPercentMatrixAsList))
+disp(getPercentMatrixAsList)
+if ~isa(getPercentMatrixAsList, 'double')
+	error("getPercentMatrixAsList not double!")
+end

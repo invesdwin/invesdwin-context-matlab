@@ -5,39 +5,39 @@ import javax.inject.Named;
 
 import org.springframework.beans.factory.FactoryBean;
 
-import com.github.rcaller.rstuff.RCaller;
-
 import de.invesdwin.context.matlab.runtime.contract.AScriptTaskMatlab;
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskRunnerMatlab;
 import de.invesdwin.context.matlab.runtime.javaoctave.pool.OctaveEngineObjectPool;
 import de.invesdwin.util.error.Throwables;
+import dk.ange.octave.OctaveEngine;
 
 @Immutable
 @Named
-public final class JavaOctaveScriptTaskRunnerR implements IScriptTaskRunnerMatlab, FactoryBean<JavaOctaveScriptTaskRunnerR> {
+public final class JavaOctaveScriptTaskRunnerMatlab
+        implements IScriptTaskRunnerMatlab, FactoryBean<JavaOctaveScriptTaskRunnerMatlab> {
 
-    public static final JavaOctaveScriptTaskRunnerR INSTANCE = new JavaOctaveScriptTaskRunnerR();
+    public static final JavaOctaveScriptTaskRunnerMatlab INSTANCE = new JavaOctaveScriptTaskRunnerMatlab();
 
-    public static final String INTERNAL_RESULT_VARIABLE = JavaOctaveScriptTaskRunnerR.class.getSimpleName() + "_result";
+    public static final String INTERNAL_RESULT_VARIABLE = JavaOctaveScriptTaskRunnerMatlab.class.getSimpleName()
+            + "_result";
 
     /**
      * public for ServiceLoader support
      */
-    public JavaOctaveScriptTaskRunnerR() {}
+    public JavaOctaveScriptTaskRunnerMatlab() {}
 
     @Override
     public <T> T run(final AScriptTaskMatlab<T> scriptTask) {
         //get session
-        final RCaller rcaller;
+        final OctaveEngine octaveEngine;
         try {
-            rcaller = OctaveEngineObjectPool.INSTANCE.borrowObject();
+            octaveEngine = OctaveEngineObjectPool.INSTANCE.borrowObject();
         } catch (final Exception e) {
             throw new RuntimeException(e);
         }
         try {
             //inputs
-            rcaller.getRCode().clearOnline();
-            final JavaOctaveScriptTaskEngineR engine = new JavaOctaveScriptTaskEngineR(rcaller);
+            final JavaOctaveScriptTaskEngineMatlab engine = new JavaOctaveScriptTaskEngineMatlab(octaveEngine);
             scriptTask.populateInputs(engine.getInputs());
 
             //execute
@@ -48,11 +48,11 @@ public final class JavaOctaveScriptTaskRunnerR implements IScriptTaskRunnerMatla
             engine.close();
 
             //return
-            OctaveEngineObjectPool.INSTANCE.returnObject(rcaller);
+            OctaveEngineObjectPool.INSTANCE.returnObject(octaveEngine);
             return result;
         } catch (final Throwable t) {
             try {
-                OctaveEngineObjectPool.INSTANCE.invalidateObject(rcaller);
+                OctaveEngineObjectPool.INSTANCE.invalidateObject(octaveEngine);
             } catch (final Exception e) {
                 throw new RuntimeException(e);
             }
@@ -61,13 +61,13 @@ public final class JavaOctaveScriptTaskRunnerR implements IScriptTaskRunnerMatla
     }
 
     @Override
-    public JavaOctaveScriptTaskRunnerR getObject() throws Exception {
+    public JavaOctaveScriptTaskRunnerMatlab getObject() throws Exception {
         return INSTANCE;
     }
 
     @Override
     public Class<?> getObjectType() {
-        return JavaOctaveScriptTaskRunnerR.class;
+        return JavaOctaveScriptTaskRunnerMatlab.class;
     }
 
     @Override

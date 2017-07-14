@@ -9,10 +9,10 @@ import de.invesdwin.context.matlab.runtime.contract.InputsAndResultsTests;
 import de.invesdwin.context.test.ATest;
 
 @NotThreadSafe
-public class JavaOctaveScriptTaskRunnerRTest extends ATest {
+public class JavaOctaveScriptTaskRunnerMatlabTest extends ATest {
 
     @Inject
-    private JavaOctaveScriptTaskRunnerR runner;
+    private JavaOctaveScriptTaskRunnerMatlab runner;
 
     @Test
     public void test() {

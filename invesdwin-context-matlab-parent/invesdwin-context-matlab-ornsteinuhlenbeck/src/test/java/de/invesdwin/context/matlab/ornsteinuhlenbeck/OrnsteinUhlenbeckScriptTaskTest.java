@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import org.junit.Test;
 
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskRunnerMatlab;
-import de.invesdwin.context.matlab.runtime.javaoctave.JavaOctaveScriptTaskRunnerR;
+import de.invesdwin.context.matlab.runtime.javaoctave.JavaOctaveScriptTaskRunnerMatlab;
 import de.invesdwin.context.test.ATest;
 import de.invesdwin.util.assertions.Assertions;
 import de.invesdwin.util.math.decimal.Decimal;
@@ -20,7 +20,7 @@ public class OrnsteinUhlenbeckScriptTaskTest extends ATest {
 
     private static final int ITERATIONS = 10;
     @Inject
-    private JavaOctaveScriptTaskRunnerR rcallerScriptTaskRunner;
+    private JavaOctaveScriptTaskRunnerMatlab rcallerScriptTaskRunner;
 
     @Test
     public void testRCaller() {

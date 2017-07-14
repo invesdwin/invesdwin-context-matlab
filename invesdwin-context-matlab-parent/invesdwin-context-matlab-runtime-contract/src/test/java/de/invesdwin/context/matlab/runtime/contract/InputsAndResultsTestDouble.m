@@ -1,54 +1,54 @@
-print("getDouble")
-if(exists("getDouble")){
-	stop("getDouble already defined!")
-}
-getDouble <- putDouble
-print(typeof(getDouble))
-print(getDouble)
-if(typeof(getDouble) != "double"){
-	stop("getDouble not double!")
-}
+disp("getDouble")
+if exist("getDouble")
+	error("getDouble already defined!")
+end
+getDouble = putDouble
+disp(class(getDouble))
+disp(getDouble)
+if ~isa(getDouble, 'double')
+	error("getDouble not double!")
+end
 
-print("getDoubleVector")
-if(exists("getDoubleVector")){
-	stop("getDoubleVector already defined!")
-}
-getDoubleVector <- putDoubleVector
-print(typeof(getDoubleVector))
-print(getDoubleVector)
-if(typeof(getDoubleVector) != "double"){
-	stop("getDoubleVector not double!")
-}
+disp("getDoubleVector")
+if exist("getDoubleVector")
+	error("getDoubleVector already defined!")
+end
+getDoubleVector = putDoubleVector
+disp(class(getDoubleVector))
+disp(getDoubleVector)
+if ~isa(getDoubleVector, 'double')
+	error("getDoubleVector not double!")
+end
 
-print("getDoubleVectorAsList")
-if(exists("getDoubleVectorAsList")){
-	stop("getDoubleVectorAsList already defined!")
-}
-getDoubleVectorAsList <- putDoubleVectorAsList
-print(typeof(getDoubleVectorAsList))
-print(getDoubleVectorAsList)
-if(typeof(getDoubleVectorAsList) != "double"){
-	stop("getDoubleVectorAsList not double!")
-}
+disp("getDoubleVectorAsList")
+if exist("getDoubleVectorAsList")
+	error("getDoubleVectorAsList already defined!")
+end
+getDoubleVectorAsList = putDoubleVectorAsList
+disp(class(getDoubleVectorAsList))
+disp(getDoubleVectorAsList)
+if ~isa(getDoubleVectorAsList, 'double')
+	error("getDoubleVectorAsList not double!")
+end
 
-print("getDoubleMatrix")
-if(exists("getDoubleMatrix")){
-	stop("getDoubleMatrix already defined!")
-}
-getDoubleMatrix <- putDoubleMatrix
-print(typeof(getDoubleMatrix))
-print(getDoubleMatrix)
-if(typeof(getDoubleMatrix) != "double"){
-	stop("getDoubleMatrix not double!")
-}
+disp("getDoubleMatrix")
+if exist("getDoubleMatrix")
+	error("getDoubleMatrix already defined!")
+end
+getDoubleMatrix = putDoubleMatrix
+disp(class(getDoubleMatrix))
+disp(getDoubleMatrix)
+if ~isa(getDoubleMatrix, 'double')
+	error("getDoubleMatrix not double!")
+end
 
-print("getDoubleMatrixAsList")
-if(exists("getDoubleMatrixAsList")){
-	stop("getDoubleMatrixAsList already defined!")
-}
-getDoubleMatrixAsList <- putDoubleMatrixAsList
-print(typeof(getDoubleMatrixAsList))
-print(getDoubleMatrixAsList)
-if(typeof(getDoubleMatrixAsList) != "double"){
-	stop("getDoubleMatrixAsList not double!")
-}
+disp("getDoubleMatrixAsList")
+if exist("getDoubleMatrixAsList")
+	error("getDoubleMatrixAsList already defined!")
+end
+getDoubleMatrixAsList = putDoubleMatrixAsList
+disp(class(getDoubleMatrixAsList))
+disp(getDoubleMatrixAsList)
+if ~isa(getDoubleMatrixAsList, 'double')
+	error("getDoubleMatrixAsList not double!")
+end

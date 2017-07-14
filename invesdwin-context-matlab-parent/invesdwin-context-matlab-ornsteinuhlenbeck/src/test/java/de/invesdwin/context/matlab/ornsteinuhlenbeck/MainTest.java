@@ -16,7 +16,7 @@ import org.springframework.core.io.ClassPathResource;
 import de.invesdwin.context.ContextProperties;
 import de.invesdwin.context.PlatformInitializerProperties;
 import de.invesdwin.context.matlab.runtime.contract.ProvidedScriptTaskRunnerMatlab;
-import de.invesdwin.context.matlab.runtime.javaoctave.JavaOctaveScriptTaskRunnerR;
+import de.invesdwin.context.matlab.runtime.javaoctave.JavaOctaveScriptTaskRunnerMatlab;
 import de.invesdwin.util.assertions.Assertions;
 import de.invesdwin.util.math.decimal.Decimal;
 
@@ -30,7 +30,7 @@ public class MainTest {
     @Test
     public void test() throws IOException {
         final String providedInstanceProperty = "-D" + ProvidedScriptTaskRunnerMatlab.PROVIDED_INSTANCE_KEY + "="
-                + JavaOctaveScriptTaskRunnerR.class.getName();
+                + JavaOctaveScriptTaskRunnerMatlab.class.getName();
         final String inputFile = new ClassPathResource(MainTest.class.getSimpleName() + "_input.csv", MainTest.class)
                 .getFile().getAbsolutePath();
         final String outputFile = new File(ContextProperties.TEMP_DIRECTORY,

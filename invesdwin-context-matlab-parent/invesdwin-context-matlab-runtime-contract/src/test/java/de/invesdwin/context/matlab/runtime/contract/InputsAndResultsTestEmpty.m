@@ -1,186 +1,186 @@
-getBooleanVector <- putBooleanVector
-if(length(getBooleanVector) != 0){
-	stop("getBooleanVector not empty!")
-}
-getBooleanVectorAsList <- putBooleanVectorAsList
-if(length(getBooleanVectorAsList) != 0){
-	stop("getBooleanVectorAsList not empty!")
-}
-getBooleanMatrix <- putBooleanMatrix
-if(length(getBooleanMatrix) != 0){
-	stop("getBooleanMatrix not empty!")
-}
-getBooleanMatrixAsList <- putBooleanMatrixAsList
-if(length(getBooleanMatrixAsList) != 0){
-	stop("getBooleanMatrixAsList not empty!")
-}
+getBooleanVector = putBooleanVector
+if ~isempty(getBooleanVector)
+	error("getBooleanVector not empty!")
+end
+getBooleanVectorAsList = putBooleanVectorAsList
+if ~isempty(getBooleanVectorAsList)
+	error("getBooleanVectorAsList not empty!")
+end
+getBooleanMatrix = putBooleanMatrix
+if ~isempty(getBooleanMatrix)
+	error("getBooleanMatrix not empty!")
+end
+getBooleanMatrixAsList = putBooleanMatrixAsList
+if ~isempty(getBooleanMatrixAsList)
+	error("getBooleanMatrixAsList not empty!")
+end
 
-getByteVector <- putByteVector
-if(length(getByteVector) != 0){
-	stop("getByteVector not empty!")
-}
-getByteVectorAsList <- putByteVectorAsList
-if(length(getByteVectorAsList) != 0){
-	stop("getByteVectorAsList not empty!")
-}
-getByteMatrix <- putByteMatrix
-if(length(getByteMatrix) != 0){
-	stop("getByteMatrix not empty!")
-}
-getByteMatrixAsList <- putByteMatrixAsList
-if(length(getByteMatrixAsList) != 0){
-	stop("getByteMatrixAsList not empty!")
-}
+getByteVector = putByteVector
+if ~isempty(getByteVector)
+	error("getByteVector not empty!")
+end
+getByteVectorAsList = putByteVectorAsList
+if ~isempty(getByteVectorAsList)
+	error("getByteVectorAsList not empty!")
+end
+getByteMatrix = putByteMatrix
+if ~isempty(getByteMatrix)
+	error("getByteMatrix not empty!")
+end
+getByteMatrixAsList = putByteMatrixAsList
+if ~isempty(getByteMatrixAsList)
+	error("getByteMatrixAsList not empty!")
+end
 
-getCharacterVector <- putCharacterVector
-if(length(getCharacterVector) != 0){
-	stop("getCharacterVector not empty!")
-}
-getCharacterVectorAsList <- putCharacterVectorAsList
-if(length(getCharacterVectorAsList) != 0){
-	stop("getCharacterVectorAsList not empty!")
-}
-getCharacterMatrix <- putCharacterMatrix
-if(length(getCharacterMatrix) != 0){
-	stop("getCharacterMatrix not empty!")
-}
-getCharacterMatrixAsList <- putCharacterMatrixAsList
-if(length(getCharacterMatrixAsList) != 0){
-	stop("getCharacterMatrixAsList not empty!")
-}
+getCharacterVector = putCharacterVector
+if ~isempty(getCharacterVector)
+	error("getCharacterVector not empty!")
+end
+getCharacterVectorAsList = putCharacterVectorAsList
+if ~isempty(getCharacterVectorAsList)
+	error("getCharacterVectorAsList not empty!")
+end
+getCharacterMatrix = putCharacterMatrix
+if ~isempty(getCharacterMatrix)
+	error("getCharacterMatrix not empty!")
+end
+getCharacterMatrixAsList = putCharacterMatrixAsList
+if ~isempty(getCharacterMatrixAsList)
+	error("getCharacterMatrixAsList not empty!")
+end
 
-getDecimalVector <- putDecimalVector
-if(length(getDecimalVector) != 0){
-	stop("getDecimalVector not empty!")
-}
-getDecimalVectorAsList <- putDecimalVectorAsList
-if(length(getDecimalVectorAsList) != 0){
-	stop("getDecimalVectorAsList not empty!")
-}
-getDecimalMatrix <- putDecimalMatrix
-if(length(getDecimalMatrix) != 0){
-	stop("getDecimalMatrix not empty!")
-}
-getDecimalMatrixAsList <- putDecimalMatrixAsList
-if(length(getDecimalMatrixAsList) != 0){
-	stop("getDecimalMatrixAsList not empty!")
-}
+getDecimalVector = putDecimalVector
+if ~isempty(getDecimalVector)
+	error("getDecimalVector not empty!")
+end
+getDecimalVectorAsList = putDecimalVectorAsList
+if ~isempty(getDecimalVectorAsList)
+	error("getDecimalVectorAsList not empty!")
+end
+getDecimalMatrix = putDecimalMatrix
+if ~isempty(getDecimalMatrix)
+	error("getDecimalMatrix not empty!")
+end
+getDecimalMatrixAsList = putDecimalMatrixAsList
+if ~isempty(getDecimalMatrixAsList)
+	error("getDecimalMatrixAsList not empty!")
+end
 
-getDoubleVector <- putDoubleVector
-if(length(getDoubleVector) != 0){
-	stop("getDoubleVector not empty!")
-}
-getDoubleVectorAsList <- putDoubleVectorAsList
-if(length(getDoubleVectorAsList) != 0){
-	stop("getDoubleVectorAsList not empty!")
-}
-getDoubleMatrix <- putDoubleMatrix
-if(length(getDoubleMatrix) != 0){
-	stop("getDoubleMatrix not empty!")
-}
-getDoubleMatrixAsList <- putDoubleMatrixAsList
-if(length(getDoubleMatrixAsList) != 0){
-	stop("getDoubleMatrixAsList not empty!")
-}
+getDoubleVector = putDoubleVector
+if ~isempty(getDoubleVector)
+	error("getDoubleVector not empty!")
+end
+getDoubleVectorAsList = putDoubleVectorAsList
+if ~isempty(getDoubleVectorAsList)
+	error("getDoubleVectorAsList not empty!")
+end
+getDoubleMatrix = putDoubleMatrix
+if ~isempty(getDoubleMatrix)
+	error("getDoubleMatrix not empty!")
+end
+getDoubleMatrixAsList = putDoubleMatrixAsList
+if ~isempty(getDoubleMatrixAsList)
+	error("getDoubleMatrixAsList not empty!")
+end
 
-getFloatVector <- putFloatVector
-if(length(getFloatVector) != 0){
-	stop("getFloatVector not empty!")
-}
-getFloatVectorAsList <- putFloatVectorAsList
-if(length(getFloatVectorAsList) != 0){
-	stop("getFloatVectorAsList not empty!")
-}
-getFloatMatrix <- putFloatMatrix
-if(length(getFloatMatrix) != 0){
-	stop("getFloatMatrix not empty!")
-}
-getFloatMatrixAsList <- putFloatMatrixAsList
-if(length(getFloatMatrixAsList) != 0){
-	stop("getFloatMatrixAsList not empty!")
-}
+getFloatVector = putFloatVector
+if ~isempty(getFloatVector)
+	error("getFloatVector not empty!")
+end
+getFloatVectorAsList = putFloatVectorAsList
+if ~isempty(getFloatVectorAsList)
+	error("getFloatVectorAsList not empty!")
+end
+getFloatMatrix = putFloatMatrix
+if ~isempty(getFloatMatrix)
+	error("getFloatMatrix not empty!")
+end
+getFloatMatrixAsList = putFloatMatrixAsList
+if ~isempty(getFloatMatrixAsList)
+	error("getFloatMatrixAsList not empty!")
+end
 
-getIntegerVector <- putIntegerVector
-if(length(getIntegerVector) != 0){
-	stop("getIntegerVector not empty!")
-}
-getIntegerVectorAsList <- putIntegerVectorAsList
-if(length(getIntegerVectorAsList) != 0){
-	stop("getIntegerVectorAsList not empty!")
-}
-getIntegerMatrix <- putIntegerMatrix
-if(length(getIntegerMatrix) != 0){
-	stop("getIntegerMatrix not empty!")
-}
-getIntegerMatrixAsList <- putIntegerMatrixAsList
-if(length(getIntegerMatrixAsList) != 0){
-	stop("getIntegerMatrixAsList not empty!")
-}
+getIntegerVector = putIntegerVector
+if ~isempty(getIntegerVector)
+	error("getIntegerVector not empty!")
+end
+getIntegerVectorAsList = putIntegerVectorAsList
+if ~isempty(getIntegerVectorAsList)
+	error("getIntegerVectorAsList not empty!")
+end
+getIntegerMatrix = putIntegerMatrix
+if ~isempty(getIntegerMatrix)
+	error("getIntegerMatrix not empty!")
+end
+getIntegerMatrixAsList = putIntegerMatrixAsList
+if ~isempty(getIntegerMatrixAsList)
+	error("getIntegerMatrixAsList not empty!")
+end
 
-getLongVector <- putLongVector
-if(length(getLongVector) != 0){
-	stop("getLongVector not empty!")
-}
-getLongVectorAsList <- putLongVectorAsList
-if(length(getLongVectorAsList) != 0){
-	stop("getLongVectorAsList not empty!")
-}
-getLongMatrix <- putLongMatrix
-if(length(getLongMatrix) != 0){
-	stop("getLongMatrix not empty!")
-}
-getLongMatrixAsList <- putLongMatrixAsList
-if(length(getLongMatrixAsList) != 0){
-	stop("getLongMatrixAsList not empty!")
-}
+getLongVector = putLongVector
+if ~isempty(getLongVector)
+	error("getLongVector not empty!")
+end
+getLongVectorAsList = putLongVectorAsList
+if ~isempty(getLongVectorAsList)
+	error("getLongVectorAsList not empty!")
+end
+getLongMatrix = putLongMatrix
+if ~isempty(getLongMatrix)
+	error("getLongMatrix not empty!")
+end
+getLongMatrixAsList = putLongMatrixAsList
+if ~isempty(getLongMatrixAsList)
+	error("getLongMatrixAsList not empty!")
+end
 
-getPercentVector <- putPercentVector
-if(length(getPercentVector) != 0){
-	stop("getPercentVector not empty!")
-}
-getPercentVectorAsList <- putPercentVectorAsList
-if(length(getPercentVectorAsList) != 0){
-	stop("getPercentVectorAsList not empty!")
-}
-getPercentMatrix <- putPercentMatrix
-if(length(getPercentMatrix) != 0){
-	stop("getPercentMatrix not empty!")
-}
-getPercentMatrixAsList <- putPercentMatrixAsList
-if(length(getPercentMatrixAsList) != 0){
-	stop("getPercentMatrixAsList not empty!")
-}
+getPercentVector = putPercentVector
+if ~isempty(getPercentVector)
+	error("getPercentVector not empty!")
+end
+getPercentVectorAsList = putPercentVectorAsList
+if ~isempty(getPercentVectorAsList)
+	error("getPercentVectorAsList not empty!")
+end
+getPercentMatrix = putPercentMatrix
+if ~isempty(getPercentMatrix)
+	error("getPercentMatrix not empty!")
+end
+getPercentMatrixAsList = putPercentMatrixAsList
+if ~isempty(getPercentMatrixAsList)
+	error("getPercentMatrixAsList not empty!")
+end
 
-getShortVector <- putShortVector
-if(length(getShortVector) != 0){
-	stop("getShortVector not empty!")
-}
-getShortVectorAsList <- putShortVectorAsList
-if(length(getShortVectorAsList) != 0){
-	stop("getShortVectorAsList not empty!")
-}
-getShortMatrix <- putShortMatrix
-if(length(getShortMatrix) != 0){
-	stop("getShortMatrix not empty!")
-}
-getShortMatrixAsList <- putShortMatrixAsList
-if(length(getShortMatrixAsList) != 0){
-	stop("getShortMatrixAsList not empty!")
-}
+getShortVector = putShortVector
+if ~isempty(getShortVector)
+	error("getShortVector not empty!")
+end
+getShortVectorAsList = putShortVectorAsList
+if ~isempty(getShortVectorAsList)
+	error("getShortVectorAsList not empty!")
+end
+getShortMatrix = putShortMatrix
+if ~isempty(getShortMatrix)
+	error("getShortMatrix not empty!")
+end
+getShortMatrixAsList = putShortMatrixAsList
+if ~isempty(getShortMatrixAsList)
+	error("getShortMatrixAsList not empty!")
+end
 
-getStringVector <- putStringVector
-if(length(getStringVector) != 0){
-	stop("getStringVector not empty!")
-}
-getStringVectorAsList <- putStringVectorAsList
-if(length(getStringVectorAsList) != 0){
-	stop("getStringVectorAsList not empty!")
-}
-getStringMatrix <- putStringMatrix
-if(length(getStringMatrix) != 0){
-	stop("getStringMatrix not empty!")
-}
-getStringMatrixAsList <- putStringMatrixAsList
-if(length(getStringMatrixAsList) != 0){
-	stop("getStringMatrixAsList not empty!")
-}
+getStringVector = putStringVector
+if ~isempty(getStringVector)
+	error("getStringVector not empty!")
+end
+getStringVectorAsList = putStringVectorAsList
+if ~isempty(getStringVectorAsList)
+	error("getStringVectorAsList not empty!")
+end
+getStringMatrix = putStringMatrix
+if ~isempty(getStringMatrix)
+	error("getStringMatrix not empty!")
+end
+getStringMatrixAsList = putStringMatrixAsList
+if ~isempty(getStringMatrixAsList)
+	error("getStringMatrixAsList not empty!")
+end

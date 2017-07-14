@@ -1,50 +1,57 @@
 package de.invesdwin.context.matlab.runtime.javaoctave.pool.internal;
 
+import java.io.OutputStreamWriter;
+
 import javax.annotation.concurrent.ThreadSafe;
 import javax.inject.Named;
 
 import org.springframework.beans.factory.FactoryBean;
-
-import com.github.rcaller.rstuff.RCaller;
+import org.zeroturnaround.exec.stream.slf4j.Slf4jDebugOutputStream;
+import org.zeroturnaround.exec.stream.slf4j.Slf4jWarnOutputStream;
 
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskRunnerMatlab;
-import de.invesdwin.context.matlab.runtime.javaoctave.JavaOctaveScriptTaskRunnerR;
 import de.invesdwin.context.pool.IPoolableObjectFactory;
+import dk.ange.octave.OctaveEngine;
+import dk.ange.octave.OctaveEngineFactory;
 
 @ThreadSafe
 @Named
 public final class OctaveEnginePoolableObjectFactory
-        implements IPoolableObjectFactory<RCaller>, FactoryBean<OctaveEnginePoolableObjectFactory> {
+        implements IPoolableObjectFactory<OctaveEngine>, FactoryBean<OctaveEnginePoolableObjectFactory> {
 
     public static final OctaveEnginePoolableObjectFactory INSTANCE = new OctaveEnginePoolableObjectFactory();
 
     private OctaveEnginePoolableObjectFactory() {}
 
     @Override
-    public RCaller makeObject() {
-        return new ModifiedRCaller();
+    public OctaveEngine makeObject() {
+        final OctaveEngineFactory factory = new OctaveEngineFactory();
+        final OctaveEngine scriptEngine = factory.getScriptEngine();
+        scriptEngine.setWriter(new OutputStreamWriter(new Slf4jDebugOutputStream(IScriptTaskRunnerMatlab.LOG)));
+        scriptEngine.setErrorWriter(new OutputStreamWriter(new Slf4jWarnOutputStream(IScriptTaskRunnerMatlab.LOG)));
+        return scriptEngine;
     }
 
     @Override
-    public void destroyObject(final RCaller obj) throws Exception {
-        obj.StopRCallerOnline();
+    public void destroyObject(final OctaveEngine obj) throws Exception {
+        try {
+            obj.close();
+        } catch (final Throwable t) {
+            //ignore
+        }
     }
 
     @Override
-    public boolean validateObject(final RCaller obj) {
+    public boolean validateObject(final OctaveEngine obj) {
         return true;
     }
 
     @Override
-    public void activateObject(final RCaller obj) throws Exception {}
+    public void activateObject(final OctaveEngine obj) throws Exception {}
 
     @Override
-    public void passivateObject(final RCaller obj) throws Exception {
-        obj.getRCode().clear();
-        obj.getRCode().getCode().insert(0, IScriptTaskRunnerMatlab.CLEANUP_SCRIPT + "\n");
-        obj.getRCode().addRCode(JavaOctaveScriptTaskRunnerR.INTERNAL_RESULT_VARIABLE + " <- c()");
-        obj.runAndReturnResultOnline(JavaOctaveScriptTaskRunnerR.INTERNAL_RESULT_VARIABLE);
-        obj.deleteTempFiles();
+    public void passivateObject(final OctaveEngine obj) throws Exception {
+        obj.eval(IScriptTaskRunnerMatlab.CLEANUP_SCRIPT);
     }
 
     @Override

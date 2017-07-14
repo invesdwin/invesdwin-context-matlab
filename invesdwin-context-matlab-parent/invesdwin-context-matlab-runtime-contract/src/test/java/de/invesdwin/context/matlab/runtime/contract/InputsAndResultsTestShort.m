@@ -1,54 +1,54 @@
-print("getShort")
-if(exists("getShort")){
-	stop("getShort already defined!")
-}
-getShort <- putShort
-print(typeof(getShort))
-print(getShort)
-if(typeof(getShort) != "integer"){
-	stop("getShort not integer!")
-}
+disp("getShort")
+if exist("getShort")
+	error("getShort already defined!")
+end
+getShort = putShort
+disp(class(getShort))
+disp(getShort)
+if ~isa(getShort, 'int32')
+	error("getShort not int32!")
+end
 
-print("getShortVector")
-if(exists("getShortVector")){
-	stop("getShortVector already defined!")
-}
-getShortVector <- putShortVector
-print(typeof(getShortVector))
-print(getShortVector)
-if(typeof(getShortVector) != "integer"){
-	stop("getShortVector not integer!")
-}
+disp("getShortVector")
+if exist("getShortVector")
+	error("getShortVector already defined!")
+end
+getShortVector = putShortVector
+disp(class(getShortVector))
+disp(getShortVector)
+if ~isa(getShortVector, 'int32')
+	error("getShortVector not int32!")
+end
 
-print("getShortVectorAsList")
-if(exists("getShortVectorAsList")){
-	stop("getShortVectorAsList already defined!")
-}
-getShortVectorAsList <- putShortVectorAsList
-print(typeof(getShortVectorAsList))
-print(getShortVectorAsList)
-if(typeof(getShortVectorAsList) != "integer"){
-	stop("getShortVectorAsList not integer!")
-}
+disp("getShortVectorAsList")
+if exist("getShortVectorAsList")
+	error("getShortVectorAsList already defined!")
+end
+getShortVectorAsList = putShortVectorAsList
+disp(class(getShortVectorAsList))
+disp(getShortVectorAsList)
+if ~isa(getShortVectorAsList, 'int32')
+	error("getShortVectorAsList not int32!")
+end
 
-print("getShortMatrix")
-if(exists("getShortMatrix")){
-	stop("getShortMatrix already defined!")
-}
-getShortMatrix <- putShortMatrix
-print(typeof(getShortMatrix))
-print(getShortMatrix)
-if(typeof(getShortMatrix) != "integer"){
-	stop("getShortMatrix not integer!")
-}
+disp("getShortMatrix")
+if exist("getShortMatrix")
+	error("getShortMatrix already defined!")
+end
+getShortMatrix = putShortMatrix
+disp(class(getShortMatrix))
+disp(getShortMatrix)
+if ~isa(getShortMatrix, 'int32')
+	error("getShortMatrix not int32!")
+end
 
-print("getShortMatrixAsList")
-if(exists("getShortMatrixAsList")){
-	stop("getShortMatrixAsList already defined!")
-}
-getShortMatrixAsList <- putShortMatrixAsList
-print(typeof(getShortMatrixAsList))
-print(getShortMatrixAsList)
-if(typeof(getShortMatrixAsList) != "integer"){
-	stop("getShortMatrixAsList not integer!")
-}
+disp("getShortMatrixAsList")
+if exist("getShortMatrixAsList")
+	error("getShortMatrixAsList already defined!")
+end
+getShortMatrixAsList = putShortMatrixAsList
+disp(class(getShortMatrixAsList))
+disp(getShortMatrixAsList)
+if ~isa(getShortMatrixAsList, 'int32')
+	error("getShortMatrixAsList not int32!")
+end

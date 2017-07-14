@@ -4,7 +4,7 @@ import de.invesdwin.context.log.Log;
 
 public interface IScriptTaskRunnerMatlab {
 
-    String CLEANUP_SCRIPT = "rm(list=ls(all=TRUE))";
+    String CLEANUP_SCRIPT = "clear all; close all hidden; clc";
 
     Log LOG = new Log(IScriptTaskRunnerMatlab.class);
 

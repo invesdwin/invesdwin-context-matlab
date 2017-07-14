@@ -1,1 +1,1 @@
-world <- paste("Hello ", hello, "!", sep="")
+world = strcat({'Hello '}, hello, '!')

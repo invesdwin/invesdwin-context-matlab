@@ -101,16 +101,22 @@ public interface IScriptTaskResultsMatlab extends IScriptTaskResults {
 
     @Override
     default boolean isDefined(final String variable) {
-        return getBoolean("exists(\"" + variable + "\")");
+        return getBoolean("exist('" + variable + "')");
     }
 
+    /**
+     * Matlab/Octave support for null is really bad, so we use empty string instead
+     */
     @Override
     default boolean isNull(final String variable) {
-        return getBoolean("length(" + variable + ") != 0 && all(is.na(" + variable + "))");
+        return getBoolean("ischar(" + variable + ") && isempty(" + variable + ")");
     }
 
+    /**
+     * And we define empty as empty matrix, since empty string is null
+     */
     default boolean isEmpty(final String variable) {
-        return getBoolean("length(" + variable + ") == 0");
+        return getBoolean("isempty(" + variable + ")");
     }
 
 }

@@ -30,12 +30,6 @@
 			<groupId>org.zeroturnaround</groupId>
 			<artifactId>zt-exec</artifactId>
 		</dependency>
-		
-		<dependency>
-				<groupId>com.github.jbytecode</groupId>
-				<artifactId>RCaller</artifactId>
-				<version>3.0</version>
-			</dependency>
 	</dependencies>
 
 </project>
