@@ -22,7 +22,7 @@
 	<modules>
 		<module>invesdwin-context-matlab-runtime-contract</module>
 		<module>invesdwin-context-matlab-runtime-javaoctave</module>
-		<module>invesdwin-context-matlab-runtime-matlabconsolectl</module>
+		<module>invesdwin-context-matlab-runtime-matconsolectl</module>
 		<module>invesdwin-context-matlab-ornsteinuhlenbeck</module>
 	</modules>
 
@@ -62,7 +62,7 @@
 			</dependency>
 			<dependency>
 				<groupId>de.invesdwin</groupId>
-				<artifactId>invesdwin-context-matlab-runtime-matlabconsolectl</artifactId>
+				<artifactId>invesdwin-context-matlab-runtime-matconsolectl</artifactId>
 				<version>${version.invesdwin-context-matlab}</version>
 			</dependency>
 
