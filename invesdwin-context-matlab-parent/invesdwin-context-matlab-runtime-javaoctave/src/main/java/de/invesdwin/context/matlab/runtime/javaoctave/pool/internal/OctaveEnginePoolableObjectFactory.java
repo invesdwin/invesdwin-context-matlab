@@ -30,7 +30,9 @@ public final class OctaveEnginePoolableObjectFactory
     public OctaveEngine makeObject() {
         final OctaveEngineFactory factory = new OctaveEngineFactory();
         factory.setErrorWriter(new OutputStreamWriter(new Slf4jWarnOutputStream(IScriptTaskRunnerMatlab.LOG)));
-        factory.setOctaveProgram(new File(JavaOctaveProperties.OCTAVE_COMMAND));
+        if (JavaOctaveProperties.OCTAVE_COMMAND != null) {
+            factory.setOctaveProgram(new File(JavaOctaveProperties.OCTAVE_COMMAND));
+        }
         final OctaveEngine scriptEngine = factory.getScriptEngine();
         scriptEngine.setWriter(new OutputStreamWriter(new Slf4jDebugOutputStream(IScriptTaskRunnerMatlab.LOG)));
         return scriptEngine;

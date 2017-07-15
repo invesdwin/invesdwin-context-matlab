@@ -14,7 +14,7 @@ public final class JavaOctaveProperties {
         if (systemProperties.containsValue("OCTAVE_COMMAND")) {
             OCTAVE_COMMAND = systemProperties.getString("OCTAVE_COMMAND");
         } else {
-            OCTAVE_COMMAND = "octave";
+            OCTAVE_COMMAND = null;
         }
     }
 
