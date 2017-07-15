@@ -1,5 +1,6 @@
 package de.invesdwin.context.matlab.runtime.javaoctave.pool.internal;
 
+import java.io.File;
 import java.io.OutputStreamWriter;
 
 import javax.annotation.concurrent.ThreadSafe;
@@ -10,6 +11,7 @@ import org.zeroturnaround.exec.stream.slf4j.Slf4jDebugOutputStream;
 import org.zeroturnaround.exec.stream.slf4j.Slf4jWarnOutputStream;
 
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskRunnerMatlab;
+import de.invesdwin.context.matlab.runtime.javaoctave.JavaOctaveProperties;
 import de.invesdwin.context.matlab.runtime.javaoctave.JavaOctaveScriptTaskEngineMatlab;
 import de.invesdwin.context.pool.IPoolableObjectFactory;
 import dk.ange.octave.OctaveEngine;
@@ -27,9 +29,10 @@ public final class OctaveEnginePoolableObjectFactory
     @Override
     public OctaveEngine makeObject() {
         final OctaveEngineFactory factory = new OctaveEngineFactory();
+        factory.setErrorWriter(new OutputStreamWriter(new Slf4jWarnOutputStream(IScriptTaskRunnerMatlab.LOG)));
+        factory.setOctaveProgram(new File(JavaOctaveProperties.OCTAVE_COMMAND));
         final OctaveEngine scriptEngine = factory.getScriptEngine();
         scriptEngine.setWriter(new OutputStreamWriter(new Slf4jDebugOutputStream(IScriptTaskRunnerMatlab.LOG)));
-        scriptEngine.setErrorWriter(new OutputStreamWriter(new Slf4jWarnOutputStream(IScriptTaskRunnerMatlab.LOG)));
         return scriptEngine;
     }
 
