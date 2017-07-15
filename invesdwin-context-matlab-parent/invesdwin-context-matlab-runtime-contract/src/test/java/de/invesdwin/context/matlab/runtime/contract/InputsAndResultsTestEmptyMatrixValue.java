@@ -1,9 +1,12 @@
 package de.invesdwin.context.matlab.runtime.contract;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.List;
 
 import javax.annotation.concurrent.NotThreadSafe;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.ClassPathResource;
 
 import de.invesdwin.context.integration.script.IScriptTaskEngine;
@@ -140,8 +143,25 @@ public class InputsAndResultsTestEmptyMatrixValue {
 
             @Override
             public void executeScript(final IScriptTaskEngine engine) {
-                engine.eval(new ClassPathResource(InputsAndResultsTestEmptyMatrixValue.class.getSimpleName() + ".m",
-                        InputsAndResultsTestNull.class));
+                try {
+                    final String script = IOUtils.toString(
+                            new ClassPathResource(InputsAndResultsTestEmptyMatrixValue.class.getSimpleName() + ".m",
+                                    InputsAndResultsTestNull.class).getInputStream(),
+                            Charset.defaultCharset());
+                    if (!engine.getResults().getBoolean("exist('OCTAVE_VERSION', 'builtin') > 0")) {
+                        //workaround for matlab and isempty not counting empty cells there
+                        final StringBuilder sb = new StringBuilder();
+                        //we can actually create functions in scripts without separate files: http://de.mathworks.com/help/matlab/matlab_prog/anonymous-functions.html
+                        sb.append("ismatlabempty = @(x) all(cellfun(@isempty, x));\n");
+                        sb.append("\n");
+                        sb.append(script.replace("isempty", "ismatlabempty"));
+                        engine.eval(sb.toString());
+                    } else {
+                        engine.eval(script);
+                    }
+                } catch (final IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
 
             @Override

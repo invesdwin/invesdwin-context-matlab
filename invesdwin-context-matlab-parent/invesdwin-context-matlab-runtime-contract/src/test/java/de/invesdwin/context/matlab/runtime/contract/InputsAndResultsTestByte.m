@@ -5,8 +5,8 @@ end
 getByte = putByte
 disp(class(getByte))
 disp(getByte)
-if ~isa(getByte, 'int32')
-	error('getByte not int32!')
+if ~isa(getByte, 'int8')
+	error('getByte not int8!')
 end
 
 disp('getByteVector')
@@ -16,8 +16,8 @@ end
 getByteVector = putByteVector
 disp(class(getByteVector))
 disp(getByteVector)
-if ~isa(getByteVector, 'int32')
-	error('getByteVector not int32!')
+if ~isa(getByteVector, 'int8')
+	error('getByteVector not int8!')
 end
 
 disp('getByteVectorAsList')
@@ -27,8 +27,8 @@ end
 getByteVectorAsList = putByteVectorAsList
 disp(class(getByteVectorAsList))
 disp(getByteVectorAsList)
-if ~isa(getByteVectorAsList, 'int32')
-	error('getByteVectorAsList not int32!')
+if ~isa(getByteVectorAsList, 'int8')
+	error('getByteVectorAsList not int8!')
 end
 
 disp('getByteMatrix')
@@ -38,8 +38,8 @@ end
 getByteMatrix = putByteMatrix
 disp(class(getByteMatrix))
 disp(getByteMatrix)
-if ~isa(getByteMatrix, 'int32')
-	error('getByteMatrix not int32!')
+if ~isa(getByteMatrix, 'int8')
+	error('getByteMatrix not int8!')
 end
 
 disp('getByteMatrixAsList')
@@ -49,6 +49,6 @@ end
 getByteMatrixAsList = putByteMatrixAsList
 disp(class(getByteMatrixAsList))
 disp(getByteMatrixAsList)
-if ~isa(getByteMatrixAsList, 'int32')
-	error('getByteMatrixAsList not int32!')
+if ~isa(getByteMatrixAsList, 'int8')
+	error('getByteMatrixAsList not int8!')
 end

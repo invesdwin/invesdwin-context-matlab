@@ -7,8 +7,13 @@ import de.invesdwin.util.assertions.Assertions;
 import de.invesdwin.util.error.UnknownArgumentException;
 import de.invesdwin.util.lang.Strings;
 import de.invesdwin.util.math.Booleans;
+import de.invesdwin.util.math.Bytes;
+import de.invesdwin.util.math.Characters;
 import de.invesdwin.util.math.Doubles;
+import de.invesdwin.util.math.Floats;
 import de.invesdwin.util.math.Integers;
+import de.invesdwin.util.math.Longs;
+import de.invesdwin.util.math.Shorts;
 import dk.ange.octave.type.OctaveBoolean;
 import dk.ange.octave.type.OctaveCell;
 import dk.ange.octave.type.OctaveDouble;
@@ -310,6 +315,105 @@ public class JavaOctaveScriptTaskResultsMatlab implements IScriptTaskResultsMatl
             final Object obj = get(variable);
             return Booleans.checkedCastMatrix(obj);
         }
+    }
+
+    @Override
+    public byte getByte(final String variable) {
+        final int integerValue = getInteger(variable);
+        return Bytes.checkedCast(integerValue);
+    }
+
+    @Override
+    public byte[] getByteVector(final String variable) {
+        final int[] integerValue = getIntegerVector(variable);
+        return Bytes.checkedCastVector(integerValue);
+    }
+
+    @Override
+    public byte[][] getByteMatrix(final String variable) {
+        final int[][] integerValue = getIntegerMatrix(variable);
+        return Bytes.checkedCastMatrix(integerValue);
+    }
+
+    @Override
+    public char getCharacter(final String variable) {
+        final String doubleValue = getString(variable);
+        return Characters.checkedCast(doubleValue);
+    }
+
+    @Override
+    public char[] getCharacterVector(final String variable) {
+        final String[] doubleValue = getStringVector(variable);
+        return Characters.checkedCastVector(doubleValue);
+    }
+
+    @Override
+    public char[][] getCharacterMatrix(final String variable) {
+        final String[][] doubleValue = getStringMatrix(variable);
+        return Characters.checkedCastMatrix(doubleValue);
+    }
+
+    @Override
+    public float getFloat(final String variable) {
+        final double doubleValue = getDouble(variable);
+        return Floats.checkedCast(doubleValue);
+    }
+
+    @Override
+    public float[] getFloatVector(final String variable) {
+        final double[] doubleValue = getDoubleVector(variable);
+        return Floats.checkedCastVector(doubleValue);
+    }
+
+    @Override
+    public float[][] getFloatMatrix(final String variable) {
+        final double[][] doubleValue = getDoubleMatrix(variable);
+        return Floats.checkedCastMatrix(doubleValue);
+    }
+
+    @Override
+    public short getShort(final String variable) {
+        final int integerValue = getInteger(variable);
+        return Shorts.checkedCast(integerValue);
+    }
+
+    @Override
+    public short[] getShortVector(final String variable) {
+        final int[] integerValue = getIntegerVector(variable);
+        return Shorts.checkedCastVector(integerValue);
+    }
+
+    @Override
+    public short[][] getShortMatrix(final String variable) {
+        final int[][] integerValue = getIntegerMatrix(variable);
+        return Shorts.checkedCastMatrix(integerValue);
+    }
+
+    @Override
+    public long getLong(final String variable) {
+        final double doubleValue = getDouble(variable);
+        return Longs.checkedCast(doubleValue);
+    }
+
+    @Override
+    public long[] getLongVector(final String variable) {
+        final double[] doubleValue = getDoubleVector(variable);
+        return Longs.checkedCastVector(doubleValue);
+    }
+
+    @Override
+    public long[][] getLongMatrix(final String variable) {
+        final double[][] doubleValue = getDoubleMatrix(variable);
+        return Longs.checkedCastMatrix(doubleValue);
+    }
+
+    @Override
+    public boolean isNull(final String variable) {
+        return getBoolean("isnumeric(" + variable + ") && isnan(" + variable + ")");
+    }
+
+    public boolean isEmpty(final String variable) {
+        return getBoolean("isempty(" + variable + ")");
     }
 
 }

@@ -18,6 +18,9 @@ public final class MatConsoleCtlScriptTaskRunnerMatlab
 
     public static final MatConsoleCtlScriptTaskRunnerMatlab INSTANCE = new MatConsoleCtlScriptTaskRunnerMatlab();
 
+    public static final String INTERNAL_RESULT_VARIABLE = MatConsoleCtlScriptTaskRunnerMatlab.class.getSimpleName()
+            + "_result";
+
     /**
      * public for ServiceLoader support
      */
@@ -34,8 +37,7 @@ public final class MatConsoleCtlScriptTaskRunnerMatlab
         }
         try {
             //inputs
-            final MatConsoleCtlScriptTaskEngineMatlab engine = new MatConsoleCtlScriptTaskEngineMatlab(
-                    matlabProxy);
+            final MatConsoleCtlScriptTaskEngineMatlab engine = new MatConsoleCtlScriptTaskEngineMatlab(matlabProxy);
             scriptTask.populateInputs(engine.getInputs());
 
             //execute

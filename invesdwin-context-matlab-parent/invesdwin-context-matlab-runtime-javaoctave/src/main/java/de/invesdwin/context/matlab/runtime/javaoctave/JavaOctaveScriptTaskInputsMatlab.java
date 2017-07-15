@@ -3,6 +3,7 @@ package de.invesdwin.context.matlab.runtime.javaoctave;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskInputsMatlab;
+import de.invesdwin.util.lang.Strings;
 import de.invesdwin.util.math.Doubles;
 import dk.ange.octave.type.Octave;
 import dk.ange.octave.type.OctaveBoolean;
@@ -186,6 +187,157 @@ public class JavaOctaveScriptTaskInputsMatlab implements IScriptTaskInputsMatlab
             }
             engine.unwrap().put(variable, matrix);
         }
+    }
+
+    @Override
+    public void putByte(final String variable, final byte value) {
+        putDouble(variable, value);
+        putExpression(variable, "int8(" + variable + ")");
+    }
+
+    @Override
+    public void putByteVector(final String variable, final byte[] value) {
+        if (value == null) {
+            putNull(variable);
+        } else if (value.length == 0) {
+            putEmpty(variable);
+        } else {
+            final double[] doubleValue = Doubles.checkedCastVector(value);
+            putDoubleVector(variable, doubleValue);
+            putExpression(variable, "int8(" + variable + ")");
+        }
+    }
+
+    @Override
+    public void putByteMatrix(final String variable, final byte[][] value) {
+        if (value == null) {
+            putNull(variable);
+        } else if (value.length == 0) {
+            putEmpty(variable);
+        } else {
+            final double[][] doubleValue = Doubles.checkedCastMatrix(value);
+            putDoubleMatrix(variable, doubleValue);
+            putExpression(variable, "int8(" + variable + ")");
+        }
+    }
+
+    @Override
+    public void putCharacter(final String variable, final char value) {
+        final String stringValue = Strings.checkedCast(value);
+        putString(variable, stringValue);
+    }
+
+    @Override
+    public void putCharacterVector(final String variable, final char[] value) {
+        final String[] stringValue = Strings.checkedCastVector(value);
+        putStringVector(variable, stringValue);
+    }
+
+    @Override
+    public void putCharacterMatrix(final String variable, final char[][] value) {
+        final String[][] stringValue = Strings.checkedCastMatrix(value);
+        putStringMatrix(variable, stringValue);
+    }
+
+    @Override
+    public void putFloat(final String variable, final float value) {
+        putDouble(variable, value);
+        putExpression(variable, "single(" + variable + ")");
+    }
+
+    @Override
+    public void putFloatVector(final String variable, final float[] value) {
+        if (value == null) {
+            putNull(variable);
+        } else if (value.length == 0) {
+            putEmpty(variable);
+        } else {
+            final double[] doubleValue = Doubles.checkedCastVector(value);
+            putDoubleVector(variable, doubleValue);
+            putExpression(variable, "single(" + variable + ")");
+        }
+    }
+
+    @Override
+    public void putFloatMatrix(final String variable, final float[][] value) {
+        if (value == null) {
+            putNull(variable);
+        } else if (value.length == 0) {
+            putEmpty(variable);
+        } else {
+            final double[][] doubleValue = Doubles.checkedCastMatrix(value);
+            putDoubleMatrix(variable, doubleValue);
+            putExpression(variable, "single(" + variable + ")");
+        }
+    }
+
+    @Override
+    public void putShort(final String variable, final short value) {
+        putDouble(variable, value);
+        putExpression(variable, "int16(" + variable + ")");
+    }
+
+    @Override
+    public void putShortVector(final String variable, final short[] value) {
+        if (value == null) {
+            putNull(variable);
+        } else if (value.length == 0) {
+            putEmpty(variable);
+        } else {
+            final double[] doubleValue = Doubles.checkedCastVector(value);
+            putDoubleVector(variable, doubleValue);
+            putExpression(variable, "int16(" + variable + ")");
+        }
+    }
+
+    @Override
+    public void putShortMatrix(final String variable, final short[][] value) {
+        if (value == null) {
+            putNull(variable);
+        } else if (value.length == 0) {
+            putEmpty(variable);
+        } else {
+            final double[][] doubleValue = Doubles.checkedCastMatrix(value);
+            putDoubleMatrix(variable, doubleValue);
+            putExpression(variable, "int16(" + variable + ")");
+        }
+    }
+
+    @Override
+    public void putLong(final String variable, final long value) {
+        putDouble(variable, value);
+        putExpression(variable, "int64(" + variable + ")");
+    }
+
+    @Override
+    public void putLongVector(final String variable, final long[] value) {
+        if (value == null) {
+            putNull(variable);
+        } else if (value.length == 0) {
+            putEmpty(variable);
+        } else {
+            final double[] doubleValue = Doubles.checkedCastVector(value);
+            putDoubleVector(variable, doubleValue);
+            putExpression(variable, "int64(" + variable + ")");
+        }
+    }
+
+    @Override
+    public void putLongMatrix(final String variable, final long[][] value) {
+        if (value == null) {
+            putNull(variable);
+        } else if (value.length == 0) {
+            putEmpty(variable);
+        } else {
+            final double[][] doubleValue = Doubles.checkedCastMatrix(value);
+            putDoubleMatrix(variable, doubleValue);
+            putExpression(variable, "int64(" + variable + ")");
+        }
+    }
+
+    @Override
+    public void putNull(final String variable) {
+        putExpression(variable, "NaN");
     }
 
 }

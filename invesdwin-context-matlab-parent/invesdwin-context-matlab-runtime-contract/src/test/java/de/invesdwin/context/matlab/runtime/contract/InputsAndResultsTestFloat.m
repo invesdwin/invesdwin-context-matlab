@@ -5,8 +5,8 @@ end
 getFloat = putFloat
 disp(class(getFloat))
 disp(getFloat)
-if ~isa(getFloat, 'double')
-	error('getFloat not double!')
+if ~isa(getFloat, 'single')
+	error('getFloat not single!')
 end
 
 disp('getFloatVector')
@@ -16,8 +16,8 @@ end
 getFloatVector = putFloatVector
 disp(class(getFloatVector))
 disp(getFloatVector)
-if ~isa(getFloatVector, 'double')
-	error('getFloatVector not double!')
+if ~isa(getFloatVector, 'single')
+	error('getFloatVector not single!')
 end
 
 disp('getFloatVectorAsList')
@@ -27,8 +27,8 @@ end
 getFloatVectorAsList = putFloatVectorAsList
 disp(class(getFloatVectorAsList))
 disp(getFloatVectorAsList)
-if ~isa(getFloatVectorAsList, 'double')
-	error('getFloatVectorAsList not double!')
+if ~isa(getFloatVectorAsList, 'single')
+	error('getFloatVectorAsList not single!')
 end
 
 disp('getFloatMatrix')
@@ -38,8 +38,8 @@ end
 getFloatMatrix = putFloatMatrix
 disp(class(getFloatMatrix))
 disp(getFloatMatrix)
-if ~isa(getFloatMatrix, 'double')
-	error('getFloatMatrix not double!')
+if ~isa(getFloatMatrix, 'single')
+	error('getFloatMatrix not single!')
 end
 
 disp('getFloatMatrixAsList')
@@ -49,6 +49,6 @@ end
 getFloatMatrixAsList = putFloatMatrixAsList
 disp(class(getFloatMatrixAsList))
 disp(getFloatMatrixAsList)
-if ~isa(getFloatMatrixAsList, 'double')
-	error('getFloatMatrixAsList not double!')
+if ~isa(getFloatMatrixAsList, 'single')
+	error('getFloatMatrixAsList not single!')
 end

@@ -5,8 +5,8 @@ end
 getShort = putShort
 disp(class(getShort))
 disp(getShort)
-if ~isa(getShort, 'int32')
-	error('getShort not int32!')
+if ~isa(getShort, 'int16')
+	error('getShort not int16!')
 end
 
 disp('getShortVector')
@@ -16,8 +16,8 @@ end
 getShortVector = putShortVector
 disp(class(getShortVector))
 disp(getShortVector)
-if ~isa(getShortVector, 'int32')
-	error('getShortVector not int32!')
+if ~isa(getShortVector, 'int16')
+	error('getShortVector not int16!')
 end
 
 disp('getShortVectorAsList')
@@ -27,8 +27,8 @@ end
 getShortVectorAsList = putShortVectorAsList
 disp(class(getShortVectorAsList))
 disp(getShortVectorAsList)
-if ~isa(getShortVectorAsList, 'int32')
-	error('getShortVectorAsList not int32!')
+if ~isa(getShortVectorAsList, 'int16')
+	error('getShortVectorAsList not int16!')
 end
 
 disp('getShortMatrix')
@@ -38,8 +38,8 @@ end
 getShortMatrix = putShortMatrix
 disp(class(getShortMatrix))
 disp(getShortMatrix)
-if ~isa(getShortMatrix, 'int32')
-	error('getShortMatrix not int32!')
+if ~isa(getShortMatrix, 'int16')
+	error('getShortMatrix not int16!')
 end
 
 disp('getShortMatrixAsList')
@@ -49,6 +49,6 @@ end
 getShortMatrixAsList = putShortMatrixAsList
 disp(class(getShortMatrixAsList))
 disp(getShortMatrixAsList)
-if ~isa(getShortMatrixAsList, 'int32')
-	error('getShortMatrixAsList not int32!')
+if ~isa(getShortMatrixAsList, 'int16')
+	error('getShortMatrixAsList not int16!')
 end

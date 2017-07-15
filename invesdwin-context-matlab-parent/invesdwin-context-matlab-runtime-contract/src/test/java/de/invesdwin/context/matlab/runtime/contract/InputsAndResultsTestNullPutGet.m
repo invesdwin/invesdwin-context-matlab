@@ -1,186 +1,186 @@
 getBooleanVector = putBooleanVector
-if ~isna(getBooleanVector)
-	error('getBooleanVector not na!')
+if ~isnan(getBooleanVector)
+	error('getBooleanVector not nan!')
 end
 getBooleanVectorAsList = putBooleanVectorAsList
-if ~isna(getBooleanVectorAsList)
-	error('getBooleanVectorAsList not na!')
+if ~isnan(getBooleanVectorAsList)
+	error('getBooleanVectorAsList not nan!')
 end
 getBooleanMatrix = putBooleanMatrix
-if ~isna(getBooleanMatrix)
-	error('getBooleanMatrix not na!')
+if ~isnan(getBooleanMatrix)
+	error('getBooleanMatrix not nan!')
 end
 getBooleanMatrixAsList = putBooleanMatrixAsList
-if ~isna(getBooleanMatrixAsList)
-	error('getBooleanMatrixAsList not na!')
+if ~isnan(getBooleanMatrixAsList)
+	error('getBooleanMatrixAsList not nan!')
 end
 
 getByteVector = putByteVector
-if ~isna(getByteVector)
-	error('getByteVector not na!')
+if ~isnan(getByteVector)
+	error('getByteVector not nan!')
 end
 getByteVectorAsList = putByteVectorAsList
-if ~isna(getByteVectorAsList)
-	error('getByteVectorAsList not na!')
+if ~isnan(getByteVectorAsList)
+	error('getByteVectorAsList not nan!')
 end
 getByteMatrix = putByteMatrix
-if ~isna(getByteMatrix)
-	error('getByteMatrix not na!')
+if ~isnan(getByteMatrix)
+	error('getByteMatrix not nan!')
 end
 getByteMatrixAsList = putByteMatrixAsList
-if ~isna(getByteMatrixAsList)
-	error('getByteMatrixAsList not na!')
+if ~isnan(getByteMatrixAsList)
+	error('getByteMatrixAsList not nan!')
 end
 
 getCharacterVector = putCharacterVector
-if ~isna(getCharacterVector)
-	error('getCharacterVector not na!')
+if ~isnan(getCharacterVector)
+	error('getCharacterVector not nan!')
 end
 getCharacterVectorAsList = putCharacterVectorAsList
-if ~isna(getCharacterVectorAsList)
-	error('getCharacterVectorAsList not na!')
+if ~isnan(getCharacterVectorAsList)
+	error('getCharacterVectorAsList not nan!')
 end
 getCharacterMatrix = putCharacterMatrix
-if ~isna(getCharacterMatrix)
-	error('getCharacterMatrix not na!')
+if ~isnan(getCharacterMatrix)
+	error('getCharacterMatrix not nan!')
 end
 getCharacterMatrixAsList = putCharacterMatrixAsList
-if ~isna(getCharacterMatrixAsList)
-	error('getCharacterMatrixAsList not na!')
+if ~isnan(getCharacterMatrixAsList)
+	error('getCharacterMatrixAsList not nan!')
 end
 
 getDecimalVector = putDecimalVector
-if ~isna(getDecimalVector)
-	error('getDecimalVector not na!')
+if ~isnan(getDecimalVector)
+	error('getDecimalVector not nan!')
 end
 getDecimalVectorAsList = putDecimalVectorAsList
-if ~isna(getDecimalVectorAsList)
-	error('getDecimalVectorAsList not na!')
+if ~isnan(getDecimalVectorAsList)
+	error('getDecimalVectorAsList not nan!')
 end
 getDecimalMatrix = putDecimalMatrix
-if ~isna(getDecimalMatrix)
-	error('getDecimalMatrix not na!')
+if ~isnan(getDecimalMatrix)
+	error('getDecimalMatrix not nan!')
 end
 getDecimalMatrixAsList = putDecimalMatrixAsList
-if ~isna(getDecimalMatrixAsList)
-	error('getDecimalMatrixAsList not na!')
+if ~isnan(getDecimalMatrixAsList)
+	error('getDecimalMatrixAsList not nan!')
 end
 
 getDoubleVector = putDoubleVector
-if ~isna(getDoubleVector)
-	error('getDoubleVector not na!')
+if ~isnan(getDoubleVector)
+	error('getDoubleVector not nan!')
 end
 getDoubleVectorAsList = putDoubleVectorAsList
-if ~isna(getDoubleVectorAsList)
-	error('getDoubleVectorAsList not na!')
+if ~isnan(getDoubleVectorAsList)
+	error('getDoubleVectorAsList not nan!')
 end
 getDoubleMatrix = putDoubleMatrix
-if ~isna(getDoubleMatrix)
-	error('getDoubleMatrix not na!')
+if ~isnan(getDoubleMatrix)
+	error('getDoubleMatrix not nan!')
 end
 getDoubleMatrixAsList = putDoubleMatrixAsList
-if ~isna(getDoubleMatrixAsList)
-	error('getDoubleMatrixAsList not na!')
+if ~isnan(getDoubleMatrixAsList)
+	error('getDoubleMatrixAsList not nan!')
 end
 
 getFloatVector = putFloatVector
-if ~isna(getFloatVector)
-	error('getFloatVector not na!')
+if ~isnan(getFloatVector)
+	error('getFloatVector not nan!')
 end
 getFloatVectorAsList = putFloatVectorAsList
-if ~isna(getFloatVectorAsList)
-	error('getFloatVectorAsList not na!')
+if ~isnan(getFloatVectorAsList)
+	error('getFloatVectorAsList not nan!')
 end
 getFloatMatrix = putFloatMatrix
-if ~isna(getFloatMatrix)
-	error('getFloatMatrix not na!')
+if ~isnan(getFloatMatrix)
+	error('getFloatMatrix not nan!')
 end
 getFloatMatrixAsList = putFloatMatrixAsList
-if ~isna(getFloatMatrixAsList)
-	error('getFloatMatrixAsList not na!')
+if ~isnan(getFloatMatrixAsList)
+	error('getFloatMatrixAsList not nan!')
 end
 
 getIntegerVector = putIntegerVector
-if ~isna(getIntegerVector)
-	error('getIntegerVector not na!')
+if ~isnan(getIntegerVector)
+	error('getIntegerVector not nan!')
 end
 getIntegerVectorAsList = putIntegerVectorAsList
-if ~isna(getIntegerVectorAsList)
-	error('getIntegerVectorAsList not na!')
+if ~isnan(getIntegerVectorAsList)
+	error('getIntegerVectorAsList not nan!')
 end
 getIntegerMatrix = putIntegerMatrix
-if ~isna(getIntegerMatrix)
-	error('getIntegerMatrix not na!')
+if ~isnan(getIntegerMatrix)
+	error('getIntegerMatrix not nan!')
 end
 getIntegerMatrixAsList = putIntegerMatrixAsList
-if ~isna(getIntegerMatrixAsList)
-	error('getIntegerMatrixAsList not na!')
+if ~isnan(getIntegerMatrixAsList)
+	error('getIntegerMatrixAsList not nan!')
 end
 
 getLongVector = putLongVector
-if ~isna(getLongVector)
-	error('getLongVector not na!')
+if ~isnan(getLongVector)
+	error('getLongVector not nan!')
 end
 getLongVectorAsList = putLongVectorAsList
-if ~isna(getLongVectorAsList)
-	error('getLongVectorAsList not na!')
+if ~isnan(getLongVectorAsList)
+	error('getLongVectorAsList not nan!')
 end
 getLongMatrix = putLongMatrix
-if ~isna(getLongMatrix)
-	error('getLongMatrix not na!')
+if ~isnan(getLongMatrix)
+	error('getLongMatrix not nan!')
 end
 getLongMatrixAsList = putLongMatrixAsList
-if ~isna(getLongMatrixAsList)
-	error('getLongMatrixAsList not na!')
+if ~isnan(getLongMatrixAsList)
+	error('getLongMatrixAsList not nan!')
 end
 
 getPercentVector = putPercentVector
-if ~isna(getPercentVector)
-	error('getPercentVector not na!')
+if ~isnan(getPercentVector)
+	error('getPercentVector not nan!')
 end
 getPercentVectorAsList = putPercentVectorAsList
-if ~isna(getPercentVectorAsList)
-	error('getPercentVectorAsList not na!')
+if ~isnan(getPercentVectorAsList)
+	error('getPercentVectorAsList not nan!')
 end
 getPercentMatrix = putPercentMatrix
-if ~isna(getPercentMatrix)
-	error('getPercentMatrix not na!')
+if ~isnan(getPercentMatrix)
+	error('getPercentMatrix not nan!')
 end
 getPercentMatrixAsList = putPercentMatrixAsList
-if ~isna(getPercentMatrixAsList)
-	error('getPercentMatrixAsList not na!')
+if ~isnan(getPercentMatrixAsList)
+	error('getPercentMatrixAsList not nan!')
 end
 
 getShortVector = putShortVector
-if ~isna(getShortVector)
-	error('getShortVector not na!')
+if ~isnan(getShortVector)
+	error('getShortVector not nan!')
 end
 getShortVectorAsList = putShortVectorAsList
-if ~isna(getShortVectorAsList)
-	error('getShortVectorAsList not na!')
+if ~isnan(getShortVectorAsList)
+	error('getShortVectorAsList not nan!')
 end
 getShortMatrix = putShortMatrix
-if ~isna(getShortMatrix)
-	error('getShortMatrix not na!')
+if ~isnan(getShortMatrix)
+	error('getShortMatrix not nan!')
 end
 getShortMatrixAsList = putShortMatrixAsList
-if ~isna(getShortMatrixAsList)
-	error('getShortMatrixAsList not na!')
+if ~isnan(getShortMatrixAsList)
+	error('getShortMatrixAsList not nan!')
 end
 
 getStringVector = putStringVector
-if ~isna(getStringVector)
-	error('getStringVector not na!')
+if ~isnan(getStringVector)
+	error('getStringVector not nan!')
 end
 getStringVectorAsList = putStringVectorAsList
-if ~isna(getStringVectorAsList)
-	error('getStringVectorAsList not na!')
+if ~isnan(getStringVectorAsList)
+	error('getStringVectorAsList not nan!')
 end
 getStringMatrix = putStringMatrix
-if ~isna(getStringMatrix)
-	error('getStringMatrix not na!')
+if ~isnan(getStringMatrix)
+	error('getStringMatrix not nan!')
 end
 getStringMatrixAsList = putStringMatrixAsList
-if ~isna(getStringMatrixAsList)
-	error('getStringMatrixAsList not na!')
+if ~isnan(getStringMatrixAsList)
+	error('getStringMatrixAsList not nan!')
 end

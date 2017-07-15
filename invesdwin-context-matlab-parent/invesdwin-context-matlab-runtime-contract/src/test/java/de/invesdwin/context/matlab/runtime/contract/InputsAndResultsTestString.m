@@ -19,8 +19,8 @@ disp(getStringWithNull)
 if ~isa(getStringWithNull, 'double')
 	error('getStringWithNull not double!')
 end
-if ~isna(getStringWithNull)
-	error('getStringWithNull not na!')
+if ~isnan(getStringWithNull)
+	error('getStringWithNull not nan!')
 end
 
 disp('getStringVector')
