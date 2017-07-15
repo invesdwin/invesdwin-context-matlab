@@ -12,7 +12,7 @@ Dependency declaration:
 ```xml
 <dependency>
 	<groupId>de.invesdwin</groupId>
-	<artifactId>invesdwin-context-matlab-runtime-rcaller</artifactId>
+	<artifactId>invesdwin-context-matlab-runtime-javaoctave</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 </dependency>
 ```
