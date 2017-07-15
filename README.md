@@ -66,7 +66,7 @@ For more elaborate examples of the Matlab/Octave script integration, have a look
 
 ## Other Programming Languages
 
-Similar integration frameworks like this one also exist for the following other programming languages: 
+Similar integration modules like this one also exist for the following other programming languages: 
 
 - **R Modules**: Scripting with R
 	- https://github.com/subes/invesdwin-context-r 
