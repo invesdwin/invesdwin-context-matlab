@@ -3,24 +3,14 @@ package de.invesdwin.context.matlab.runtime.matlabconsolectl;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskResultsMatlab;
-import de.invesdwin.util.assertions.Assertions;
-import de.invesdwin.util.error.UnknownArgumentException;
 import de.invesdwin.util.lang.Strings;
 import de.invesdwin.util.math.Booleans;
 import de.invesdwin.util.math.Doubles;
 import de.invesdwin.util.math.Integers;
-import dk.ange.octave.type.OctaveBoolean;
-import dk.ange.octave.type.OctaveCell;
-import dk.ange.octave.type.OctaveDouble;
-import dk.ange.octave.type.OctaveInt;
-import dk.ange.octave.type.OctaveObject;
-import dk.ange.octave.type.OctaveString;
+import matlabcontrol.MatlabInvocationException;
 
 @NotThreadSafe
 public class MatlabConsoleCtlScriptTaskResultsMatlab implements IScriptTaskResultsMatlab {
-
-    private static final String INTERNAL_RESULT_VARIABLE_EXPRESSION = MatlabConsoleCtlScriptTaskRunnerMatlab.INTERNAL_RESULT_VARIABLE
-            + "_expression";
 
     private final MatlabConsoleCtlScriptTaskEngineMatlab engine;
 
@@ -33,161 +23,6 @@ public class MatlabConsoleCtlScriptTaskResultsMatlab implements IScriptTaskResul
         return engine;
     }
 
-    private String requestVariable(final String variable) {
-        if (Strings.containsAny(variable, '[', '.', '(', '{')) {
-            //we have to support expressions here
-            engine.eval(INTERNAL_RESULT_VARIABLE_EXPRESSION + " = " + variable);
-            return INTERNAL_RESULT_VARIABLE_EXPRESSION;
-        } else {
-            return variable;
-        }
-    }
-
-    private Object get(final String variable) {
-        final OctaveObject oo = engine.unwrap().get(requestVariable(variable));
-        return unpack(oo);
-    }
-
-    private Object unpack(final OctaveObject obj) {
-        if (obj instanceof OctaveDouble) {
-            final OctaveDouble cObj = (OctaveDouble) obj;
-            return unpackDouble(cObj);
-        } else if (obj instanceof OctaveInt) {
-            final OctaveInt cObj = (OctaveInt) obj;
-            return unpackInt(cObj);
-        } else if (obj instanceof OctaveBoolean) {
-            final OctaveBoolean cObj = (OctaveBoolean) obj;
-            return unpackBoolean(cObj);
-        } else if (obj instanceof OctaveString) {
-            final OctaveString cObj = (OctaveString) obj;
-            String str = cObj.getString();
-            if (Strings.isEmpty(str)) {
-                str = null;
-            }
-            return str;
-        } else if (obj instanceof OctaveCell) {
-            final OctaveCell cObj = (OctaveCell) obj;
-            return unpackCell(cObj);
-        } else {
-            throw UnknownArgumentException.newInstance(OctaveObject.class, obj);
-        }
-    }
-
-    private Object unpackCell(final OctaveCell cObj) {
-        final int[] size = cObj.getSize();
-        Assertions.checkEquals(2, size.length, "Scalar, Vector or Matrix expected: %s", size);
-        final int rows = size[0];
-        final int cols = size[1];
-        if (rows == 1 && cols == 1) {
-            //scalar
-            final OctaveObject scalar = cObj.get(1, 1);
-            return unpack(scalar);
-        } else if (rows == 1 || cols == 1) {
-            //vector
-            final String[] vector = new String[rows];
-            for (int i = 0; i < vector.length; i++) {
-                final OctaveString os = (OctaveString) cObj.get(i + 1);
-                String str = os.getString();
-                if (Strings.isEmpty(str)) {
-                    str = null;
-                }
-                vector[i] = str;
-            }
-            return vector;
-        } else {
-            //matrix
-            final String[][] matrix = new String[rows][];
-            for (int row = 0; row < rows; row++) {
-                final String[] vector = new String[cols];
-                for (int col = 0; col < cols; col++) {
-                    final OctaveString os = (OctaveString) cObj.get(row + 1, col + 1);
-                    String str = os.getString();
-                    if (Strings.isEmpty(str)) {
-                        str = null;
-                    }
-                    vector[col] = str;
-                }
-                matrix[row] = vector;
-            }
-            return matrix;
-        }
-    }
-
-    private Object unpackBoolean(final OctaveBoolean cObj) {
-        final int[] size = cObj.getSize();
-        Assertions.checkEquals(2, size.length, "Scalar, Vector or Matrix expected: %s", size);
-        final int rows = size[0];
-        final int cols = size[1];
-        if (rows == 1 && cols == 1) {
-            //scalar
-            return cObj.getData()[0];
-        } else if (rows == 1 || cols == 1) {
-            //vector
-            return cObj.getData();
-        } else {
-            //matrix
-            final boolean[][] matrix = new boolean[rows][];
-            for (int row = 0; row < rows; row++) {
-                final boolean[] vector = new boolean[cols];
-                for (int col = 0; col < cols; col++) {
-                    vector[col] = cObj.get(row + 1, col + 1);
-                }
-                matrix[row] = vector;
-            }
-            return matrix;
-        }
-    }
-
-    private Object unpackInt(final OctaveInt cObj) {
-        final int[] size = cObj.getSize();
-        Assertions.checkEquals(2, size.length, "Scalar, Vector or Matrix expected: %s", size);
-        final int rows = size[0];
-        final int cols = size[1];
-        if (rows == 1 && cols == 1) {
-            //scalar
-            return cObj.getData()[0];
-        } else if (rows == 1 || cols == 1) {
-            //vector
-            return cObj.getData();
-        } else {
-            //matrix
-            final int[][] matrix = new int[rows][];
-            for (int row = 0; row < rows; row++) {
-                final int[] vector = new int[cols];
-                for (int col = 0; col < cols; col++) {
-                    vector[col] = cObj.get(row + 1, col + 1);
-                }
-                matrix[row] = vector;
-            }
-            return matrix;
-        }
-    }
-
-    private Object unpackDouble(final OctaveDouble cObj) {
-        final int[] size = cObj.getSize();
-        Assertions.checkEquals(2, size.length, "Scalar, Vector or Matrix expected: %s", size);
-        final int rows = size[0];
-        final int cols = size[1];
-        if (rows == 1 && cols == 1) {
-            //scalar
-            return cObj.getData()[0];
-        } else if (rows == 1 || cols == 1) {
-            //vector
-            return cObj.getData();
-        } else {
-            //matrix
-            final double[][] matrix = new double[rows][];
-            for (int row = 0; row < rows; row++) {
-                final double[] vector = new double[cols];
-                for (int col = 0; col < cols; col++) {
-                    vector[col] = cObj.get(row + 1, col + 1);
-                }
-                matrix[row] = vector;
-            }
-            return matrix;
-        }
-    }
-
     @Override
     public String getString(final String variable) {
         if (isNull(variable)) {
@@ -195,6 +30,14 @@ public class MatlabConsoleCtlScriptTaskResultsMatlab implements IScriptTaskResul
         } else {
             final Object obj = get(variable);
             return Strings.checkedCast(obj);
+        }
+    }
+
+    private Object get(final String variable) {
+        try {
+            return engine.unwrap().returningEval(variable, 1)[0];
+        } catch (final MatlabInvocationException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -229,7 +72,7 @@ public class MatlabConsoleCtlScriptTaskResultsMatlab implements IScriptTaskResul
 
     @Override
     public double getDouble(final String variable) {
-        final Object obj = get("double(" + variable + ")");
+        final Object obj = get(variable);
         return Doubles.checkedCast(obj);
     }
 
@@ -240,7 +83,7 @@ public class MatlabConsoleCtlScriptTaskResultsMatlab implements IScriptTaskResul
         } else if (isEmpty(variable)) {
             return new double[0];
         } else {
-            final Object obj = get("double(" + variable + ")");
+            final Object obj = get(variable);
             return Doubles.checkedCastVector(obj);
         }
     }
@@ -257,24 +100,44 @@ public class MatlabConsoleCtlScriptTaskResultsMatlab implements IScriptTaskResul
             }
             return matrix;
         } else {
-            final Object obj = get("double(" + variable + ")");
+            final Object obj = get(variable);
             return Doubles.checkedCastMatrix(obj);
         }
     }
 
     @Override
     public int getInteger(final String variable) {
-        return Integers.checkedCast(getDouble(variable));
+        final Object obj = get(variable);
+        return Integers.checkedCast(obj);
     }
 
     @Override
     public int[] getIntegerVector(final String variable) {
-        return Integers.checkedCastVector(getDoubleVector(variable));
+        if (isNull(variable)) {
+            return null;
+        } else if (isEmpty(variable)) {
+            return new int[0];
+        } else {
+            final Object obj = get(variable);
+            return Integers.checkedCastVector(obj);
+        }
     }
 
     @Override
     public int[][] getIntegerMatrix(final String variable) {
-        return Integers.checkedCastMatrix(getDoubleMatrix(variable));
+        if (isNull(variable)) {
+            return null;
+        } else if (isEmpty(variable)) {
+            final int rows = getInteger("size(" + variable + ",1)");
+            final int[][] matrix = new int[rows][];
+            for (int i = 0; i < rows; i++) {
+                matrix[i] = new int[0];
+            }
+            return matrix;
+        } else {
+            final Object obj = get(variable);
+            return Integers.checkedCastMatrix(obj);
+        }
     }
 
     @Override

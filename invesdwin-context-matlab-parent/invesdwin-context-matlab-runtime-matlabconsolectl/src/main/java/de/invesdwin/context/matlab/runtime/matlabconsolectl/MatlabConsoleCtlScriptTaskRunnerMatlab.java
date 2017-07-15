@@ -18,9 +18,6 @@ public final class MatlabConsoleCtlScriptTaskRunnerMatlab
 
     public static final MatlabConsoleCtlScriptTaskRunnerMatlab INSTANCE = new MatlabConsoleCtlScriptTaskRunnerMatlab();
 
-    public static final String INTERNAL_RESULT_VARIABLE = MatlabConsoleCtlScriptTaskRunnerMatlab.class.getSimpleName()
-            + "_result";
-
     /**
      * public for ServiceLoader support
      */

@@ -27,7 +27,7 @@ public class JavaOctaveScriptTaskInputsMatlab implements IScriptTaskInputsMatlab
     @Override
     public void putString(final String variable, final String value) {
         if (value == null) {
-            engine.unwrap().put(variable, new OctaveString(""));
+            putNull(variable);
         } else {
             engine.unwrap().put(variable, new OctaveString(value));
         }

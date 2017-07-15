@@ -1,9 +1,13 @@
 package de.invesdwin.context.matlab.runtime.matlabconsolectl.pool.internal;
 
+import java.io.OutputStreamWriter;
+
 import javax.annotation.concurrent.ThreadSafe;
 import javax.inject.Named;
 
 import org.springframework.beans.factory.FactoryBean;
+import org.zeroturnaround.exec.stream.slf4j.Slf4jDebugOutputStream;
+import org.zeroturnaround.exec.stream.slf4j.Slf4jWarnOutputStream;
 
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskRunnerMatlab;
 import de.invesdwin.context.matlab.runtime.matlabconsolectl.MatlabConsoleCtlProperties;
@@ -30,6 +34,8 @@ public final class MatlabProxyPoolableObjectFactory
         if (MatlabConsoleCtlProperties.MATLAB_COMMAND != null) {
             options.setMatlabLocation(MatlabConsoleCtlProperties.MATLAB_COMMAND);
         }
+        options.setInputWriter(new OutputStreamWriter(new Slf4jDebugOutputStream(IScriptTaskRunnerMatlab.LOG)));
+        options.setErrorWriter(new OutputStreamWriter(new Slf4jWarnOutputStream(IScriptTaskRunnerMatlab.LOG)));
         final MatlabProxyFactory factory = new MatlabProxyFactory(options.build());
         try {
             return factory.getProxy();

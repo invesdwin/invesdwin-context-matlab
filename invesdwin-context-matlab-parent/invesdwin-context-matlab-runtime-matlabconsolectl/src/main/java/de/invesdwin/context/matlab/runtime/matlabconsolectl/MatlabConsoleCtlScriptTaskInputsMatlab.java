@@ -3,12 +3,7 @@ package de.invesdwin.context.matlab.runtime.matlabconsolectl;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskInputsMatlab;
-import de.invesdwin.util.math.Doubles;
-import dk.ange.octave.type.Octave;
-import dk.ange.octave.type.OctaveBoolean;
-import dk.ange.octave.type.OctaveCell;
-import dk.ange.octave.type.OctaveDouble;
-import dk.ange.octave.type.OctaveString;
+import matlabcontrol.MatlabInvocationException;
 
 @NotThreadSafe
 public class MatlabConsoleCtlScriptTaskInputsMatlab implements IScriptTaskInputsMatlab {
@@ -24,12 +19,20 @@ public class MatlabConsoleCtlScriptTaskInputsMatlab implements IScriptTaskInputs
         return engine;
     }
 
+    private void set(final String variable, final Object value) {
+        try {
+            engine.unwrap().setVariable(variable, value);
+        } catch (final MatlabInvocationException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     public void putString(final String variable, final String value) {
         if (value == null) {
-            engine.unwrap().put(variable, new OctaveString(""));
+            putNull(variable);
         } else {
-            engine.unwrap().put(variable, new OctaveString(value));
+            set(variable, value);
         }
     }
 
@@ -40,15 +43,7 @@ public class MatlabConsoleCtlScriptTaskInputsMatlab implements IScriptTaskInputs
         } else if (value.length == 0) {
             putEmpty(variable);
         } else {
-            final OctaveCell vector = new OctaveCell(value.length, 1);
-            for (int i = 0; i < value.length; i++) {
-                String str = value[i];
-                if (str == null) {
-                    str = "";
-                }
-                vector.set(new OctaveString(str), i + 1, 1);
-            }
-            engine.unwrap().put(variable, vector);
+            set(variable, value);
         }
     }
 
@@ -59,25 +54,13 @@ public class MatlabConsoleCtlScriptTaskInputsMatlab implements IScriptTaskInputs
         } else if (value.length == 0) {
             putEmpty(variable);
         } else {
-            final int rows = value.length;
-            final int cols = value[0].length;
-            final OctaveCell matrix = new OctaveCell(rows, cols);
-            for (int row = 0; row < rows; row++) {
-                for (int col = 0; col < cols; col++) {
-                    String str = value[row][col];
-                    if (str == null) {
-                        str = "";
-                    }
-                    matrix.set(new OctaveString(str), row + 1, col + 1);
-                }
-            }
-            engine.unwrap().put(variable, matrix);
+            set(variable, value);
         }
     }
 
     @Override
     public void putDouble(final String variable, final double value) {
-        engine.unwrap().put(variable, Octave.scalar(value));
+        set(variable, value);
     }
 
     @Override
@@ -87,11 +70,7 @@ public class MatlabConsoleCtlScriptTaskInputsMatlab implements IScriptTaskInputs
         } else if (value.length == 0) {
             putEmpty(variable);
         } else {
-            final OctaveDouble vector = new OctaveDouble(value.length, 1);
-            for (int i = 0; i < value.length; i++) {
-                vector.set(value[i], i + 1, 1);
-            }
-            engine.unwrap().put(variable, vector);
+            set(variable, value);
         }
     }
 
@@ -102,23 +81,17 @@ public class MatlabConsoleCtlScriptTaskInputsMatlab implements IScriptTaskInputs
         } else if (value.length == 0) {
             putEmpty(variable);
         } else {
-            final int rows = value.length;
-            final int cols = value[0].length;
-            final OctaveDouble matrix = new OctaveDouble(rows, cols);
-            for (int row = 0; row < rows; row++) {
-                for (int col = 0; col < cols; col++) {
-                    matrix.set(value[row][col], row + 1, col + 1);
-                }
-            }
-            engine.unwrap().put(variable, matrix);
+            set(variable, value);
         }
     }
 
     @Override
     public void putInteger(final String variable, final int value) {
-        //even though there is the OctaveInt type, it cannot be written...
-        putDouble(variable, value);
-        putExpression(variable, "int32(" + variable + ")");
+        try {
+            engine.unwrap().setVariable(variable, value);
+        } catch (final MatlabInvocationException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -128,9 +101,7 @@ public class MatlabConsoleCtlScriptTaskInputsMatlab implements IScriptTaskInputs
         } else if (value.length == 0) {
             putEmpty(variable);
         } else {
-            //even though there is the OctaveInt type, it cannot be written...
-            putDoubleVector(variable, Doubles.checkedCastVector(value));
-            putExpression(variable, "int32(" + variable + ")");
+            set(variable, value);
         }
     }
 
@@ -141,17 +112,17 @@ public class MatlabConsoleCtlScriptTaskInputsMatlab implements IScriptTaskInputs
         } else if (value.length == 0) {
             putEmpty(variable);
         } else {
-            //even though there is the OctaveInt type, it cannot be written...
-            putDoubleMatrix(variable, Doubles.checkedCastMatrix(value));
-            putExpression(variable, "int32(" + variable + ")");
+            set(variable, value);
         }
     }
 
     @Override
     public void putBoolean(final String variable, final boolean value) {
-        final OctaveBoolean oi = new OctaveBoolean(1, 1);
-        oi.set(value, 1, 1);
-        engine.unwrap().put(variable, oi);
+        try {
+            engine.unwrap().setVariable(variable, value);
+        } catch (final MatlabInvocationException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -161,11 +132,7 @@ public class MatlabConsoleCtlScriptTaskInputsMatlab implements IScriptTaskInputs
         } else if (value.length == 0) {
             putEmpty(variable);
         } else {
-            final OctaveBoolean vector = new OctaveBoolean(value.length, 1);
-            for (int i = 0; i < value.length; i++) {
-                vector.set(value[i], i + 1, 1);
-            }
-            engine.unwrap().put(variable, vector);
+            set(variable, value);
         }
     }
 
@@ -176,15 +143,7 @@ public class MatlabConsoleCtlScriptTaskInputsMatlab implements IScriptTaskInputs
         } else if (value.length == 0) {
             putEmpty(variable);
         } else {
-            final int rows = value.length;
-            final int cols = value[0].length;
-            final OctaveBoolean matrix = new OctaveBoolean(rows, cols);
-            for (int row = 0; row < rows; row++) {
-                for (int col = 0; col < cols; col++) {
-                    matrix.set(value[row][col], row + 1, col + 1);
-                }
-            }
-            engine.unwrap().put(variable, matrix);
+            set(variable, value);
         }
     }
 
