@@ -64,6 +64,15 @@ Assertions.assertThat(result).isEqualTo("Hello World!");
 
 For more elaborate examples of the Matlab/Octave script integration, have a look at the `invesdwin-context-matlab-ornsteinuhlenbeck` module or the test cases in `invesdwin-context-matlab-runtime-contract` which are executed in each individual runtime module test suite.
 
+## Other Programming Languages
+
+Similar integration frameworks like this one also exist for the following other programming languages: 
+
+- **R Modules**: Scripting with R
+	- https://github.com/subes/invesdwin-context-r 
+- **Python Modules**: Scripting with Python
+	- https://github.com/subes/invesdwin-context-python
+
 ## Support
 
 If you need further assistance or have some ideas for improvements and don't want to create an issue here on github, feel free to start a discussion in our [invesdwin-platform](https://groups.google.com/forum/#!forum/invesdwin-platform) mailing list.
