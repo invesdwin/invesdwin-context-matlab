@@ -29,7 +29,7 @@ de.invesdwin.context.matlab.runtime.matconsolectl.MatConsoleCtlProperties.MATLAB
 de.invesdwin.context.matlab.runtime.javaoctave.JavaOctaveProperties.OCTAVE_COMMAND=octave
 ```
 
-With this you can switch easily between Matlab/Octave for your scripts to test for interoprability and decide which implementation provides the best performance for your use case. Notably Matlab takes a long time to start up but has efficient data transfer, while Octave is faster to start up while the data transfer is less efficient.
+With this you can switch easily between Matlab/Octave for your scripts to test for interoprability and decide which implementation provides the best performance for your use case. Notably Matlab takes a long time to start up but has efficient data transfer, while Octave is faster to start up but the data transfer is less efficient.
 
 ## Example Code
 
