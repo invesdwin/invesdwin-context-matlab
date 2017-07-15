@@ -31,7 +31,7 @@ de.invesdwin.context.matlab.runtime.javaoctave.JavaOctaveProperties.OCTAVE_COMMA
 
 With this you can switch easily between Matlab/Octave for your scripts to test for interoperability and decide which implementation provides the best performance for your use case. Notably Matlab takes a long time to start up but has efficient data transfer, while Octave is faster to start up but the data transfer is less efficient. 
 
-Also Octave is free while Matlab requires a paid license. Even though Octave is licensed as GPL, usage and integration with it can happen without falling under the GPL. Though please consider that when using modules for Octave/Matlab that are licensed under the GPL, you might have to make your own scripts available under the GPL too. For a more elaborate license discussion, see the documentation of [invesdwin-context-r](https://github.com/subes/invesdwin-context-r) which faces the same topic.
+Also Octave is free while Matlab requires a paid license. Even though Octave is licensed as GPL, usage and integration with it can happen without your application falling under the GPL. Though please consider that when using modules for Octave/Matlab that are licensed under the GPL, you might have to make your own scripts available under the GPL too. For a more elaborate license discussion, see the documentation of [invesdwin-context-r](https://github.com/subes/invesdwin-context-r) which faces the same topic.
 
 ## Example Code
 
