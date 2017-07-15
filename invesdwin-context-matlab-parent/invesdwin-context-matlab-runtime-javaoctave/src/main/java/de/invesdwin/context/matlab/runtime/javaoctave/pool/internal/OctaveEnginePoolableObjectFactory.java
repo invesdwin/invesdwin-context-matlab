@@ -10,6 +10,7 @@ import org.zeroturnaround.exec.stream.slf4j.Slf4jDebugOutputStream;
 import org.zeroturnaround.exec.stream.slf4j.Slf4jWarnOutputStream;
 
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskRunnerMatlab;
+import de.invesdwin.context.matlab.runtime.javaoctave.JavaOctaveScriptTaskEngineMatlab;
 import de.invesdwin.context.pool.IPoolableObjectFactory;
 import dk.ange.octave.OctaveEngine;
 import dk.ange.octave.OctaveEngineFactory;
@@ -51,7 +52,9 @@ public final class OctaveEnginePoolableObjectFactory
 
     @Override
     public void passivateObject(final OctaveEngine obj) throws Exception {
-        obj.eval(IScriptTaskRunnerMatlab.CLEANUP_SCRIPT);
+        final JavaOctaveScriptTaskEngineMatlab engine = new JavaOctaveScriptTaskEngineMatlab(obj);
+        engine.eval(IScriptTaskRunnerMatlab.CLEANUP_SCRIPT);
+        engine.close();
     }
 
     @Override

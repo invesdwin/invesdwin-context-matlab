@@ -1,186 +1,186 @@
 getBooleanVector = putBooleanVector
-if ~isempty(getBooleanVector)
-	error("getBooleanVector not empty!")
+if ~isna(getBooleanVector)
+	error("getBooleanVector not na!")
 end
 getBooleanVectorAsList = putBooleanVectorAsList
-if ~isempty(getBooleanVectorAsList)
-	error("getBooleanVectorAsList not empty!")
+if ~isna(getBooleanVectorAsList)
+	error("getBooleanVectorAsList not na!")
 end
 getBooleanMatrix = putBooleanMatrix
-if ~isempty(getBooleanMatrix)
-	error("getBooleanMatrix not empty!")
+if ~isna(getBooleanMatrix)
+	error("getBooleanMatrix not na!")
 end
 getBooleanMatrixAsList = putBooleanMatrixAsList
-if ~isempty(getBooleanMatrixAsList)
-	error("getBooleanMatrixAsList not empty!")
+if ~isna(getBooleanMatrixAsList)
+	error("getBooleanMatrixAsList not na!")
 end
 
 getByteVector = putByteVector
-if ~isempty(getByteVector)
-	error("getByteVector not empty!")
+if ~isna(getByteVector)
+	error("getByteVector not na!")
 end
 getByteVectorAsList = putByteVectorAsList
-if ~isempty(getByteVectorAsList)
-	error("getByteVectorAsList not empty!")
+if ~isna(getByteVectorAsList)
+	error("getByteVectorAsList not na!")
 end
 getByteMatrix = putByteMatrix
-if ~isempty(getByteMatrix)
-	error("getByteMatrix not empty!")
+if ~isna(getByteMatrix)
+	error("getByteMatrix not na!")
 end
 getByteMatrixAsList = putByteMatrixAsList
-if ~isempty(getByteMatrixAsList)
-	error("getByteMatrixAsList not empty!")
+if ~isna(getByteMatrixAsList)
+	error("getByteMatrixAsList not na!")
 end
 
 getCharacterVector = putCharacterVector
-if ~isempty(getCharacterVector)
-	error("getCharacterVector not empty!")
+if ~isna(getCharacterVector)
+	error("getCharacterVector not na!")
 end
 getCharacterVectorAsList = putCharacterVectorAsList
-if ~isempty(getCharacterVectorAsList)
-	error("getCharacterVectorAsList not empty!")
+if ~isna(getCharacterVectorAsList)
+	error("getCharacterVectorAsList not na!")
 end
 getCharacterMatrix = putCharacterMatrix
-if ~isempty(getCharacterMatrix)
-	error("getCharacterMatrix not empty!")
+if ~isna(getCharacterMatrix)
+	error("getCharacterMatrix not na!")
 end
 getCharacterMatrixAsList = putCharacterMatrixAsList
-if ~isempty(getCharacterMatrixAsList)
-	error("getCharacterMatrixAsList not empty!")
+if ~isna(getCharacterMatrixAsList)
+	error("getCharacterMatrixAsList not na!")
 end
 
 getDecimalVector = putDecimalVector
-if ~isempty(getDecimalVector)
-	error("getDecimalVector not empty!")
+if ~isna(getDecimalVector)
+	error("getDecimalVector not na!")
 end
 getDecimalVectorAsList = putDecimalVectorAsList
-if ~isempty(getDecimalVectorAsList)
-	error("getDecimalVectorAsList not empty!")
+if ~isna(getDecimalVectorAsList)
+	error("getDecimalVectorAsList not na!")
 end
 getDecimalMatrix = putDecimalMatrix
-if ~isempty(getDecimalMatrix)
-	error("getDecimalMatrix not empty!")
+if ~isna(getDecimalMatrix)
+	error("getDecimalMatrix not na!")
 end
 getDecimalMatrixAsList = putDecimalMatrixAsList
-if ~isempty(getDecimalMatrixAsList)
-	error("getDecimalMatrixAsList not empty!")
+if ~isna(getDecimalMatrixAsList)
+	error("getDecimalMatrixAsList not na!")
 end
 
 getDoubleVector = putDoubleVector
-if ~isempty(getDoubleVector)
-	error("getDoubleVector not empty!")
+if ~isna(getDoubleVector)
+	error("getDoubleVector not na!")
 end
 getDoubleVectorAsList = putDoubleVectorAsList
-if ~isempty(getDoubleVectorAsList)
-	error("getDoubleVectorAsList not empty!")
+if ~isna(getDoubleVectorAsList)
+	error("getDoubleVectorAsList not na!")
 end
 getDoubleMatrix = putDoubleMatrix
-if ~isempty(getDoubleMatrix)
-	error("getDoubleMatrix not empty!")
+if ~isna(getDoubleMatrix)
+	error("getDoubleMatrix not na!")
 end
 getDoubleMatrixAsList = putDoubleMatrixAsList
-if ~isempty(getDoubleMatrixAsList)
-	error("getDoubleMatrixAsList not empty!")
+if ~isna(getDoubleMatrixAsList)
+	error("getDoubleMatrixAsList not na!")
 end
 
 getFloatVector = putFloatVector
-if ~isempty(getFloatVector)
-	error("getFloatVector not empty!")
+if ~isna(getFloatVector)
+	error("getFloatVector not na!")
 end
 getFloatVectorAsList = putFloatVectorAsList
-if ~isempty(getFloatVectorAsList)
-	error("getFloatVectorAsList not empty!")
+if ~isna(getFloatVectorAsList)
+	error("getFloatVectorAsList not na!")
 end
 getFloatMatrix = putFloatMatrix
-if ~isempty(getFloatMatrix)
-	error("getFloatMatrix not empty!")
+if ~isna(getFloatMatrix)
+	error("getFloatMatrix not na!")
 end
 getFloatMatrixAsList = putFloatMatrixAsList
-if ~isempty(getFloatMatrixAsList)
-	error("getFloatMatrixAsList not empty!")
+if ~isna(getFloatMatrixAsList)
+	error("getFloatMatrixAsList not na!")
 end
 
 getIntegerVector = putIntegerVector
-if ~isempty(getIntegerVector)
-	error("getIntegerVector not empty!")
+if ~isna(getIntegerVector)
+	error("getIntegerVector not na!")
 end
 getIntegerVectorAsList = putIntegerVectorAsList
-if ~isempty(getIntegerVectorAsList)
-	error("getIntegerVectorAsList not empty!")
+if ~isna(getIntegerVectorAsList)
+	error("getIntegerVectorAsList not na!")
 end
 getIntegerMatrix = putIntegerMatrix
-if ~isempty(getIntegerMatrix)
-	error("getIntegerMatrix not empty!")
+if ~isna(getIntegerMatrix)
+	error("getIntegerMatrix not na!")
 end
 getIntegerMatrixAsList = putIntegerMatrixAsList
-if ~isempty(getIntegerMatrixAsList)
-	error("getIntegerMatrixAsList not empty!")
+if ~isna(getIntegerMatrixAsList)
+	error("getIntegerMatrixAsList not na!")
 end
 
 getLongVector = putLongVector
-if ~isempty(getLongVector)
-	error("getLongVector not empty!")
+if ~isna(getLongVector)
+	error("getLongVector not na!")
 end
 getLongVectorAsList = putLongVectorAsList
-if ~isempty(getLongVectorAsList)
-	error("getLongVectorAsList not empty!")
+if ~isna(getLongVectorAsList)
+	error("getLongVectorAsList not na!")
 end
 getLongMatrix = putLongMatrix
-if ~isempty(getLongMatrix)
-	error("getLongMatrix not empty!")
+if ~isna(getLongMatrix)
+	error("getLongMatrix not na!")
 end
 getLongMatrixAsList = putLongMatrixAsList
-if ~isempty(getLongMatrixAsList)
-	error("getLongMatrixAsList not empty!")
+if ~isna(getLongMatrixAsList)
+	error("getLongMatrixAsList not na!")
 end
 
 getPercentVector = putPercentVector
-if ~isempty(getPercentVector)
-	error("getPercentVector not empty!")
+if ~isna(getPercentVector)
+	error("getPercentVector not na!")
 end
 getPercentVectorAsList = putPercentVectorAsList
-if ~isempty(getPercentVectorAsList)
-	error("getPercentVectorAsList not empty!")
+if ~isna(getPercentVectorAsList)
+	error("getPercentVectorAsList not na!")
 end
 getPercentMatrix = putPercentMatrix
-if ~isempty(getPercentMatrix)
-	error("getPercentMatrix not empty!")
+if ~isna(getPercentMatrix)
+	error("getPercentMatrix not na!")
 end
 getPercentMatrixAsList = putPercentMatrixAsList
-if ~isempty(getPercentMatrixAsList)
-	error("getPercentMatrixAsList not empty!")
+if ~isna(getPercentMatrixAsList)
+	error("getPercentMatrixAsList not na!")
 end
 
 getShortVector = putShortVector
-if ~isempty(getShortVector)
-	error("getShortVector not empty!")
+if ~isna(getShortVector)
+	error("getShortVector not na!")
 end
 getShortVectorAsList = putShortVectorAsList
-if ~isempty(getShortVectorAsList)
-	error("getShortVectorAsList not empty!")
+if ~isna(getShortVectorAsList)
+	error("getShortVectorAsList not na!")
 end
 getShortMatrix = putShortMatrix
-if ~isempty(getShortMatrix)
-	error("getShortMatrix not empty!")
+if ~isna(getShortMatrix)
+	error("getShortMatrix not na!")
 end
 getShortMatrixAsList = putShortMatrixAsList
-if ~isempty(getShortMatrixAsList)
-	error("getShortMatrixAsList not empty!")
+if ~isna(getShortMatrixAsList)
+	error("getShortMatrixAsList not na!")
 end
 
 getStringVector = putStringVector
-if ~isempty(getStringVector)
-	error("getStringVector not empty!")
+if ~isna(getStringVector)
+	error("getStringVector not na!")
 end
 getStringVectorAsList = putStringVectorAsList
-if ~isempty(getStringVectorAsList)
-	error("getStringVectorAsList not empty!")
+if ~isna(getStringVectorAsList)
+	error("getStringVectorAsList not na!")
 end
 getStringMatrix = putStringMatrix
-if ~isempty(getStringMatrix)
-	error("getStringMatrix not empty!")
+if ~isna(getStringMatrix)
+	error("getStringMatrix not na!")
 end
 getStringMatrixAsList = putStringMatrixAsList
-if ~isempty(getStringMatrixAsList)
-	error("getStringMatrixAsList not empty!")
+if ~isna(getStringMatrixAsList)
+	error("getStringMatrixAsList not na!")
 end

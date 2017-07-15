@@ -95,11 +95,7 @@ public interface IScriptTaskInputsMatlab extends IScriptTaskInputs {
 
     @Override
     default void putExpression(final String variable, final String expression) {
-        if (IScriptTaskRunnerMatlab.LOG.isDebugEnabled()) {
-            getEngine().eval(variable + " = " + expression);
-        } else {
-            getEngine().eval(variable + " = " + expression + ";");
-        }
+        getEngine().eval(variable + " = " + expression);
     }
 
     /**
@@ -107,7 +103,7 @@ public interface IScriptTaskInputsMatlab extends IScriptTaskInputs {
      */
     @Override
     default void putNull(final String variable) {
-        putExpression(variable, "''");
+        putExpression(variable, "NA");
     }
 
     /**

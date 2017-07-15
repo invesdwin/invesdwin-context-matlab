@@ -36,7 +36,7 @@ public class JavaOctaveScriptTaskResultsMatlab implements IScriptTaskResultsMatl
     private String requestVariable(final String variable) {
         if (Strings.containsAny(variable, '[', '.', '(', '{')) {
             //we have to support expressions here
-            engine.unwrap().eval(INTERNAL_RESULT_VARIABLE_EXPRESSION + " = " + variable + ";");
+            engine.eval(INTERNAL_RESULT_VARIABLE_EXPRESSION + " = " + variable);
             return INTERNAL_RESULT_VARIABLE_EXPRESSION;
         } else {
             return variable;
