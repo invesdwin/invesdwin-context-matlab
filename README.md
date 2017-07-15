@@ -24,7 +24,7 @@ We have a few options available for integrating Matlab/Octave:
 ```properties
 de.invesdwin.context.matlab.runtime.matconsolectl.MatConsoleCtlProperties.MATLAB_COMMAND=matlab
 ```
-- **invesdwin-context-matlab-runtime-javaoctave**: Via [JavaOctave](https://github.com/prateek/javaoctave) we are able to run our Matlab script in [Octave](https://www.gnu.org/software/octave/), which is an open source alternative implementation for the Matlab language. The integration works by remote controlling the Octave command line client and transferring data via files. Multiple instances of Octave are pooled for performance reasons and to allow parallel computation. You can change the path to the executable via the following system property:
+- **invesdwin-context-matlab-runtime-javaoctave**: Via [JavaOctave](https://github.com/prateek/javaoctave) we are able to run our Matlab scripts in [Octave](https://www.gnu.org/software/octave/), which is an open source alternative implementation for the Matlab language. The integration works by remote controlling the Octave command line client and transferring data via files. Multiple instances of Octave are pooled for performance reasons and to allow parallel computation. You can change the path to the executable via the following system property:
 ```properties
 de.invesdwin.context.matlab.runtime.javaoctave.JavaOctaveProperties.OCTAVE_COMMAND=octave
 ```
