@@ -34,7 +34,7 @@ public final class MatlabProxyPoolableObjectFactory
         if (MatConsoleCtlProperties.MATLAB_COMMAND != null) {
             options.setMatlabLocation(MatConsoleCtlProperties.MATLAB_COMMAND);
         }
-        options.setInputWriter(new OutputStreamWriter(new Slf4jDebugOutputStream(IScriptTaskRunnerMatlab.LOG)));
+        options.setOutputWriter(new OutputStreamWriter(new Slf4jDebugOutputStream(IScriptTaskRunnerMatlab.LOG)));
         options.setErrorWriter(new OutputStreamWriter(new Slf4jWarnOutputStream(IScriptTaskRunnerMatlab.LOG)));
         final MatlabProxyFactory factory = new MatlabProxyFactory(options.build());
         try {
