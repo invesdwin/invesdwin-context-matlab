@@ -10,6 +10,8 @@
 	<artifactId>invesdwin-context-matlab-runtime-javaoctave</artifactId>
 	<packaging>jar</packaging>
 
+	<!-- sudo apt-get install octave octave-doc gnuplot octave-statistics -->
+
 	<dependencies>
 		<dependency>
 			<groupId>de.invesdwin</groupId>
