@@ -1,54 +1,54 @@
 disp('getCharacter')
-if exist('getCharacter')
+if exists('getCharacter') then
 	error('getCharacter already defined!')
 end
 getCharacter = putCharacter
 disp(class(getCharacter))
 disp(getCharacter)
-if ~isa(getCharacter, 'char')
+if ~isa(getCharacter, 'char') then
 	error('getCharacter not char!')
 end
 
 disp('getCharacterVector')
-if exist('getCharacterVector')
+if exists('getCharacterVector') then
 	error('getCharacterVector already defined!')
 end
 getCharacterVector = putCharacterVector
 disp(class(getCharacterVector))
 disp(getCharacterVector)
-if ~isa(getCharacterVector, 'cell')
+if ~isa(getCharacterVector, 'cell') then
 	error('getCharacterVector not cell!')
 end
 
 disp('getCharacterVectorAsList')
-if exist('getCharacterVectorAsList')
+if exists('getCharacterVectorAsList') then
 	error('getCharacterVectorAsList already defined!')
 end
 getCharacterVectorAsList = putCharacterVectorAsList
 disp(class(getCharacterVectorAsList))
 disp(getCharacterVectorAsList)
-if ~isa(getCharacterVectorAsList, 'cell')
+if ~isa(getCharacterVectorAsList, 'cell') then
 	error('getCharacterVectorAsList not cell!')
 end
 
 disp('getCharacterMatrix')
-if exist('getCharacterMatrix')
+if exists('getCharacterMatrix') then
 	error('getCharacterMatrix already defined!')
 end
 getCharacterMatrix = putCharacterMatrix
 disp(class(getCharacterMatrix))
 disp(getCharacterMatrix)
-if ~isa(getCharacterMatrix, 'cell')
+if ~isa(getCharacterMatrix, 'cell') then
 	error('getCharacterMatrix not cell!')
 end
 
 disp('getCharacterMatrixAsList')
-if exist('getCharacterMatrixAsList')
+if exists('getCharacterMatrixAsList') then
 	error('getCharacterMatrixAsList already defined!')
 end
 getCharacterMatrixAsList = putCharacterMatrixAsList
 disp(class(getCharacterMatrixAsList))
 disp(getCharacterMatrixAsList)
-if ~isa(getCharacterMatrixAsList, 'cell')
+if ~isa(getCharacterMatrixAsList, 'cell') then
 	error('getCharacterMatrixAsList not cell!')
 end
