@@ -1,1 +1,1 @@
-world = strcat('Hello ', hello, '!')
+world = strcat(['Hello ', hello, '!'])

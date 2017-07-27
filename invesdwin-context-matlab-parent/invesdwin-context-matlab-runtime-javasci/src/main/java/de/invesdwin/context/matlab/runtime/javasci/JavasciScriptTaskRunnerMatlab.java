@@ -1,5 +1,6 @@
 package de.invesdwin.context.matlab.runtime.javasci;
 
+import java.io.File;
 import java.util.concurrent.locks.ReentrantLock;
 
 import javax.annotation.concurrent.GuardedBy;
@@ -20,8 +21,7 @@ import de.invesdwin.util.error.Throwables;
 public final class JavasciScriptTaskRunnerMatlab
         implements IScriptTaskRunnerMatlab, FactoryBean<JavasciScriptTaskRunnerMatlab> {
 
-    public static final String INTERNAL_RESULT_VARIABLE = JavasciScriptTaskRunnerMatlab.class.getSimpleName()
-            + "_result";
+    public static final String INTERNAL_RESULT_VARIABLE = "JSTRM_result";
 
     public static final JavasciScriptTaskRunnerMatlab INSTANCE = new JavasciScriptTaskRunnerMatlab();
 
@@ -30,15 +30,11 @@ public final class JavasciScriptTaskRunnerMatlab
     private static final ReentrantLock SCILAB_LOCK;
 
     static {
-        DynamicInstrumentationReflections.addPathToJavaLibraryPath(JavasciProperties.JAVASCI_LIBRARY_PATH);
+        for (final String path : JavasciProperties.JAVASCI_LIBRARY_PATHS) {
+            DynamicInstrumentationReflections.addPathToJavaLibraryPath(new File(path));
+        }
         try {
-            final String sciPath;
-            if (JavasciProperties.SCILAB_PATH != null) {
-                sciPath = JavasciProperties.SCILAB_PATH.getAbsolutePath();
-            } else {
-                sciPath = null;
-            }
-            SCILAB = new Scilab(sciPath, false);
+            SCILAB = new Scilab(JavasciProperties.SCILAB_PATH, false);
             SCILAB.open();
         } catch (final Exception e) {
             throw Err.process(e);
