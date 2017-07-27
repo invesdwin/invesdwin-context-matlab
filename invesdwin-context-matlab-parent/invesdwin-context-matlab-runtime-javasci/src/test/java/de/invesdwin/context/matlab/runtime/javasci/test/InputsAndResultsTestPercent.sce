@@ -3,7 +3,7 @@ if exists('getPercent') then
 	error('getPercent already defined!')
 end
 getPercent = putPercent
-disp(class(getPercent))
+disp(typeof(getPercent))
 disp(getPercent)
 if ~isa(getPercent, 'double') then
 	error('getPercent not double!')
@@ -14,7 +14,7 @@ if exists('getPercentVector') then
 	error('getPercentVector already defined!')
 end
 getPercentVector = putPercentVector
-disp(class(getPercentVector))
+disp(typeof(getPercentVector))
 disp(getPercentVector)
 if ~isa(getPercentVector, 'double') then
 	error('getPercentVector not double!')
@@ -25,7 +25,7 @@ if exists('getPercentVectorAsList') then
 	error('getPercentVectorAsList already defined!')
 end
 getPercentVectorAsList = putPercentVectorAsList
-disp(class(getPercentVectorAsList))
+disp(typeof(getPercentVectorAsList))
 disp(getPercentVectorAsList)
 if ~isa(getPercentVectorAsList, 'double') then
 	error('getPercentVectorAsList not double!')
@@ -36,7 +36,7 @@ if exists('getPercentMatrix') then
 	error('getPercentMatrix already defined!')
 end
 getPercentMatrix = putPercentMatrix
-disp(class(getPercentMatrix))
+disp(typeof(getPercentMatrix))
 disp(getPercentMatrix)
 if ~isa(getPercentMatrix, 'double') then
 	error('getPercentMatrix not double!')
@@ -47,7 +47,7 @@ if exists('getPercentMatrixAsList') then
 	error('getPercentMatrixAsList already defined!')
 end
 getPercentMatrixAsList = putPercentMatrixAsList
-disp(class(getPercentMatrixAsList))
+disp(typeof(getPercentMatrixAsList))
 disp(getPercentMatrixAsList)
 if ~isa(getPercentMatrixAsList, 'double') then
 	error('getPercentMatrixAsList not double!')

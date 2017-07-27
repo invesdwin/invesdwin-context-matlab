@@ -3,7 +3,7 @@ if exists('getBoolean') then
 	error('getBoolean already defined!')
 end
 getBoolean = putBoolean
-disp(class(getBoolean))
+disp(typeof(getBoolean))
 disp(getBoolean)
 if ~isa(getBoolean, 'logical') then
 	error('getBoolean not logical!')
@@ -14,7 +14,7 @@ if exists('getBooleanVector') then
 	error('getBooleanVector already defined!')
 end
 getBooleanVector = putBooleanVector
-disp(class(getBooleanVector))
+disp(typeof(getBooleanVector))
 disp(getBooleanVector)
 if ~isa(getBooleanVector, 'logical') then
 	error('getBooleanVector not logical!')
@@ -25,7 +25,7 @@ if exists('getBooleanVectorAsList') then
 	error('getBooleanVectorAsList already defined!')
 end
 getBooleanVectorAsList = putBooleanVectorAsList
-disp(class(getBooleanVectorAsList))
+disp(typeof(getBooleanVectorAsList))
 disp(getBooleanVectorAsList)
 if ~isa(getBooleanVectorAsList, 'logical') then
 	error('getBooleanVectorAsList not logical!')
@@ -36,7 +36,7 @@ if exists('getBooleanMatrix') then
 	error('getBooleanMatrix already defined!')
 end
 getBooleanMatrix = putBooleanMatrix
-disp(class(getBooleanMatrix))
+disp(typeof(getBooleanMatrix))
 disp(getBooleanMatrix)
 if ~isa(getBooleanMatrix, 'logical') then
 	error('getBooleanMatrix not logical!')
@@ -47,7 +47,7 @@ if exists('getBooleanMatrixAsList') then
 	error('getBooleanMatrixAsList already defined!')
 end
 getBooleanMatrixAsList = putBooleanMatrixAsList
-disp(class(getBooleanMatrixAsList))
+disp(typeof(getBooleanMatrixAsList))
 disp(getBooleanMatrixAsList)
 if ~isa(getBooleanMatrixAsList, 'logical') then
 	error('getBooleanMatrixAsList not logical!')

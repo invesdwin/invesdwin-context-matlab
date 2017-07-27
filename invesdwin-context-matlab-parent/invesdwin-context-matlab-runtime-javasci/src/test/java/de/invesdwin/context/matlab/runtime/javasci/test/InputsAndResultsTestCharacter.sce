@@ -3,7 +3,7 @@ if exists('getCharacter') then
 	error('getCharacter already defined!')
 end
 getCharacter = putCharacter
-disp(class(getCharacter))
+disp(typeof(getCharacter))
 disp(getCharacter)
 if ~isa(getCharacter, 'char') then
 	error('getCharacter not char!')
@@ -14,7 +14,7 @@ if exists('getCharacterVector') then
 	error('getCharacterVector already defined!')
 end
 getCharacterVector = putCharacterVector
-disp(class(getCharacterVector))
+disp(typeof(getCharacterVector))
 disp(getCharacterVector)
 if ~isa(getCharacterVector, 'cell') then
 	error('getCharacterVector not cell!')
@@ -25,7 +25,7 @@ if exists('getCharacterVectorAsList') then
 	error('getCharacterVectorAsList already defined!')
 end
 getCharacterVectorAsList = putCharacterVectorAsList
-disp(class(getCharacterVectorAsList))
+disp(typeof(getCharacterVectorAsList))
 disp(getCharacterVectorAsList)
 if ~isa(getCharacterVectorAsList, 'cell') then
 	error('getCharacterVectorAsList not cell!')
@@ -36,7 +36,7 @@ if exists('getCharacterMatrix') then
 	error('getCharacterMatrix already defined!')
 end
 getCharacterMatrix = putCharacterMatrix
-disp(class(getCharacterMatrix))
+disp(typeof(getCharacterMatrix))
 disp(getCharacterMatrix)
 if ~isa(getCharacterMatrix, 'cell') then
 	error('getCharacterMatrix not cell!')
@@ -47,7 +47,7 @@ if exists('getCharacterMatrixAsList') then
 	error('getCharacterMatrixAsList already defined!')
 end
 getCharacterMatrixAsList = putCharacterMatrixAsList
-disp(class(getCharacterMatrixAsList))
+disp(typeof(getCharacterMatrixAsList))
 disp(getCharacterMatrixAsList)
 if ~isa(getCharacterMatrixAsList, 'cell') then
 	error('getCharacterMatrixAsList not cell!')

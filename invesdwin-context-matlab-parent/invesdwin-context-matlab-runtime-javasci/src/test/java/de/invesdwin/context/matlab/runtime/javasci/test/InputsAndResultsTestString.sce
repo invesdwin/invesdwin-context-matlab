@@ -3,7 +3,7 @@ if exists('getString') then
 	error('getString already defined!')
 end
 getString = putString
-disp(class(getString))
+disp(typeof(getString))
 disp(getString)
 if ~isa(getString, 'char') then
 	error('getString not char!')
@@ -14,7 +14,7 @@ if exists('getStringWithNull') then
 	error('getStringWithNull already defined!')
 end
 getStringWithNull = putStringWithNull
-disp(class(getStringWithNull))
+disp(typeof(getStringWithNull))
 disp(getStringWithNull)
 if ~isa(getStringWithNull, 'double') then
 	error('getStringWithNull not double!')
@@ -28,7 +28,7 @@ if exists('getStringVector') then
 	error('getStringVector already defined!')
 end
 getStringVector = putStringVector
-disp(class(getStringVector))
+disp(typeof(getStringVector))
 disp(getStringVector)
 if ~isa(getStringVector, 'cell') then
 	error('getStringVector not cell!')
@@ -40,7 +40,7 @@ if exists('getStringVectorWithNull') then
 	error('getStringVectorWithNull already defined!')
 end
 getStringVectorWithNull = putStringVectorWithNull
-disp(class(getStringVectorWithNull))
+disp(typeof(getStringVectorWithNull))
 disp(getStringVectorWithNull)
 if ~isa(getStringVectorWithNull, 'cell') then
 	error('getStringVectorWithNull not cell!')
@@ -54,7 +54,7 @@ if exists('getStringVectorAsList') then
 	error('getStringVectorAsList already defined!')
 end
 getStringVectorAsList = putStringVectorAsList
-disp(class(getStringVectorAsList))
+disp(typeof(getStringVectorAsList))
 disp(getStringVectorAsList)
 if ~isa(getStringVectorAsList, 'cell') then
 	error('getStringVectorAsList not cell!')
@@ -65,7 +65,7 @@ if exists('getStringVectorAsListWithNull') then
 	error('getStringVectorAsListWithNull already defined!')
 end
 getStringVectorAsListWithNull = putStringVectorAsListWithNull
-disp(class(getStringVectorAsListWithNull))
+disp(typeof(getStringVectorAsListWithNull))
 disp(getStringVectorAsListWithNull)
 if ~isa(getStringVectorAsListWithNull, 'cell') then
 	error('getStringVectorAsListWithNull not cell!')
@@ -79,7 +79,7 @@ if exists('getStringMatrix') then
 	error('getStringMatrix already defined!')
 end
 getStringMatrix = putStringMatrix
-disp(class(getStringMatrix))
+disp(typeof(getStringMatrix))
 disp(getStringMatrix)
 if ~isa(getStringMatrix, 'cell') then
 	error('getStringMatrix not cell!')
@@ -91,7 +91,7 @@ if exists('getStringMatrixWithNull') then
 	error('getStringMatrixWithNull already defined!')
 end
 getStringMatrixWithNull = putStringMatrixWithNull
-disp(class(getStringMatrixWithNull))
+disp(typeof(getStringMatrixWithNull))
 disp(getStringMatrixWithNull)
 if ~isa(getStringMatrixWithNull, 'cell') then
 	error('getStringMatrixWithNull not cell!')
@@ -111,7 +111,7 @@ if exists('getStringMatrixAsList') then
 	error('getStringMatrixAsList already defined!')
 end
 getStringMatrixAsList = putStringMatrixAsList
-disp(class(getStringMatrixAsList))
+disp(typeof(getStringMatrixAsList))
 disp(getStringMatrixAsList)
 if ~isa(getStringMatrixAsList, 'cell') then
 	error('getStringMatrixAsList not cell!')
@@ -122,7 +122,7 @@ if exists('getStringMatrixAsListWithNull') then
 	error('getStringMatrixAsListWithNull already defined!')
 end
 getStringMatrixAsListWithNull = putStringMatrixAsListWithNull
-disp(class(getStringMatrixAsListWithNull))
+disp(typeof(getStringMatrixAsListWithNull))
 disp(getStringMatrixAsListWithNull)
 if ~isa(getStringMatrixAsListWithNull, 'cell') then
 	error('getStringMatrixAsListWithNull not cell!')

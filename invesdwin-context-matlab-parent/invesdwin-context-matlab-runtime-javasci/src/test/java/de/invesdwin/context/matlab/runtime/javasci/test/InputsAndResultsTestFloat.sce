@@ -3,7 +3,7 @@ if exists('getFloat') then
 	error('getFloat already defined!')
 end
 getFloat = putFloat
-disp(class(getFloat))
+disp(typeof(getFloat))
 disp(getFloat)
 if ~isa(getFloat, 'single') then
 	error('getFloat not single!')
@@ -14,7 +14,7 @@ if exists('getFloatVector') then
 	error('getFloatVector already defined!')
 end
 getFloatVector = putFloatVector
-disp(class(getFloatVector))
+disp(typeof(getFloatVector))
 disp(getFloatVector)
 if ~isa(getFloatVector, 'single') then
 	error('getFloatVector not single!')
@@ -25,7 +25,7 @@ if exists('getFloatVectorAsList') then
 	error('getFloatVectorAsList already defined!')
 end
 getFloatVectorAsList = putFloatVectorAsList
-disp(class(getFloatVectorAsList))
+disp(typeof(getFloatVectorAsList))
 disp(getFloatVectorAsList)
 if ~isa(getFloatVectorAsList, 'single') then
 	error('getFloatVectorAsList not single!')
@@ -36,7 +36,7 @@ if exists('getFloatMatrix') then
 	error('getFloatMatrix already defined!')
 end
 getFloatMatrix = putFloatMatrix
-disp(class(getFloatMatrix))
+disp(typeof(getFloatMatrix))
 disp(getFloatMatrix)
 if ~isa(getFloatMatrix, 'single') then
 	error('getFloatMatrix not single!')
@@ -47,7 +47,7 @@ if exists('getFloatMatrixAsList') then
 	error('getFloatMatrixAsList already defined!')
 end
 getFloatMatrixAsList = putFloatMatrixAsList
-disp(class(getFloatMatrixAsList))
+disp(typeof(getFloatMatrixAsList))
 disp(getFloatMatrixAsList)
 if ~isa(getFloatMatrixAsList, 'single') then
 	error('getFloatMatrixAsList not single!')

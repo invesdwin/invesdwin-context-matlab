@@ -3,7 +3,7 @@ if exists('getInteger') then
 	error('getInteger already defined!')
 end
 getInteger = putInteger
-disp(class(getInteger))
+disp(typeof(getInteger))
 disp(getInteger)
 if ~isa(getInteger, 'int32') then
 	error('getInteger not int32!')
@@ -14,7 +14,7 @@ if exists('getIntegerVector') then
 	error('getIntegerVector already defined!')
 end
 getIntegerVector = putIntegerVector
-disp(class(getIntegerVector))
+disp(typeof(getIntegerVector))
 disp(getIntegerVector)
 if ~isa(getIntegerVector, 'int32') then
 	error('getIntegerVector not int32!')
@@ -25,7 +25,7 @@ if exists('getIntegerVectorAsList') then
 	error('getIntegerVectorAsList already defined!')
 end
 getIntegerVectorAsList = putIntegerVectorAsList
-disp(class(getIntegerVectorAsList))
+disp(typeof(getIntegerVectorAsList))
 disp(getIntegerVectorAsList)
 if ~isa(getIntegerVectorAsList, 'int32') then
 	error('getIntegerVectorAsList not int32!')
@@ -36,7 +36,7 @@ if exists('getIntegerMatrix') then
 	error('getIntegerMatrix already defined!')
 end
 getIntegerMatrix = putIntegerMatrix
-disp(class(getIntegerMatrix))
+disp(typeof(getIntegerMatrix))
 disp(getIntegerMatrix)
 if ~isa(getIntegerMatrix, 'int32') then
 	error('getIntegerMatrix not int32!')
@@ -47,7 +47,7 @@ if exists('getIntegerMatrixAsList') then
 	error('getIntegerMatrixAsList already defined!')
 end
 getIntegerMatrixAsList = putIntegerMatrixAsList
-disp(class(getIntegerMatrixAsList))
+disp(typeof(getIntegerMatrixAsList))
 disp(getIntegerMatrixAsList)
 if ~isa(getIntegerMatrixAsList, 'int32') then
 	error('getIntegerMatrixAsList not int32!')

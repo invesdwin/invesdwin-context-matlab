@@ -3,7 +3,7 @@ if exists('getDecimal') then
 	error('getDecimal already defined!')
 end
 getDecimal = putDecimal
-disp(class(getDecimal))
+disp(typeof(getDecimal))
 disp(getDecimal)
 if ~isa(getDecimal, 'double') then
 	error('getDecimal not double!')
@@ -14,7 +14,7 @@ if exists('getDecimalVector') then
 	error('getDecimalVector already defined!')
 end
 getDecimalVector = putDecimalVector
-disp(class(getDecimalVector))
+disp(typeof(getDecimalVector))
 disp(getDecimalVector)
 if ~isa(getDecimalVector, 'double') then
 	error('getDecimalVector not double!')
@@ -25,7 +25,7 @@ if exists('getDecimalVectorAsList') then
 	error('getDecimalVectorAsList already defined!')
 end
 getDecimalVectorAsList = putDecimalVectorAsList
-disp(class(getDecimalVectorAsList))
+disp(typeof(getDecimalVectorAsList))
 disp(getDecimalVectorAsList)
 if ~isa(getDecimalVectorAsList, 'double') then
 	error('getDecimalVectorAsList not double!')
@@ -36,7 +36,7 @@ if exists('getDecimalMatrix') then
 	error('getDecimalMatrix already defined!')
 end
 getDecimalMatrix = putDecimalMatrix
-disp(class(getDecimalMatrix))
+disp(typeof(getDecimalMatrix))
 disp(getDecimalMatrix)
 if ~isa(getDecimalMatrix, 'double') then
 	error('getDecimalMatrix not double!')
@@ -47,7 +47,7 @@ if exists('getDecimalMatrixAsList') then
 	error('getDecimalMatrixAsList already defined!')
 end
 getDecimalMatrixAsList = putDecimalMatrixAsList
-disp(class(getDecimalMatrixAsList))
+disp(typeof(getDecimalMatrixAsList))
 disp(getDecimalMatrixAsList)
 if ~isa(getDecimalMatrixAsList, 'double') then
 	error('getDecimalMatrixAsList not double!')
