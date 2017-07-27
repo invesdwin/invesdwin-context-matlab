@@ -6,11 +6,10 @@ import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.Immutable;
 import javax.inject.Named;
 
-import org.scilab.modules.javasci.JavasciException;
-import org.scilab.modules.javasci.JavasciException.InitializationException;
 import org.scilab.modules.javasci.Scilab;
 import org.springframework.beans.factory.FactoryBean;
 
+import de.invesdwin.context.log.error.Err;
 import de.invesdwin.context.matlab.runtime.contract.AScriptTaskMatlab;
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskRunnerMatlab;
 import de.invesdwin.instrument.DynamicInstrumentationReflections;
@@ -33,12 +32,16 @@ public final class JavasciScriptTaskRunnerMatlab
     static {
         DynamicInstrumentationReflections.addPathToJavaLibraryPath(JavasciProperties.JAVASCI_LIBRARY_PATH);
         try {
-            SCILAB = new Scilab();
+            final String sciPath;
+            if (JavasciProperties.SCILAB_PATH != null) {
+                sciPath = JavasciProperties.SCILAB_PATH.getAbsolutePath();
+            } else {
+                sciPath = null;
+            }
+            SCILAB = new Scilab(sciPath, false);
             SCILAB.open();
-        } catch (final InitializationException e) {
-            throw new RuntimeException(e);
-        } catch (final JavasciException e) {
-            throw new RuntimeException(e);
+        } catch (final Exception e) {
+            throw Err.process(e);
         }
         SCILAB_LOCK = new ReentrantLock();
     }
