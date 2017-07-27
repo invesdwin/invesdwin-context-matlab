@@ -84,7 +84,7 @@ public class InputsAndResultsTestNullPutGet {
 
             @Override
             public void executeScript(final IScriptTaskEngine engine) {
-                engine.eval(new ClassPathResource(InputsAndResultsTestNullPutGet.class.getSimpleName() + ".m",
+                engine.eval(new ClassPathResource(InputsAndResultsTestNullPutGet.class.getSimpleName() + ".sce",
                         InputsAndResultsTestNull.class));
             }
 

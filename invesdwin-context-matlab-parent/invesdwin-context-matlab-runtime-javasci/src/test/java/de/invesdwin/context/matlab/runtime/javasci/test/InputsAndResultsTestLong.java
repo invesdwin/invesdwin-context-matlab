@@ -71,7 +71,7 @@ public class InputsAndResultsTestLong {
 
             @Override
             public void executeScript(final IScriptTaskEngine engine) {
-                engine.eval(new ClassPathResource(InputsAndResultsTestLong.class.getSimpleName() + ".m",
+                engine.eval(new ClassPathResource(InputsAndResultsTestLong.class.getSimpleName() + ".sce",
                         InputsAndResultsTestLong.class));
             }
 

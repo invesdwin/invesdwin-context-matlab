@@ -147,7 +147,7 @@ public class InputsAndResultsTestEmptyMatrixValue {
             public void executeScript(final IScriptTaskEngine engine) {
                 try {
                     final String script = IOUtils.toString(
-                            new ClassPathResource(InputsAndResultsTestEmptyMatrixValue.class.getSimpleName() + ".m",
+                            new ClassPathResource(InputsAndResultsTestEmptyMatrixValue.class.getSimpleName() + ".sce",
                                     InputsAndResultsTestNull.class).getInputStream(),
                             Charset.defaultCharset());
                     if (!engine.getResults().getBoolean("exist('OCTAVE_VERSION', 'builtin') > 0")) {

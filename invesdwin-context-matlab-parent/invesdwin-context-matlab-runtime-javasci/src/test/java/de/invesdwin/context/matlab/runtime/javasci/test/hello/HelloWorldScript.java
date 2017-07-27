@@ -34,7 +34,7 @@ public class HelloWorldScript extends ATest {
                 //execute this script inline:
                 //                engine.eval("world = strcat('Hello ', hello, '!')");
                 //or run it from a file:
-                engine.eval(new ClassPathResource(HelloWorldScript.class.getSimpleName() + ".m", getClass()));
+                engine.eval(new ClassPathResource(HelloWorldScript.class.getSimpleName() + ".sce", getClass()));
             }
 
             @Override

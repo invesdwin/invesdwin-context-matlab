@@ -71,7 +71,7 @@ public class InputsAndResultsTestInteger {
 
             @Override
             public void executeScript(final IScriptTaskEngine engine) {
-                engine.eval(new ClassPathResource(InputsAndResultsTestInteger.class.getSimpleName() + ".m",
+                engine.eval(new ClassPathResource(InputsAndResultsTestInteger.class.getSimpleName() + ".sce",
                         InputsAndResultsTestInteger.class));
             }
 

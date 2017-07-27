@@ -73,7 +73,7 @@ public class InputsAndResultsTestPercent {
 
             @Override
             public void executeScript(final IScriptTaskEngine engine) {
-                engine.eval(new ClassPathResource(InputsAndResultsTestPercent.class.getSimpleName() + ".m",
+                engine.eval(new ClassPathResource(InputsAndResultsTestPercent.class.getSimpleName() + ".sce",
                         InputsAndResultsTestPercent.class));
             }
 

@@ -71,7 +71,7 @@ public class InputsAndResultsTestDecimal {
 
             @Override
             public void executeScript(final IScriptTaskEngine engine) {
-                engine.eval(new ClassPathResource(InputsAndResultsTestDecimal.class.getSimpleName() + ".m",
+                engine.eval(new ClassPathResource(InputsAndResultsTestDecimal.class.getSimpleName() + ".sce",
                         InputsAndResultsTestDecimal.class));
             }
 
