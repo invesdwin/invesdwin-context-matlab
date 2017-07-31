@@ -21,7 +21,7 @@ import de.invesdwin.util.error.Throwables;
 public final class JavasciScriptTaskRunnerMatlab
         implements IScriptTaskRunnerMatlab, FactoryBean<JavasciScriptTaskRunnerMatlab> {
 
-    public static final String CLEANUP_SCRIPT = "clear all; clc";
+    public static final String CLEANUP_SCRIPT = "clear; clc";
     public static final String INTERNAL_RESULT_VARIABLE = "JSTRM_result";
 
     public static final JavasciScriptTaskRunnerMatlab INSTANCE = new JavasciScriptTaskRunnerMatlab();
