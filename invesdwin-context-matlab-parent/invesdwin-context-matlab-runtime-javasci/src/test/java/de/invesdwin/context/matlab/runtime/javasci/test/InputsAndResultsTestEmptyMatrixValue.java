@@ -1,12 +1,9 @@
 package de.invesdwin.context.matlab.runtime.javasci.test;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.List;
 
 import javax.annotation.concurrent.NotThreadSafe;
 
-import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.ClassPathResource;
 
 import de.invesdwin.context.integration.script.IScriptTaskEngine;
@@ -145,67 +142,54 @@ public class InputsAndResultsTestEmptyMatrixValue {
 
             @Override
             public void executeScript(final IScriptTaskEngine engine) {
-                try {
-                    final String script = IOUtils.toString(
-                            new ClassPathResource(InputsAndResultsTestEmptyMatrixValue.class.getSimpleName() + ".sce",
-                                    InputsAndResultsTestNull.class).getInputStream(),
-                            Charset.defaultCharset());
-                    if (!engine.getResults().getBoolean("exist('OCTAVE_VERSION', 'builtin') > 0")) {
-                        //workaround for matlab and isempty not counting empty cells there
-                        final StringBuilder sb = new StringBuilder();
-                        //we can actually create functions in scripts without separate files: http://de.mathworks.com/help/matlab/matlab_prog/anonymous-functions.html
-                        sb.append("ismatlabempty = @(x) all(cellfun(@isempty, x));\n");
-                        sb.append("\n");
-                        sb.append(script.replace("isempty", "ismatlabempty"));
-                        engine.eval(sb.toString());
-                    } else {
-                        engine.eval(script);
-                    }
-                } catch (final IOException e) {
-                    throw new RuntimeException(e);
-                }
+                engine.eval(new ClassPathResource(InputsAndResultsTestEmptyMatrixValue.class.getSimpleName() + ".sce",
+                        InputsAndResultsTestNull.class));
             }
 
             @Override
             public Void extractResults(final IScriptTaskResults results) {
-                Assertions.checkEquals(putBooleanMatrix, results.getBooleanMatrix("getBooleanMatrix"));
-                Assertions.checkEquals(putBooleanMatrixAsList,
+                Assertions.checkEquals(putBooleanMatrix[0], results.getBooleanMatrix("getBooleanMatrix"));
+                Assertions.checkEquals(putBooleanMatrixAsList.get(0),
                         results.getBooleanMatrixAsList("getBooleanMatrixAsList"));
 
-                Assertions.checkEquals(putByteMatrix, results.getByteMatrix("getByteMatrix"));
-                Assertions.checkEquals(putByteMatrixAsList, results.getByteMatrixAsList("getByteMatrixAsList"));
+                Assertions.checkEquals(putByteMatrix[0], results.getByteMatrix("getByteMatrix"));
+                Assertions.checkEquals(putByteMatrixAsList.get(0), results.getByteMatrixAsList("getByteMatrixAsList"));
 
-                Assertions.checkEquals(putCharacterMatrix, results.getCharacterMatrix("getCharacterMatrix"));
-                Assertions.checkEquals(putCharacterMatrixAsList,
+                Assertions.checkEquals(putCharacterMatrix[0], results.getCharacterMatrix("getCharacterMatrix"));
+                Assertions.checkEquals(putCharacterMatrixAsList.get(0),
                         results.getCharacterMatrixAsList("getCharacterMatrixAsList"));
 
-                Assertions.checkEquals(putDecimalMatrix, results.getDecimalMatrix("getDecimalMatrix"));
-                Assertions.checkEquals(putDecimalMatrixAsList,
+                Assertions.checkEquals(putDecimalMatrix[0], results.getDecimalMatrix("getDecimalMatrix"));
+                Assertions.checkEquals(putDecimalMatrixAsList.get(0),
                         results.getDecimalMatrixAsList("getDecimalMatrixAsList"));
 
-                Assertions.checkEquals(putDoubleMatrix, results.getDoubleMatrix("getDoubleMatrix"));
-                Assertions.checkEquals(putDoubleMatrixAsList, results.getDoubleMatrixAsList("getDoubleMatrixAsList"));
+                Assertions.checkEquals(putDoubleMatrix[0], results.getDoubleMatrix("getDoubleMatrix"));
+                Assertions.checkEquals(putDoubleMatrixAsList.get(0),
+                        results.getDoubleMatrixAsList("getDoubleMatrixAsList"));
 
-                Assertions.checkEquals(putFloatMatrix, results.getFloatMatrix("getFloatMatrix"));
-                Assertions.checkEquals(putFloatMatrixAsList, results.getFloatMatrixAsList("getFloatMatrixAsList"));
+                Assertions.checkEquals(putFloatMatrix[0], results.getFloatMatrix("getFloatMatrix"));
+                Assertions.checkEquals(putFloatMatrixAsList.get(0),
+                        results.getFloatMatrixAsList("getFloatMatrixAsList"));
 
-                Assertions.checkEquals(putIntegerMatrix, results.getIntegerMatrix("getIntegerMatrix"));
-                Assertions.checkEquals(putIntegerMatrixAsList,
+                Assertions.checkEquals(putIntegerMatrix[0], results.getIntegerMatrix("getIntegerMatrix"));
+                Assertions.checkEquals(putIntegerMatrixAsList.get(0),
                         results.getIntegerMatrixAsList("getIntegerMatrixAsList"));
 
-                Assertions.checkEquals(putLongMatrix, results.getLongMatrix("getLongMatrix"));
-                Assertions.checkEquals(putLongMatrixAsList, results.getLongMatrixAsList("getLongMatrixAsList"));
+                Assertions.checkEquals(putLongMatrix[0], results.getLongMatrix("getLongMatrix"));
+                Assertions.checkEquals(putLongMatrixAsList.get(0), results.getLongMatrixAsList("getLongMatrixAsList"));
 
-                Assertions.checkEquals(putPercentMatrix,
+                Assertions.checkEquals(putPercentMatrix[0],
                         results.getDecimalMatrix("getPercentMatrix", Percent.ZERO_PERCENT));
-                Assertions.checkEquals(putPercentMatrixAsList,
+                Assertions.checkEquals(putPercentMatrixAsList.get(0),
                         results.getDecimalMatrixAsList("getPercentMatrixAsList", Percent.ZERO_PERCENT));
 
-                Assertions.checkEquals(putShortMatrix, results.getShortMatrix("getShortMatrix"));
-                Assertions.checkEquals(putShortMatrixAsList, results.getShortMatrixAsList("getShortMatrixAsList"));
+                Assertions.checkEquals(putShortMatrix[0], results.getShortMatrix("getShortMatrix"));
+                Assertions.checkEquals(putShortMatrixAsList.get(0),
+                        results.getShortMatrixAsList("getShortMatrixAsList"));
 
-                Assertions.checkEquals(putStringMatrix, results.getStringMatrix("getStringMatrix"));
-                Assertions.checkEquals(putStringMatrixAsList, results.getStringMatrixAsList("getStringMatrixAsList"));
+                Assertions.checkEquals(putStringMatrix[0], results.getStringMatrix("getStringMatrix"));
+                Assertions.checkEquals(putStringMatrixAsList.get(0),
+                        results.getStringMatrixAsList("getStringMatrixAsList"));
                 return null;
             }
         }.run(runner);

@@ -79,6 +79,9 @@ public class JavasciScriptTaskInputsMatlab implements IScriptTaskInputsMatlab {
             putNull(variable);
         } else if (value.length == 0) {
             putEmpty(variable);
+        } else if (value[0].length == 0) {
+            //empty string matrix is not really empty in scilab, so we use empty double matrix instead
+            putDoubleMatrix(variable, Doubles.checkedCastMatrix(value));
         } else {
             final ScilabString matrix = new ScilabString(Objects.deepClone(value));
             replaceNullWithEmpty(matrix);
@@ -291,33 +294,17 @@ public class JavasciScriptTaskInputsMatlab implements IScriptTaskInputsMatlab {
 
     @Override
     public void putLong(final String variable, final long value) {
-        put(variable, new ScilabInteger(value));
+        putDouble(variable, value);
     }
 
     @Override
     public void putLongVector(final String variable, final long[] value) {
-        if (value == null) {
-            putNull(variable);
-        } else if (value.length == 0) {
-            putEmpty(variable);
-        } else {
-            final long[][] matrix = new long[1][];
-            matrix[0] = value;
-            final ScilabInteger vector = new ScilabInteger(matrix, false);
-            put(variable, vector);
-        }
+        putDoubleVector(variable, Doubles.checkedCastVector(value));
     }
 
     @Override
     public void putLongMatrix(final String variable, final long[][] value) {
-        if (value == null) {
-            putNull(variable);
-        } else if (value.length == 0) {
-            putEmpty(variable);
-        } else {
-            final ScilabInteger matrix = new ScilabInteger(value, false);
-            put(variable, matrix);
-        }
+        putDoubleMatrix(variable, Doubles.checkedCastMatrix(value));
     }
 
     @Override
