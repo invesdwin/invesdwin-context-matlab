@@ -5,7 +5,7 @@ end
 getLong = putLong
 disp(typeof(getLong))
 disp(getLong)
-if ~isa(getLong, 'int64') then
+if ~typeof(getLong)=="int64" then
 	error('getLong not int64!')
 end
 
@@ -16,7 +16,7 @@ end
 getLongVector = putLongVector
 disp(typeof(getLongVector))
 disp(getLongVector)
-if ~isa(getLongVector, 'int64') then
+if ~typeof(getLongVector)=="int64" then
 	error('getLongVector not int64!')
 end
 
@@ -27,7 +27,7 @@ end
 getLongVectorAsList = putLongVectorAsList
 disp(typeof(getLongVectorAsList))
 disp(getLongVectorAsList)
-if ~isa(getLongVectorAsList, 'int64') then
+if ~typeof(getLongVectorAsList)=="int64" then
 	error('getLongVectorAsList not int64!')
 end
 
@@ -38,7 +38,7 @@ end
 getLongMatrix = putLongMatrix
 disp(typeof(getLongMatrix))
 disp(getLongMatrix)
-if ~isa(getLongMatrix, 'int64') then
+if ~typeof(getLongMatrix)=="int64" then
 	error('getLongMatrix not int64!')
 end
 
@@ -49,6 +49,6 @@ end
 getLongMatrixAsList = putLongMatrixAsList
 disp(typeof(getLongMatrixAsList))
 disp(getLongMatrixAsList)
-if ~isa(getLongMatrixAsList, 'int64') then
+if ~typeof(getLongMatrixAsList)=="int64" then
 	error('getLongMatrixAsList not int64!')
 end

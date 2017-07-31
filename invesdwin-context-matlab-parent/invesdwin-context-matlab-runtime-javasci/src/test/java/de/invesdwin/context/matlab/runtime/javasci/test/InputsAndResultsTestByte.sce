@@ -5,7 +5,7 @@ end
 getByte = putByte
 disp(typeof(getByte))
 disp(getByte)
-if ~isa(getByte, 'int8') then
+if ~typeof(getByte)=='int8' then
 	error('getByte not int8!')
 end
 
@@ -16,7 +16,7 @@ end
 getByteVector = putByteVector
 disp(typeof(getByteVector))
 disp(getByteVector)
-if ~isa(getByteVector, 'int8') then
+if ~typeof(getByteVector)=='int8' then
 	error('getByteVector not int8!')
 end
 
@@ -27,7 +27,7 @@ end
 getByteVectorAsList = putByteVectorAsList
 disp(typeof(getByteVectorAsList))
 disp(getByteVectorAsList)
-if ~isa(getByteVectorAsList, 'int8') then
+if ~typeof(getByteVectorAsList)=='int8' then
 	error('getByteVectorAsList not int8!')
 end
 
@@ -38,7 +38,7 @@ end
 getByteMatrix = putByteMatrix
 disp(typeof(getByteMatrix))
 disp(getByteMatrix)
-if ~isa(getByteMatrix, 'int8') then
+if ~typeof(getByteMatrix)=='int8' then
 	error('getByteMatrix not int8!')
 end
 
@@ -49,6 +49,6 @@ end
 getByteMatrixAsList = putByteMatrixAsList
 disp(typeof(getByteMatrixAsList))
 disp(getByteMatrixAsList)
-if ~isa(getByteMatrixAsList, 'int8') then
+if ~typeof(getByteMatrixAsList)=='int8' then
 	error('getByteMatrixAsList not int8!')
 end

@@ -11,6 +11,7 @@ import org.scilab.modules.types.ScilabString;
 import org.scilab.modules.types.ScilabType;
 
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskInputsMatlab;
+import de.invesdwin.util.lang.Objects;
 import de.invesdwin.util.lang.Strings;
 import de.invesdwin.util.math.Doubles;
 
@@ -57,7 +58,18 @@ public class JavasciScriptTaskInputsMatlab implements IScriptTaskInputsMatlab {
             putEmpty(variable);
         } else {
             final ScilabString vector = new ScilabString(value);
+            replaceNullWithEmpty(vector);
             put(variable, vector);
+        }
+    }
+
+    private void replaceNullWithEmpty(final ScilabString str) {
+        for (final String[] v : str.getData()) {
+            for (int i = 0; i < v.length; i++) {
+                if (v[i] == null) {
+                    v[i] = "";
+                }
+            }
         }
     }
 
@@ -68,7 +80,8 @@ public class JavasciScriptTaskInputsMatlab implements IScriptTaskInputsMatlab {
         } else if (value.length == 0) {
             putEmpty(variable);
         } else {
-            final ScilabString matrix = new ScilabString(value);
+            final ScilabString matrix = new ScilabString(Objects.deepClone(value));
+            replaceNullWithEmpty(matrix);
             put(variable, matrix);
         }
     }
@@ -219,7 +232,6 @@ public class JavasciScriptTaskInputsMatlab implements IScriptTaskInputsMatlab {
     @Override
     public void putFloat(final String variable, final float value) {
         putDouble(variable, value);
-        putExpression(variable, "single(" + variable + ")");
     }
 
     @Override
@@ -231,7 +243,6 @@ public class JavasciScriptTaskInputsMatlab implements IScriptTaskInputsMatlab {
         } else {
             final double[] doubleValue = Doubles.checkedCastVector(value);
             putDoubleVector(variable, doubleValue);
-            putExpression(variable, "single(" + variable + ")");
         }
     }
 
@@ -244,7 +255,6 @@ public class JavasciScriptTaskInputsMatlab implements IScriptTaskInputsMatlab {
         } else {
             final double[][] doubleValue = Doubles.checkedCastMatrix(value);
             putDoubleMatrix(variable, doubleValue);
-            putExpression(variable, "single(" + variable + ")");
         }
     }
 

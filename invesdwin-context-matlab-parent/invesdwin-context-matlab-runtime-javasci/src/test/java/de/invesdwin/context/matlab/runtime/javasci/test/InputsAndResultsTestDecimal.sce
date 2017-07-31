@@ -5,7 +5,7 @@ end
 getDecimal = putDecimal
 disp(typeof(getDecimal))
 disp(getDecimal)
-if ~isa(getDecimal, 'double') then
+if ~type(getDecimal)==1 then
 	error('getDecimal not double!')
 end
 
@@ -16,7 +16,7 @@ end
 getDecimalVector = putDecimalVector
 disp(typeof(getDecimalVector))
 disp(getDecimalVector)
-if ~isa(getDecimalVector, 'double') then
+if ~type(getDecimalVector)==1 then
 	error('getDecimalVector not double!')
 end
 
@@ -27,7 +27,7 @@ end
 getDecimalVectorAsList = putDecimalVectorAsList
 disp(typeof(getDecimalVectorAsList))
 disp(getDecimalVectorAsList)
-if ~isa(getDecimalVectorAsList, 'double') then
+if ~type(getDecimalVectorAsList)==1 then
 	error('getDecimalVectorAsList not double!')
 end
 
@@ -38,7 +38,7 @@ end
 getDecimalMatrix = putDecimalMatrix
 disp(typeof(getDecimalMatrix))
 disp(getDecimalMatrix)
-if ~isa(getDecimalMatrix, 'double') then
+if ~type(getDecimalMatrix)==1 then
 	error('getDecimalMatrix not double!')
 end
 
@@ -49,6 +49,6 @@ end
 getDecimalMatrixAsList = putDecimalMatrixAsList
 disp(typeof(getDecimalMatrixAsList))
 disp(getDecimalMatrixAsList)
-if ~isa(getDecimalMatrixAsList, 'double') then
+if ~type(getDecimalMatrixAsList)==1 then
 	error('getDecimalMatrixAsList not double!')
 end

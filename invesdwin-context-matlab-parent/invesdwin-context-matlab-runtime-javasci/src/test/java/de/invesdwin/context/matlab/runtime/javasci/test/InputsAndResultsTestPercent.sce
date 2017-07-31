@@ -5,7 +5,7 @@ end
 getPercent = putPercent
 disp(typeof(getPercent))
 disp(getPercent)
-if ~isa(getPercent, 'double') then
+if ~type(getPercent)==1 then
 	error('getPercent not double!')
 end
 
@@ -16,7 +16,7 @@ end
 getPercentVector = putPercentVector
 disp(typeof(getPercentVector))
 disp(getPercentVector)
-if ~isa(getPercentVector, 'double') then
+if ~type(getPercentVector)==1 then
 	error('getPercentVector not double!')
 end
 
@@ -27,7 +27,7 @@ end
 getPercentVectorAsList = putPercentVectorAsList
 disp(typeof(getPercentVectorAsList))
 disp(getPercentVectorAsList)
-if ~isa(getPercentVectorAsList, 'double') then
+if ~type(getPercentVectorAsList)==1 then
 	error('getPercentVectorAsList not double!')
 end
 
@@ -38,7 +38,7 @@ end
 getPercentMatrix = putPercentMatrix
 disp(typeof(getPercentMatrix))
 disp(getPercentMatrix)
-if ~isa(getPercentMatrix, 'double') then
+if ~type(getPercentMatrix)==1 then
 	error('getPercentMatrix not double!')
 end
 
@@ -49,6 +49,6 @@ end
 getPercentMatrixAsList = putPercentMatrixAsList
 disp(typeof(getPercentMatrixAsList))
 disp(getPercentMatrixAsList)
-if ~isa(getPercentMatrixAsList, 'double') then
+if ~type(getPercentMatrixAsList)==1 then
 	error('getPercentMatrixAsList not double!')
 end

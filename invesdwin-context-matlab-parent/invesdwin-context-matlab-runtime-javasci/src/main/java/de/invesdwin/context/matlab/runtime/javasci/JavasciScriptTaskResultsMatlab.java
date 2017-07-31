@@ -69,9 +69,20 @@ public class JavasciScriptTaskResultsMatlab implements IScriptTaskResultsMatlab 
             return cObj.getRawData();
         } else if (obj instanceof ScilabString) {
             final ScilabString cObj = (ScilabString) obj;
+            replaceEmptyWithNull(cObj);
             return cObj.getData();
         } else {
             throw UnknownArgumentException.newInstance(ScilabType.class, obj);
+        }
+    }
+
+    private void replaceEmptyWithNull(final ScilabString str) {
+        for (final String[] v : str.getData()) {
+            for (int i = 0; i < v.length; i++) {
+                if (Strings.isEmpty(v[i])) {
+                    v[i] = null;
+                }
+            }
         }
     }
 
@@ -361,8 +372,13 @@ public class JavasciScriptTaskResultsMatlab implements IScriptTaskResultsMatlab 
     }
 
     @Override
+    public boolean isDefined(final String variable) {
+        return getBoolean("exists('" + variable + "')");
+    }
+
+    @Override
     public boolean isNull(final String variable) {
-        return getBoolean("isnan(" + variable + ")");
+        return getBoolean("~isempty(" + variable + ") & and(isnan(" + variable + "))");
     }
 
     public boolean isEmpty(final String variable) {

@@ -5,7 +5,7 @@ end
 getString = putString
 disp(typeof(getString))
 disp(getString)
-if ~isa(getString, 'char') then
+if ~type(getString)==10 then
 	error('getString not char!')
 end
 
@@ -16,7 +16,7 @@ end
 getStringWithNull = putStringWithNull
 disp(typeof(getStringWithNull))
 disp(getStringWithNull)
-if ~isa(getStringWithNull, 'double') then
+if ~type(getStringWithNull)==1 then
 	error('getStringWithNull not double!')
 end
 if ~isnan(getStringWithNull) then
@@ -30,7 +30,7 @@ end
 getStringVector = putStringVector
 disp(typeof(getStringVector))
 disp(getStringVector)
-if ~isa(getStringVector, 'cell') then
+if ~type(getStringVector)==10 then
 	error('getStringVector not cell!')
 end
 
@@ -42,11 +42,11 @@ end
 getStringVectorWithNull = putStringVectorWithNull
 disp(typeof(getStringVectorWithNull))
 disp(getStringVectorWithNull)
-if ~isa(getStringVectorWithNull, 'cell') then
+if ~type(getStringVectorWithNull)==10 then
 	error('getStringVectorWithNull not cell!')
 end
-if ~isempty(getStringVectorWithNull{2}) then
-	error('getStringVectorWithNull{2} not empty!')
+if ~isempty(getStringVectorWithNull(2)) then
+	error('getStringVectorWithNull(2) not empty!')
 end
 
 disp('getStringVectorAsList')
@@ -56,22 +56,22 @@ end
 getStringVectorAsList = putStringVectorAsList
 disp(typeof(getStringVectorAsList))
 disp(getStringVectorAsList)
-if ~isa(getStringVectorAsList, 'cell') then
+if ~type(getStringVectorAsList)==10 then
 	error('getStringVectorAsList not cell!')
 end
 
-disp('getStringVectorAsListWithNull')
-if exists('getStringVectorAsListWithNull') then
-	error('getStringVectorAsListWithNull already defined!')
+disp('getStringVectorAsListWN')
+if exists('getStringVectorAsListWN') then
+	error('getStringVectorAsListWN already defined!')
 end
-getStringVectorAsListWithNull = putStringVectorAsListWithNull
-disp(typeof(getStringVectorAsListWithNull))
-disp(getStringVectorAsListWithNull)
-if ~isa(getStringVectorAsListWithNull, 'cell') then
-	error('getStringVectorAsListWithNull not cell!')
+getStringVectorAsListWN = putStringVectorAsListWN
+disp(typeof(getStringVectorAsListWN))
+disp(getStringVectorAsListWN)
+if ~type(getStringVectorAsListWN)==10 then
+	error('getStringVectorAsListWN not cell!')
 end
-if ~isempty(getStringVectorAsListWithNull{2}) then
-	error('getStringVectorAsListWithNull{2} not empty!')
+if ~isempty(getStringVectorAsListWN(2)) then
+	error('getStringVectorAsListWN(2) not empty!')
 end
 
 disp('getStringMatrix')
@@ -81,7 +81,7 @@ end
 getStringMatrix = putStringMatrix
 disp(typeof(getStringMatrix))
 disp(getStringMatrix)
-if ~isa(getStringMatrix, 'cell') then
+if ~type(getStringMatrix)==10 then
 	error('getStringMatrix not cell!')
 end
 
@@ -93,17 +93,17 @@ end
 getStringMatrixWithNull = putStringMatrixWithNull
 disp(typeof(getStringMatrixWithNull))
 disp(getStringMatrixWithNull)
-if ~isa(getStringMatrixWithNull, 'cell') then
+if ~type(getStringMatrixWithNull)==10 then
 	error('getStringMatrixWithNull not cell!')
 end
-if ~isempty(getStringMatrixWithNull{1,1}) then
-	error('getStringMatrixWithNull{1,1} not empty!')
+if ~isempty(getStringMatrixWithNull(1,1)) then
+	error('getStringMatrixWithNull(1,1) not empty!')
 end
-if ~isempty(getStringMatrixWithNull{2,2}) then
-	error('getStringMatrixWithNull{2,2} not empty!')
+if ~isempty(getStringMatrixWithNull(2,2)) then
+	error('getStringMatrixWithNull(2,2) not empty!')
 end
-if ~isempty(getStringMatrixWithNull{3,3}) then
-	error('getStringMatrixWithNull{3,3} not empty!')
+if ~isempty(getStringMatrixWithNull(3,3)) then
+	error('getStringMatrixWithNull(3,3) not empty!')
 end
 
 disp('getStringMatrixAsList')
@@ -113,26 +113,26 @@ end
 getStringMatrixAsList = putStringMatrixAsList
 disp(typeof(getStringMatrixAsList))
 disp(getStringMatrixAsList)
-if ~isa(getStringMatrixAsList, 'cell') then
+if ~type(getStringMatrixAsList)==10 then
 	error('getStringMatrixAsList not cell!')
 end
 
-disp('getStringMatrixAsListWithNull')
-if exists('getStringMatrixAsListWithNull') then
-	error('getStringMatrixAsListWithNull already defined!')
+disp('getStringMatrixAsListWN')
+if exists('getStringMatrixAsListWN') then
+	error('getStringMatrixAsListWN already defined!')
 end
-getStringMatrixAsListWithNull = putStringMatrixAsListWithNull
-disp(typeof(getStringMatrixAsListWithNull))
-disp(getStringMatrixAsListWithNull)
-if ~isa(getStringMatrixAsListWithNull, 'cell') then
-	error('getStringMatrixAsListWithNull not cell!')
+getStringMatrixAsListWN = putStringMatrixAsListWN
+disp(typeof(getStringMatrixAsListWN))
+disp(getStringMatrixAsListWN)
+if ~type(getStringMatrixAsListWN)==10 then
+	error('getStringMatrixAsListWN not cell!')
 end
-if ~isempty(getStringMatrixAsListWithNull{1,1}) then
-	error('getStringMatrixAsListWithNull{1,1} not empty!')
+if ~isempty(getStringMatrixAsListWN(1,1)) then
+	error('getStringMatrixAsListWN(1,1) not empty!')
 end
-if ~isempty(getStringMatrixAsListWithNull{2,2}) then
-	error('getStringMatrixAsListWithNull{2,2} not empty!')
+if ~isempty(getStringMatrixAsListWN(2,2)) then
+	error('getStringMatrixAsListWN(2,2) not empty!')
 end
-if ~isempty(getStringMatrixAsListWithNull{3,3}) then
-	error('getStringMatrixAsListWithNull{3,3} not empty!')
+if ~isempty(getStringMatrixAsListWN(3,3)) then
+	error('getStringMatrixAsListWN(3,3) not empty!')
 end

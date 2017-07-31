@@ -5,7 +5,7 @@ end
 getInteger = putInteger
 disp(typeof(getInteger))
 disp(getInteger)
-if ~isa(getInteger, 'int32') then
+if ~typeof(getInteger)=="int32" then
 	error('getInteger not int32!')
 end
 
@@ -16,7 +16,7 @@ end
 getIntegerVector = putIntegerVector
 disp(typeof(getIntegerVector))
 disp(getIntegerVector)
-if ~isa(getIntegerVector, 'int32') then
+if ~typeof(getIntegerVector)=="int32" then
 	error('getIntegerVector not int32!')
 end
 
@@ -27,7 +27,7 @@ end
 getIntegerVectorAsList = putIntegerVectorAsList
 disp(typeof(getIntegerVectorAsList))
 disp(getIntegerVectorAsList)
-if ~isa(getIntegerVectorAsList, 'int32') then
+if ~typeof(getIntegerVectorAsList)=="int32" then
 	error('getIntegerVectorAsList not int32!')
 end
 
@@ -38,7 +38,7 @@ end
 getIntegerMatrix = putIntegerMatrix
 disp(typeof(getIntegerMatrix))
 disp(getIntegerMatrix)
-if ~isa(getIntegerMatrix, 'int32') then
+if ~typeof(getIntegerMatrix)=="int32" then
 	error('getIntegerMatrix not int32!')
 end
 
@@ -49,6 +49,6 @@ end
 getIntegerMatrixAsList = putIntegerMatrixAsList
 disp(typeof(getIntegerMatrixAsList))
 disp(getIntegerMatrixAsList)
-if ~isa(getIntegerMatrixAsList, 'int32') then
+if ~typeof(getIntegerMatrixAsList)=="int32" then
 	error('getIntegerMatrixAsList not int32!')
 end

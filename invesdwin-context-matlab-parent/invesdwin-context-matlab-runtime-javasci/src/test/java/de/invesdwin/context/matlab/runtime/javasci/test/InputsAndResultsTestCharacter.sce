@@ -5,7 +5,7 @@ end
 getCharacter = putCharacter
 disp(typeof(getCharacter))
 disp(getCharacter)
-if ~isa(getCharacter, 'char') then
+if ~type(getCharacter)==10 then
 	error('getCharacter not char!')
 end
 
@@ -16,7 +16,7 @@ end
 getCharacterVector = putCharacterVector
 disp(typeof(getCharacterVector))
 disp(getCharacterVector)
-if ~isa(getCharacterVector, 'cell') then
+if ~type(getCharacterVector)==10 then
 	error('getCharacterVector not cell!')
 end
 
@@ -27,7 +27,7 @@ end
 getCharacterVectorAsList = putCharacterVectorAsList
 disp(typeof(getCharacterVectorAsList))
 disp(getCharacterVectorAsList)
-if ~isa(getCharacterVectorAsList, 'cell') then
+if ~type(getCharacterVectorAsList)==10 then
 	error('getCharacterVectorAsList not cell!')
 end
 
@@ -38,7 +38,7 @@ end
 getCharacterMatrix = putCharacterMatrix
 disp(typeof(getCharacterMatrix))
 disp(getCharacterMatrix)
-if ~isa(getCharacterMatrix, 'cell') then
+if ~type(getCharacterMatrix)==10 then
 	error('getCharacterMatrix not cell!')
 end
 
@@ -49,6 +49,6 @@ end
 getCharacterMatrixAsList = putCharacterMatrixAsList
 disp(typeof(getCharacterMatrixAsList))
 disp(getCharacterMatrixAsList)
-if ~isa(getCharacterMatrixAsList, 'cell') then
+if ~type(getCharacterMatrixAsList)==10 then
 	error('getCharacterMatrixAsList not cell!')
 end
