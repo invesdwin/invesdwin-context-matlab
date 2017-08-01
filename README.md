@@ -1,5 +1,5 @@
 # invesdwin-context-matlab
-Integrate Matlab/Octave/Scilab functionality with these modules for the [invesdwin-context](https://github.com/subes/invesdwin-context) module system.
+Integrate Matlab, Octave and Scilab functionality with these modules for the [invesdwin-context](https://github.com/subes/invesdwin-context) module system.
 
 ## Maven
 
