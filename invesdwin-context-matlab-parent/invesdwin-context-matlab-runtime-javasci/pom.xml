@@ -24,6 +24,12 @@
 			<groupId>de.invesdwin</groupId>
 			<artifactId>invesdwin-context-matlab-runtime-contract</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>de.invesdwin</groupId>
+			<artifactId>invesdwin-context-matlab-runtime-contract</artifactId>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>org.scilab.modules</groupId>

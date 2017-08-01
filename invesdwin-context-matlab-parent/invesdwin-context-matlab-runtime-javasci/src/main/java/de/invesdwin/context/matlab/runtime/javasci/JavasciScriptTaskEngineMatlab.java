@@ -32,8 +32,8 @@ public class JavasciScriptTaskEngineMatlab implements IScriptTaskEngine {
     private String expressionEnding;
     private File scriptFile;
 
-    public JavasciScriptTaskEngineMatlab(final Scilab octaveEngine) {
-        this.scilab = octaveEngine;
+    public JavasciScriptTaskEngineMatlab(final Scilab scilab) {
+        this.scilab = scilab;
         this.inputs = new JavasciScriptTaskInputsMatlab(this);
         this.results = new JavasciScriptTaskResultsMatlab(this);
         if (IScriptTaskRunnerMatlab.LOG.isDebugEnabled()) {
