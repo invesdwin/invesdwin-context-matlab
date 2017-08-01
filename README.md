@@ -28,10 +28,16 @@ de.invesdwin.context.matlab.runtime.matconsolectl.MatConsoleCtlProperties.MATLAB
 ```properties
 de.invesdwin.context.matlab.runtime.javaoctave.JavaOctaveProperties.OCTAVE_COMMAND=octave
 ```
+- **invesdwin-context-matlab-runtime-javasci**: Via [javasci](https://help.scilab.org/docs/6.0.0/en_US/javasci.html) we are able to run scripts in [Scilab](http://www.scilab.org/), which is an open source language implementation similar to Matlab. Matlab scripts need to be converted to Scilab scripts manually, though you can use `MFileToSciScriptTask` as a wrapper around the [mfile2sci](https://help.scilab.org/docs/6.0.0/en_US/mfile2sci.html) function to let Scilab do most of the conversion and tell you where your help is required to finish the conversion. The integration works by loading the Scilab native libraries into the process. Since this integration supports only one Scilab session the integration is synchronized for single thread usage only. To use mutliple threads, you have to spawn additional java processes for your tasks. This module provides the following configuration options as system properties:
+```properties
+# specify where the libjavasci2.so and libscilab.so resides on your computer (which you might normally add to java.library.path manually, though comma separated here)
+de.invesdwin.context.matlab.runtime.javasci.JavasciProperties.JAVASCI_LIBRARY_PATHS=/usr/lib/jni/,/usr/lib/scilab/
+de.invesdwin.context.matlab.runtime.javasci.JavasciProperties.SCILAB_PATH=/usr/share/scilab/
+```
 
 With this you can switch easily between Matlab/Octave for your scripts to test for interoperability and decide which implementation provides the best performance for your use case. Notably Matlab takes a long time to start up but has efficient data transfer, while Octave is faster to start up but the data transfer is less efficient. 
 
-Also Octave is free while Matlab requires a paid license. Even though Octave is licensed as GPL, usage and integration with it can happen without your application falling under the GPL. Though please consider that when using modules for Octave/Matlab that are licensed under the GPL, you might have to make your own scripts available under the GPL too. For a more elaborate license discussion, see the documentation of [invesdwin-context-r](https://github.com/subes/invesdwin-context-r) which faces the same topic.
+Also Octave is free while Matlab requires a paid license. Even though Octave is licensed as GPL, usage and integration with it can happen without your application falling under the GPL. Though please consider that when using modules for Octave/Matlab that are licensed under the GPL, you might have to make your own scripts available under the GPL too. For a more elaborate license discussion, see the documentation of [invesdwin-context-r](https://github.com/subes/invesdwin-context-r) which faces the same topic. Since Scilab and javasci are both licensed under the GPL, `invesdwin-context-matlab-runtime-javasci` also had to be put under the GPL, so please be aware of that fact when using the Scilab integration.
 
 ## Example Code
 
