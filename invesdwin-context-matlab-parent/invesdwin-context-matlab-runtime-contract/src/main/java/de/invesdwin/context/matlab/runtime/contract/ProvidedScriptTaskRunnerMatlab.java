@@ -26,7 +26,7 @@ public final class ProvidedScriptTaskRunnerMatlab implements IScriptTaskRunnerMa
 
     public static final ProvidedScriptTaskRunnerMatlab INSTANCE = new ProvidedScriptTaskRunnerMatlab();
 
-    @GuardedBy("this.class")
+    @GuardedBy("ProvidedScriptTaskRunnerMatlab.class")
     private static IScriptTaskRunnerMatlab providedInstance;
 
     private ProvidedScriptTaskRunnerMatlab() {}

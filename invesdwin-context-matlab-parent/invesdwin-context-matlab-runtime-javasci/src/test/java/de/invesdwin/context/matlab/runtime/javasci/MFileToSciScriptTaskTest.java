@@ -7,7 +7,7 @@ import java.nio.charset.Charset;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.core.io.Resource;
 
 import de.invesdwin.context.ContextProperties;
