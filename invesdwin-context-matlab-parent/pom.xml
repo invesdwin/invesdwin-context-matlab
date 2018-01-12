@@ -133,6 +133,12 @@
 			<url>http://invesdwin.de/artifactory/invesdwin-oss-remote</url>
 		</pluginRepository>
 	</pluginRepositories>
+	
+	<scm>
+		<url>https://github.com/subes/invesdwin-context-matlab</url>
+		<connection>scm:git:https://github.com/subes/invesdwin-context-matlab.git</connection>
+		<tag>HEAD</tag>
+	</scm>
 
 </project>
 
