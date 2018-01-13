@@ -28,7 +28,6 @@
 	</modules>
 
 	<properties>
-		<version.invesdwin-context-integration>${version.invesdwin-context}</version.invesdwin-context-integration>
 		<version.invesdwin-context-matlab>${version.invesdwin-context}</version.invesdwin-context-matlab>
 
 		<version.javaoctave>0.6.4</version.javaoctave>
@@ -38,14 +37,6 @@
 
 	<dependencyManagement>
 		<dependencies>
-			<dependency>
-				<groupId>de.invesdwin</groupId>
-				<artifactId>invesdwin-context-integration-parent</artifactId>
-				<version>${version.invesdwin-context-integration}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-
 			<dependency>
 				<groupId>de.invesdwin</groupId>
 				<artifactId>invesdwin-context-matlab-runtime-contract</artifactId>
