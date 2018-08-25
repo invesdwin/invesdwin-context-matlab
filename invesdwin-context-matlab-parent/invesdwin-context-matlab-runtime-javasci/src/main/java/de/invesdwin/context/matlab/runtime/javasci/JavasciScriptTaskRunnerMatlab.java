@@ -1,7 +1,6 @@
 package de.invesdwin.context.matlab.runtime.javasci;
 
 import java.io.File;
-import java.util.concurrent.locks.ReentrantLock;
 
 import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.Immutable;
@@ -14,7 +13,8 @@ import de.invesdwin.context.log.error.Err;
 import de.invesdwin.context.matlab.runtime.contract.AScriptTaskMatlab;
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskRunnerMatlab;
 import de.invesdwin.instrument.DynamicInstrumentationReflections;
-import de.invesdwin.util.concurrent.Locks;
+import de.invesdwin.util.concurrent.lock.Locks;
+import de.invesdwin.util.concurrent.lock.WrappedReentrantLock;
 import de.invesdwin.util.error.Throwables;
 
 @Immutable
@@ -29,7 +29,7 @@ public final class JavasciScriptTaskRunnerMatlab
 
     @GuardedBy("SCILAB_LOCK")
     private static final Scilab SCILAB;
-    private static final ReentrantLock SCILAB_LOCK;
+    private static final WrappedReentrantLock SCILAB_LOCK;
 
     static {
         for (final String path : JavasciProperties.JAVASCI_LIBRARY_PATHS) {
