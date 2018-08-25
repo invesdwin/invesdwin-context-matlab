@@ -14,6 +14,7 @@ import de.invesdwin.context.log.error.Err;
 import de.invesdwin.context.matlab.runtime.contract.AScriptTaskMatlab;
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskRunnerMatlab;
 import de.invesdwin.instrument.DynamicInstrumentationReflections;
+import de.invesdwin.util.concurrent.Threads;
 import de.invesdwin.util.error.Throwables;
 
 @Immutable
@@ -40,7 +41,8 @@ public final class JavasciScriptTaskRunnerMatlab
         } catch (final Exception e) {
             throw Err.process(e);
         }
-        SCILAB_LOCK = new ReentrantLock();
+        SCILAB_LOCK = Threads.getCycleDetectingLockFactory()
+                .newReentrantLock(JavasciScriptTaskRunnerMatlab.class.getSimpleName() + "_SCILAB_LOCK");
     }
 
     /**
