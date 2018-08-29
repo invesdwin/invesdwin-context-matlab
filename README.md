@@ -68,7 +68,7 @@ final String result = script.run(); //optionally pass a specific runner as an ar
 Assertions.assertThat(result).isEqualTo("Hello World!");
 ```
 
-For more elaborate examples of the Matlab/Octave script integration, have a look at the `invesdwin-context-matlab-ornsteinuhlenbeck` module or the test cases in `invesdwin-context-matlab-runtime-contract` which are executed in each individual runtime module test suite.
+For more elaborate examples of the Matlab/Octave script integration, have a look at the test cases in `invesdwin-context-matlab-runtime-contract` which are executed in each individual runtime module test suite.
 
 ## More Programming Languages
 
