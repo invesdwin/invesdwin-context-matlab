@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                              http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
@@ -29,7 +30,7 @@
 	</modules>
 
 	<properties>
-		<project.version.invesdwin-context>1.0.0-SNAPSHOT</project.version.invesdwin-context>
+		<project.version.invesdwin-context>1.0.0</project.version.invesdwin-context>
 		<project.version.invesdwin-context-matlab>${project.version}</project.version.invesdwin-context-matlab>
 
 		<version.javaoctave>0.6.5-inv</version.javaoctave>
@@ -39,6 +40,12 @@
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>de.invesdwin</groupId>
+				<artifactId>invesdwin-context-parent</artifactId>
+				<version>${project.version.invesdwin-context}</version>
+				<type>pom</type>
+			</dependency>
 			<dependency>
 				<groupId>de.invesdwin</groupId>
 				<artifactId>invesdwin-context-matlab-runtime-contract</artifactId>
@@ -126,13 +133,13 @@
 			<url>http://invesdwin.de/artifactory/invesdwin-oss-remote</url>
 		</pluginRepository>
 	</pluginRepositories>
-	
+
 	<scm>
 		<url>https://github.com/subes/invesdwin-context-matlab</url>
 		<connection>scm:git:https://github.com/subes/invesdwin-context-matlab.git</connection>
 		<tag>HEAD</tag>
 	</scm>
-	
+
 	<ciManagement>
 		<system>jenkins</system>
 		<url>https://invesdwin.de/jenkins/job/dgr-deploy-invesdwin-context-matlab/</url>
