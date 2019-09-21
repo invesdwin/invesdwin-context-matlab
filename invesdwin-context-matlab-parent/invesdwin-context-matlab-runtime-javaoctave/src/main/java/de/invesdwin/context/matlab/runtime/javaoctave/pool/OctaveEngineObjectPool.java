@@ -39,7 +39,7 @@ public final class OctaveEngineObjectPool extends AObjectPool<OctaveEngine>
     }
 
     @Override
-    protected synchronized OctaveEngine internalBorrowObject() throws Exception {
+    protected synchronized OctaveEngine internalBorrowObject() {
         if (octaveEngineRotation.isEmpty()) {
             return factory.makeObject();
         }
@@ -57,7 +57,7 @@ public final class OctaveEngineObjectPool extends AObjectPool<OctaveEngine>
     }
 
     @Override
-    public synchronized Collection<OctaveEngine> internalClear() throws Exception {
+    public synchronized Collection<OctaveEngine> internalClear() {
         final Collection<OctaveEngine> removed = new ArrayList<OctaveEngine>();
         while (!octaveEngineRotation.isEmpty()) {
             removed.add(octaveEngineRotation.remove(0).getOctaveEngine());
@@ -66,24 +66,24 @@ public final class OctaveEngineObjectPool extends AObjectPool<OctaveEngine>
     }
 
     @Override
-    protected synchronized OctaveEngine internalAddObject() throws Exception {
+    protected synchronized OctaveEngine internalAddObject() {
         final OctaveEngine pooled = factory.makeObject();
         octaveEngineRotation.add(new OctaveEngineWrapper(factory.makeObject()));
         return pooled;
     }
 
     @Override
-    protected synchronized void internalReturnObject(final OctaveEngine obj) throws Exception {
+    protected synchronized void internalReturnObject(final OctaveEngine obj) {
         octaveEngineRotation.add(new OctaveEngineWrapper(obj));
     }
 
     @Override
-    protected void internalInvalidateObject(final OctaveEngine obj) throws Exception {
+    protected void internalInvalidateObject(final OctaveEngine obj) {
         //Nothing happens
     }
 
     @Override
-    protected synchronized void internalRemoveObject(final OctaveEngine obj) throws Exception {
+    protected synchronized void internalRemoveObject(final OctaveEngine obj) {
         octaveEngineRotation.remove(new OctaveEngineWrapper(obj));
     }
 
@@ -150,7 +150,7 @@ public final class OctaveEngineObjectPool extends AObjectPool<OctaveEngine>
     }
 
     @Override
-    public OctaveEngineObjectPool getObject() throws Exception {
+    public OctaveEngineObjectPool getObject() {
         return INSTANCE;
     }
 

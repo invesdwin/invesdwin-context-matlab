@@ -29,12 +29,7 @@ public final class MatConsoleCtlScriptTaskRunnerMatlab
     @Override
     public <T> T run(final AScriptTaskMatlab<T> scriptTask) {
         //get session
-        final MatlabProxy matlabProxy;
-        try {
-            matlabProxy = MatlabProxyObjectPool.INSTANCE.borrowObject();
-        } catch (final Exception e) {
-            throw new RuntimeException(e);
-        }
+        final MatlabProxy matlabProxy = MatlabProxyObjectPool.INSTANCE.borrowObject();
         try {
             //inputs
             final MatConsoleCtlScriptTaskEngineMatlab engine = new MatConsoleCtlScriptTaskEngineMatlab(matlabProxy);
@@ -51,11 +46,7 @@ public final class MatConsoleCtlScriptTaskRunnerMatlab
             MatlabProxyObjectPool.INSTANCE.returnObject(matlabProxy);
             return result;
         } catch (final Throwable t) {
-            try {
-                MatlabProxyObjectPool.INSTANCE.invalidateObject(matlabProxy);
-            } catch (final Exception e) {
-                throw new RuntimeException(e);
-            }
+            MatlabProxyObjectPool.INSTANCE.invalidateObject(matlabProxy);
             throw Throwables.propagate(t);
         }
     }

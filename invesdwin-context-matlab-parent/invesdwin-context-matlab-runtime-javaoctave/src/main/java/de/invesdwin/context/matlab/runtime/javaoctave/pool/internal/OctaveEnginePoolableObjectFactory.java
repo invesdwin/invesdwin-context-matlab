@@ -39,7 +39,7 @@ public final class OctaveEnginePoolableObjectFactory
     }
 
     @Override
-    public void destroyObject(final OctaveEngine obj) throws Exception {
+    public void destroyObject(final OctaveEngine obj) {
         try {
             obj.close();
         } catch (final Throwable t) {
@@ -53,17 +53,17 @@ public final class OctaveEnginePoolableObjectFactory
     }
 
     @Override
-    public void activateObject(final OctaveEngine obj) throws Exception {}
+    public void activateObject(final OctaveEngine obj) {}
 
     @Override
-    public void passivateObject(final OctaveEngine obj) throws Exception {
+    public void passivateObject(final OctaveEngine obj) {
         final JavaOctaveScriptTaskEngineMatlab engine = new JavaOctaveScriptTaskEngineMatlab(obj);
         engine.eval(IScriptTaskRunnerMatlab.CLEANUP_SCRIPT);
         engine.close();
     }
 
     @Override
-    public OctaveEnginePoolableObjectFactory getObject() throws Exception {
+    public OctaveEnginePoolableObjectFactory getObject() {
         return INSTANCE;
     }
 

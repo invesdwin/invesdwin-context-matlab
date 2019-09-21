@@ -29,12 +29,7 @@ public final class JavaOctaveScriptTaskRunnerMatlab
     @Override
     public <T> T run(final AScriptTaskMatlab<T> scriptTask) {
         //get session
-        final OctaveEngine octaveEngine;
-        try {
-            octaveEngine = OctaveEngineObjectPool.INSTANCE.borrowObject();
-        } catch (final Exception e) {
-            throw new RuntimeException(e);
-        }
+        final OctaveEngine octaveEngine = OctaveEngineObjectPool.INSTANCE.borrowObject();
         try {
             //inputs
             final JavaOctaveScriptTaskEngineMatlab engine = new JavaOctaveScriptTaskEngineMatlab(octaveEngine);
@@ -51,11 +46,7 @@ public final class JavaOctaveScriptTaskRunnerMatlab
             OctaveEngineObjectPool.INSTANCE.returnObject(octaveEngine);
             return result;
         } catch (final Throwable t) {
-            try {
-                OctaveEngineObjectPool.INSTANCE.invalidateObject(octaveEngine);
-            } catch (final Exception e) {
-                throw new RuntimeException(e);
-            }
+            OctaveEngineObjectPool.INSTANCE.invalidateObject(octaveEngine);
             throw Throwables.propagate(t);
         }
     }

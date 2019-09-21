@@ -14,6 +14,7 @@ import de.invesdwin.context.matlab.runtime.matconsolectl.MatConsoleCtlProperties
 import de.invesdwin.context.matlab.runtime.matconsolectl.MatConsoleCtlScriptTaskEngineMatlab;
 import de.invesdwin.context.pool.IPoolableObjectFactory;
 import matlabcontrol.MatlabConnectionException;
+import matlabcontrol.MatlabInvocationException;
 import matlabcontrol.MatlabProxy;
 import matlabcontrol.MatlabProxyFactory;
 import matlabcontrol.MatlabProxyFactoryOptions;
@@ -45,8 +46,12 @@ public final class MatlabProxyPoolableObjectFactory
     }
 
     @Override
-    public void destroyObject(final MatlabProxy obj) throws Exception {
-        obj.exit();
+    public void destroyObject(final MatlabProxy obj) {
+        try {
+            obj.exit();
+        } catch (final MatlabInvocationException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -55,17 +60,17 @@ public final class MatlabProxyPoolableObjectFactory
     }
 
     @Override
-    public void activateObject(final MatlabProxy obj) throws Exception {}
+    public void activateObject(final MatlabProxy obj) {}
 
     @Override
-    public void passivateObject(final MatlabProxy obj) throws Exception {
+    public void passivateObject(final MatlabProxy obj) {
         final MatConsoleCtlScriptTaskEngineMatlab engine = new MatConsoleCtlScriptTaskEngineMatlab(obj);
         engine.eval(IScriptTaskRunnerMatlab.CLEANUP_SCRIPT);
         engine.close();
     }
 
     @Override
-    public MatlabProxyPoolableObjectFactory getObject() throws Exception {
+    public MatlabProxyPoolableObjectFactory getObject() {
         return INSTANCE;
     }
 

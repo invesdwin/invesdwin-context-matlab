@@ -39,7 +39,7 @@ public final class MatlabProxyObjectPool extends AObjectPool<MatlabProxy>
     }
 
     @Override
-    protected synchronized MatlabProxy internalBorrowObject() throws Exception {
+    protected synchronized MatlabProxy internalBorrowObject() {
         if (matlabProxyRotation.isEmpty()) {
             return factory.makeObject();
         }
@@ -57,7 +57,7 @@ public final class MatlabProxyObjectPool extends AObjectPool<MatlabProxy>
     }
 
     @Override
-    public synchronized Collection<MatlabProxy> internalClear() throws Exception {
+    public synchronized Collection<MatlabProxy> internalClear() {
         final Collection<MatlabProxy> removed = new ArrayList<MatlabProxy>();
         while (!matlabProxyRotation.isEmpty()) {
             removed.add(matlabProxyRotation.remove(0).getMatlabProxy());
@@ -66,24 +66,24 @@ public final class MatlabProxyObjectPool extends AObjectPool<MatlabProxy>
     }
 
     @Override
-    protected synchronized MatlabProxy internalAddObject() throws Exception {
+    protected synchronized MatlabProxy internalAddObject() {
         final MatlabProxy pooled = factory.makeObject();
         matlabProxyRotation.add(new MatlabProxyWrapper(factory.makeObject()));
         return pooled;
     }
 
     @Override
-    protected synchronized void internalReturnObject(final MatlabProxy obj) throws Exception {
+    protected synchronized void internalReturnObject(final MatlabProxy obj) {
         matlabProxyRotation.add(new MatlabProxyWrapper(obj));
     }
 
     @Override
-    protected void internalInvalidateObject(final MatlabProxy obj) throws Exception {
+    protected void internalInvalidateObject(final MatlabProxy obj) {
         //Nothing happens
     }
 
     @Override
-    protected synchronized void internalRemoveObject(final MatlabProxy obj) throws Exception {
+    protected synchronized void internalRemoveObject(final MatlabProxy obj) {
         matlabProxyRotation.remove(new MatlabProxyWrapper(obj));
     }
 
@@ -150,7 +150,7 @@ public final class MatlabProxyObjectPool extends AObjectPool<MatlabProxy>
     }
 
     @Override
-    public MatlabProxyObjectPool getObject() throws Exception {
+    public MatlabProxyObjectPool getObject() {
         return INSTANCE;
     }
 
