@@ -9,7 +9,6 @@ import java.util.List;
 
 import javax.annotation.concurrent.NotThreadSafe;
 
-import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;
 
@@ -18,6 +17,7 @@ import de.invesdwin.context.PlatformInitializerProperties;
 import de.invesdwin.context.matlab.runtime.contract.ProvidedScriptTaskRunnerMatlab;
 import de.invesdwin.context.matlab.runtime.javaoctave.JavaOctaveScriptTaskRunnerMatlab;
 import de.invesdwin.util.assertions.Assertions;
+import de.invesdwin.util.lang.Files;
 import de.invesdwin.util.math.decimal.Decimal;
 
 @NotThreadSafe
@@ -32,11 +32,12 @@ public class MainTest {
         final String providedInstanceProperty = "-D" + ProvidedScriptTaskRunnerMatlab.PROVIDED_INSTANCE_KEY + "="
                 + JavaOctaveScriptTaskRunnerMatlab.class.getName();
         final String inputFile = new ClassPathResource(MainTest.class.getSimpleName() + "_input.csv", MainTest.class)
-                .getFile().getAbsolutePath();
+                .getFile()
+                .getAbsolutePath();
         final String outputFile = new File(ContextProperties.TEMP_DIRECTORY,
                 MainTest.class.getSimpleName() + "_output.csv").getAbsolutePath();
         Main.main(new String[] { providedInstanceProperty, "-i", inputFile, "-o", outputFile });
-        final List<String> optimalFStrs = FileUtils.readLines(new File(outputFile), Charset.defaultCharset());
+        final List<String> optimalFStrs = Files.readLines(new File(outputFile), Charset.defaultCharset());
         final List<Decimal> optimalFs = new ArrayList<Decimal>();
         for (final String optimalFStr : optimalFStrs) {
             optimalFs.add(new Decimal(optimalFStr).round(3));

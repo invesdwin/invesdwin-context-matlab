@@ -6,12 +6,12 @@ import java.nio.charset.Charset;
 
 import javax.annotation.concurrent.NotThreadSafe;
 
-import org.apache.commons.io.FileUtils;
 import org.scilab.modules.javasci.Scilab;
 
 import de.invesdwin.context.ContextProperties;
 import de.invesdwin.context.integration.script.IScriptTaskEngine;
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskRunnerMatlab;
+import de.invesdwin.util.lang.Files;
 import de.invesdwin.util.lang.UniqueNameGenerator;
 
 @NotThreadSafe
@@ -42,7 +42,7 @@ public class JavasciScriptTaskEngineMatlab implements IScriptTaskEngine {
             expressionEnding = "";
         }
         try {
-            FileUtils.forceMkdir(FOLDER);
+            Files.forceMkdir(FOLDER);
         } catch (final IOException e) {
             throw new RuntimeException(e);
         }
@@ -52,7 +52,7 @@ public class JavasciScriptTaskEngineMatlab implements IScriptTaskEngine {
     @Override
     public void eval(final String expression) {
         try {
-            FileUtils.writeStringToFile(scriptFile, expression + expressionEnding, Charset.defaultCharset());
+            Files.writeStringToFile(scriptFile, expression + expressionEnding, Charset.defaultCharset());
             scilab.execException(scriptFile);
         } catch (final Exception e) {
             throw new RuntimeException(e);
@@ -72,7 +72,7 @@ public class JavasciScriptTaskEngineMatlab implements IScriptTaskEngine {
     @Override
     public void close() {
         eval(JavasciScriptTaskRunnerMatlab.CLEANUP_SCRIPT);
-        FileUtils.deleteQuietly(scriptFile);
+        Files.deleteQuietly(scriptFile);
         scriptFile = null;
         scilab = null;
     }

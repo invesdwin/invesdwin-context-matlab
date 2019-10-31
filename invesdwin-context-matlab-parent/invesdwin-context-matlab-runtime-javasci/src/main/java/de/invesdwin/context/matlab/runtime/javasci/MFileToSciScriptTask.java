@@ -8,7 +8,6 @@ import java.nio.charset.Charset;
 
 import javax.annotation.concurrent.NotThreadSafe;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
 import de.invesdwin.context.ContextProperties;
@@ -16,6 +15,7 @@ import de.invesdwin.context.integration.script.IScriptTaskEngine;
 import de.invesdwin.context.integration.script.IScriptTaskInputs;
 import de.invesdwin.context.integration.script.IScriptTaskResults;
 import de.invesdwin.context.matlab.runtime.contract.AScriptTaskMatlab;
+import de.invesdwin.util.lang.Files;
 import de.invesdwin.util.lang.UniqueNameGenerator;
 
 /**
@@ -48,7 +48,7 @@ public class MFileToSciScriptTask extends AScriptTaskMatlab<String> {
         try {
             final String folderName = UNIQUE_NAME_GENERATOR.get("conversion");
             final File folder = new File(BASE_FOLDER, folderName);
-            FileUtils.forceMkdir(folder);
+            Files.forceMkdir(folder);
             final File inputFile = new File(folder, "input.m");
             final FileOutputStream fis = new FileOutputStream(inputFile);
             IOUtils.copy(mfileIn, fis);
@@ -56,8 +56,8 @@ public class MFileToSciScriptTask extends AScriptTaskMatlab<String> {
             engine.eval("mfile2sci(\"" + inputFile.getAbsolutePath() + "\", \"" + folder.getAbsolutePath()
                     + "\", %f, %T, 1, %T)");
             final File outputFile = new File(folder, "input.sci");
-            outputStr = FileUtils.readFileToString(outputFile, Charset.defaultCharset());
-            FileUtils.deleteQuietly(folder);
+            outputStr = Files.readFileToString(outputFile, Charset.defaultCharset());
+            Files.deleteQuietly(folder);
         } catch (final IOException e) {
             throw new RuntimeException(e);
         }

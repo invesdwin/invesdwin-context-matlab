@@ -7,12 +7,12 @@ import java.util.List;
 
 import javax.annotation.concurrent.Immutable;
 
-import org.apache.commons.io.FileUtils;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
 
 import de.invesdwin.context.PlatformInitializerProperties;
 import de.invesdwin.context.beans.init.AMain;
+import de.invesdwin.util.lang.Files;
 import de.invesdwin.util.lang.Strings;
 
 @Immutable
@@ -38,7 +38,7 @@ public class Main extends AMain {
 
     @Override
     protected void startApplication(final CmdLineParser parser) throws Exception {
-        final List<String> lines = FileUtils.readLines(input, Charset.defaultCharset());
+        final List<String> lines = Files.readLines(input, Charset.defaultCharset());
         final List<List<Double>> tradesPerStrategy = new ArrayList<List<Double>>(lines.size());
         for (final String line : lines) {
             final String[] tradeStrs = Strings.split(line, ",");
@@ -54,7 +54,7 @@ public class Main extends AMain {
             optimalFsStr.append(optimalF);
             optimalFsStr.append("\n");
         }
-        FileUtils.writeStringToFile(output, optimalFsStr.toString(), Charset.defaultCharset());
+        Files.writeStringToFile(output, optimalFsStr.toString(), Charset.defaultCharset());
     }
 
 }
