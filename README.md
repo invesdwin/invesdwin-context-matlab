@@ -5,7 +5,7 @@ Integrate Matlab, Octave and Scilab functionality with these modules for the [in
 
 Releases and snapshots are deployed to this maven repository:
 ```
-http://invesdwin.de/artifactory/invesdwin-oss-remote
+https://invesdwin.de/artifactory/invesdwin-oss-remote
 ```
 
 Dependency declaration:
