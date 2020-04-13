@@ -41,7 +41,7 @@ public class Main extends AMain {
         final List<String> lines = Files.readLines(input, Charset.defaultCharset());
         final List<List<Double>> tradesPerStrategy = new ArrayList<List<Double>>(lines.size());
         for (final String line : lines) {
-            final String[] tradeStrs = Strings.split(line, ",");
+            final String[] tradeStrs = Strings.splitPreserveAllTokens(line, ",");
             final List<Double> trades = new ArrayList<Double>(tradeStrs.length);
             for (final String tradeStr : tradeStrs) {
                 trades.add(Double.parseDouble(tradeStr));
