@@ -112,7 +112,7 @@ public final class MatlabProxyObjectPool extends AObjectPool<MatlabProxy>
         }
     }
 
-    private final class MatlabProxyWrapper {
+    private static final class MatlabProxyWrapper {
 
         private final MatlabProxy matlabProxy;
         private final FDate timeoutStart;

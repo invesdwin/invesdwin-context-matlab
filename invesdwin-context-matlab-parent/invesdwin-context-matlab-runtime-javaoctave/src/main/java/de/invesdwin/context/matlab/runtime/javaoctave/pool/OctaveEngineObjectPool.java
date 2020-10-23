@@ -112,7 +112,7 @@ public final class OctaveEngineObjectPool extends AObjectPool<OctaveEngine>
         }
     }
 
-    private final class OctaveEngineWrapper {
+    private static final class OctaveEngineWrapper {
 
         private final OctaveEngine octaveEngine;
         private final FDate timeoutStart;
