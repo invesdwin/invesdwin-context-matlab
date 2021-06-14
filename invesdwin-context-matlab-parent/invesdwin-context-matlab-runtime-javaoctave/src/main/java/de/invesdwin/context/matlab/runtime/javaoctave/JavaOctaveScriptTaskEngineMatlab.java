@@ -4,6 +4,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import de.invesdwin.context.integration.script.IScriptTaskEngine;
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskRunnerMatlab;
+import de.invesdwin.context.matlab.runtime.javaoctave.pool.OctaveEngineObjectPool;
 import dk.ange.octave.OctaveEngine;
 
 @NotThreadSafe
@@ -48,6 +49,19 @@ public class JavaOctaveScriptTaskEngineMatlab implements IScriptTaskEngine {
     @Override
     public OctaveEngine unwrap() {
         return octaveEngine;
+    }
+
+    public static JavaOctaveScriptTaskEngineMatlab newInstance() {
+        return new JavaOctaveScriptTaskEngineMatlab(OctaveEngineObjectPool.INSTANCE.borrowObject()) {
+            @Override
+            public void close() {
+                final OctaveEngine engine = unwrap();
+                if (engine != null) {
+                    OctaveEngineObjectPool.INSTANCE.returnObject(engine);
+                }
+                super.close();
+            }
+        };
     }
 
 }

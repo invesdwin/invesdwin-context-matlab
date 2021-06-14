@@ -50,7 +50,7 @@ public class JavasciScriptTaskResultsMatlab implements IScriptTaskResultsMatlab 
 
     private Object get(final String variable) {
         try {
-            final ScilabType st = engine.unwrap().get(requestVariable(variable));
+            final ScilabType st = engine.unwrap().getScilab().get(requestVariable(variable));
             return unpack(st);
         } catch (final JavasciException e) {
             throw new RuntimeException(e);

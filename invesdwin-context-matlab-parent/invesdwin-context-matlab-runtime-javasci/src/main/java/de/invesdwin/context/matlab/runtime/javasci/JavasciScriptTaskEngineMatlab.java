@@ -6,11 +6,10 @@ import java.nio.charset.Charset;
 
 import javax.annotation.concurrent.NotThreadSafe;
 
-import org.scilab.modules.javasci.Scilab;
-
 import de.invesdwin.context.ContextProperties;
 import de.invesdwin.context.integration.script.IScriptTaskEngine;
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskRunnerMatlab;
+import de.invesdwin.context.matlab.runtime.javasci.internal.ScilabWrapper;
 import de.invesdwin.util.lang.Files;
 import de.invesdwin.util.lang.UniqueNameGenerator;
 
@@ -26,13 +25,13 @@ public class JavasciScriptTaskEngineMatlab implements IScriptTaskEngine {
     private static final File FOLDER = new File(ContextProperties.TEMP_DIRECTORY,
             JavasciScriptTaskEngineMatlab.class.getSimpleName());
 
-    private Scilab scilab;
+    private ScilabWrapper scilab;
     private final JavasciScriptTaskInputsMatlab inputs;
     private final JavasciScriptTaskResultsMatlab results;
     private String expressionEnding;
     private File scriptFile;
 
-    public JavasciScriptTaskEngineMatlab(final Scilab scilab) {
+    public JavasciScriptTaskEngineMatlab(final ScilabWrapper scilab) {
         this.scilab = scilab;
         this.inputs = new JavasciScriptTaskInputsMatlab(this);
         this.results = new JavasciScriptTaskResultsMatlab(this);
@@ -53,7 +52,7 @@ public class JavasciScriptTaskEngineMatlab implements IScriptTaskEngine {
     public void eval(final String expression) {
         try {
             Files.writeStringToFile(scriptFile, expression + expressionEnding, Charset.defaultCharset());
-            scilab.execException(scriptFile);
+            scilab.getScilab().execException(scriptFile);
         } catch (final Exception e) {
             throw new RuntimeException(e);
         }
@@ -78,8 +77,15 @@ public class JavasciScriptTaskEngineMatlab implements IScriptTaskEngine {
     }
 
     @Override
-    public Scilab unwrap() {
+    public ScilabWrapper unwrap() {
         return scilab;
+    }
+
+    /**
+     * Always acquire the unwrap().getLock() first before accessing this.
+     */
+    public static JavasciScriptTaskEngineMatlab newInstance() {
+        return new JavasciScriptTaskEngineMatlab(ScilabWrapper.INSTANCE);
     }
 
 }

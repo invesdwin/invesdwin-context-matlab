@@ -4,6 +4,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import de.invesdwin.context.integration.script.IScriptTaskEngine;
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskRunnerMatlab;
+import de.invesdwin.context.matlab.runtime.matconsolectl.pool.MatlabProxyObjectPool;
 import matlabcontrol.MatlabInvocationException;
 import matlabcontrol.MatlabProxy;
 import matlabcontrol.extensions.MatlabTypeConverter;
@@ -17,8 +18,8 @@ public class MatConsoleCtlScriptTaskEngineMatlab implements IScriptTaskEngine {
     private final MatConsoleCtlScriptTaskResultsMatlab results;
     private String expressionEnding;
 
-    public MatConsoleCtlScriptTaskEngineMatlab(final MatlabProxy octaveEngine) {
-        this.matlabProxy = octaveEngine;
+    public MatConsoleCtlScriptTaskEngineMatlab(final MatlabProxy matlabProxy) {
+        this.matlabProxy = matlabProxy;
         this.typeConverter = new MatlabTypeConverter(matlabProxy);
         this.inputs = new MatConsoleCtlScriptTaskInputsMatlab(this);
         this.results = new MatConsoleCtlScriptTaskResultsMatlab(this);
@@ -78,6 +79,19 @@ public class MatConsoleCtlScriptTaskEngineMatlab implements IScriptTaskEngine {
         }
 
         return linearIndex;
+    }
+
+    public static MatConsoleCtlScriptTaskEngineMatlab newInstance() {
+        return new MatConsoleCtlScriptTaskEngineMatlab(MatlabProxyObjectPool.INSTANCE.borrowObject()) {
+            @Override
+            public void close() {
+                final MatlabProxy proxy = unwrap();
+                if (proxy != null) {
+                    MatlabProxyObjectPool.INSTANCE.returnObject(proxy);
+                }
+                super.close();
+            }
+        };
     }
 
 }

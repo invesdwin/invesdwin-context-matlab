@@ -1,20 +1,13 @@
 package de.invesdwin.context.matlab.runtime.javasci;
 
-import java.io.File;
-
-import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.Immutable;
 import javax.inject.Named;
 
-import org.scilab.modules.javasci.Scilab;
 import org.springframework.beans.factory.FactoryBean;
 
-import de.invesdwin.context.log.error.Err;
 import de.invesdwin.context.matlab.runtime.contract.AScriptTaskMatlab;
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskRunnerMatlab;
-import de.invesdwin.instrument.DynamicInstrumentationReflections;
-import de.invesdwin.util.concurrent.lock.IReentrantLock;
-import de.invesdwin.util.concurrent.lock.Locks;
+import de.invesdwin.context.matlab.runtime.javasci.internal.ScilabWrapper;
 import de.invesdwin.util.error.Throwables;
 
 @Immutable
@@ -27,35 +20,19 @@ public final class JavasciScriptTaskRunnerMatlab
 
     public static final JavasciScriptTaskRunnerMatlab INSTANCE = new JavasciScriptTaskRunnerMatlab();
 
-    @GuardedBy("SCILAB_LOCK")
-    private static final Scilab SCILAB;
-    private static final IReentrantLock SCILAB_LOCK;
-
-    static {
-        for (final String path : JavasciProperties.JAVASCI_LIBRARY_PATHS) {
-            DynamicInstrumentationReflections.addPathToJavaLibraryPath(new File(path));
-        }
-        try {
-            SCILAB = new Scilab(JavasciProperties.SCILAB_PATH, false);
-            SCILAB.open();
-        } catch (final Exception e) {
-            throw Err.process(e);
-        }
-        SCILAB_LOCK = Locks.newReentrantLock(JavasciScriptTaskRunnerMatlab.class.getSimpleName() + "_SCILAB_LOCK");
-    }
-
     /**
      * public for ServiceLoader support
      */
-    public JavasciScriptTaskRunnerMatlab() {}
+    public JavasciScriptTaskRunnerMatlab() {
+    }
 
     @Override
     public <T> T run(final AScriptTaskMatlab<T> scriptTask) {
         //get session
-        SCILAB_LOCK.lock();
+        ScilabWrapper.INSTANCE.getLock().lock();
         try {
             //inputs
-            final JavasciScriptTaskEngineMatlab engine = new JavasciScriptTaskEngineMatlab(SCILAB);
+            final JavasciScriptTaskEngineMatlab engine = new JavasciScriptTaskEngineMatlab(ScilabWrapper.INSTANCE);
             scriptTask.populateInputs(engine.getInputs());
 
             //execute
@@ -66,10 +43,10 @@ public final class JavasciScriptTaskRunnerMatlab
             engine.close();
 
             //return
-            SCILAB_LOCK.unlock();
+            ScilabWrapper.INSTANCE.getLock().unlock();
             return result;
         } catch (final Throwable t) {
-            SCILAB_LOCK.unlock();
+            ScilabWrapper.INSTANCE.getLock().unlock();
             throw Throwables.propagate(t);
         }
     }

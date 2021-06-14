@@ -41,9 +41,10 @@ public class JavasciScriptTaskInputsMatlab implements IScriptTaskInputsMatlab {
 
     private void put(final String variable, final ScilabType st) {
         try {
-            if (!engine.unwrap().put(variable, st)) {
-                throw new ScilabErrorException("A Scilab error occurred: " + engine.unwrap().getLastErrorMessage(),
-                        engine.unwrap().getLastErrorCode());
+            if (!engine.unwrap().getScilab().put(variable, st)) {
+                throw new ScilabErrorException(
+                        "A Scilab error occurred: " + engine.unwrap().getScilab().getLastErrorMessage(),
+                        engine.unwrap().getScilab().getLastErrorCode());
             }
         } catch (final JavasciException e) {
             throw new RuntimeException(e);
