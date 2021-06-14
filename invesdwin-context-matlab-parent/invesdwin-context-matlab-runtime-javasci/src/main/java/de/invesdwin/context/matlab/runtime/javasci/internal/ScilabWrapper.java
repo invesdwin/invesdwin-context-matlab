@@ -15,9 +15,6 @@ import de.invesdwin.util.concurrent.lock.Locks;
 
 /**
  * Always acquire the lock first before accessing the scilab instance.
- *
- * @author subes
- *
  */
 @NotThreadSafe
 public final class ScilabWrapper {

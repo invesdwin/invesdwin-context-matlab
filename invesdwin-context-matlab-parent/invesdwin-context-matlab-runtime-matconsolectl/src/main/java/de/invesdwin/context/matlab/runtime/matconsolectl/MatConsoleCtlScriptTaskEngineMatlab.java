@@ -5,6 +5,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 import de.invesdwin.context.integration.script.IScriptTaskEngine;
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskRunnerMatlab;
 import de.invesdwin.context.matlab.runtime.matconsolectl.pool.MatlabProxyObjectPool;
+import de.invesdwin.util.concurrent.lock.ILock;
+import de.invesdwin.util.concurrent.lock.disabled.DisabledLock;
 import matlabcontrol.MatlabInvocationException;
 import matlabcontrol.MatlabProxy;
 import matlabcontrol.extensions.MatlabTypeConverter;
@@ -81,13 +83,21 @@ public class MatConsoleCtlScriptTaskEngineMatlab implements IScriptTaskEngine {
         return linearIndex;
     }
 
+    /**
+     * Each instance has its own engine, so no shared locking required.
+     */
+    @Override
+    public ILock getSharedLock() {
+        return DisabledLock.INSTANCE;
+    }
+
     public static MatConsoleCtlScriptTaskEngineMatlab newInstance() {
         return new MatConsoleCtlScriptTaskEngineMatlab(MatlabProxyObjectPool.INSTANCE.borrowObject()) {
             @Override
             public void close() {
-                final MatlabProxy proxy = unwrap();
-                if (proxy != null) {
-                    MatlabProxyObjectPool.INSTANCE.returnObject(proxy);
+                final MatlabProxy unwrap = unwrap();
+                if (unwrap != null) {
+                    MatlabProxyObjectPool.INSTANCE.returnObject(unwrap);
                 }
                 super.close();
             }

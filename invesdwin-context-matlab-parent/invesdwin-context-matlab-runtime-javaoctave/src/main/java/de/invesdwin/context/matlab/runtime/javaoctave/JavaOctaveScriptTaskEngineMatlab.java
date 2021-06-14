@@ -5,6 +5,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 import de.invesdwin.context.integration.script.IScriptTaskEngine;
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskRunnerMatlab;
 import de.invesdwin.context.matlab.runtime.javaoctave.pool.OctaveEngineObjectPool;
+import de.invesdwin.util.concurrent.lock.ILock;
+import de.invesdwin.util.concurrent.lock.disabled.DisabledLock;
 import dk.ange.octave.OctaveEngine;
 
 @NotThreadSafe
@@ -51,13 +53,21 @@ public class JavaOctaveScriptTaskEngineMatlab implements IScriptTaskEngine {
         return octaveEngine;
     }
 
+    /**
+     * Each instance has its own engine, so no shared locking required.
+     */
+    @Override
+    public ILock getSharedLock() {
+        return DisabledLock.INSTANCE;
+    }
+
     public static JavaOctaveScriptTaskEngineMatlab newInstance() {
         return new JavaOctaveScriptTaskEngineMatlab(OctaveEngineObjectPool.INSTANCE.borrowObject()) {
             @Override
             public void close() {
-                final OctaveEngine engine = unwrap();
-                if (engine != null) {
-                    OctaveEngineObjectPool.INSTANCE.returnObject(engine);
+                final OctaveEngine unwrap = unwrap();
+                if (unwrap != null) {
+                    OctaveEngineObjectPool.INSTANCE.returnObject(unwrap);
                 }
                 super.close();
             }

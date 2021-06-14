@@ -29,10 +29,10 @@ public final class JavasciScriptTaskRunnerMatlab
     @Override
     public <T> T run(final AScriptTaskMatlab<T> scriptTask) {
         //get session
-        ScilabWrapper.INSTANCE.getLock().lock();
+        final JavasciScriptTaskEngineMatlab engine = new JavasciScriptTaskEngineMatlab(ScilabWrapper.INSTANCE);
+        engine.getSharedLock().lock();
         try {
             //inputs
-            final JavasciScriptTaskEngineMatlab engine = new JavasciScriptTaskEngineMatlab(ScilabWrapper.INSTANCE);
             scriptTask.populateInputs(engine.getInputs());
 
             //execute
@@ -43,10 +43,10 @@ public final class JavasciScriptTaskRunnerMatlab
             engine.close();
 
             //return
-            ScilabWrapper.INSTANCE.getLock().unlock();
+            engine.getSharedLock().unlock();
             return result;
         } catch (final Throwable t) {
-            ScilabWrapper.INSTANCE.getLock().unlock();
+            engine.getSharedLock().unlock();
             throw Throwables.propagate(t);
         }
     }
