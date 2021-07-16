@@ -12,7 +12,7 @@ import org.zeroturnaround.exec.stream.slf4j.Slf4jWarnOutputStream;
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskRunnerMatlab;
 import de.invesdwin.context.matlab.runtime.matconsolectl.MatConsoleCtlProperties;
 import de.invesdwin.context.matlab.runtime.matconsolectl.MatConsoleCtlScriptTaskEngineMatlab;
-import de.invesdwin.context.pool.IPoolableObjectFactory;
+import de.invesdwin.util.concurrent.pool.IPoolableObjectFactory;
 import matlabcontrol.MatlabConnectionException;
 import matlabcontrol.MatlabInvocationException;
 import matlabcontrol.MatlabProxy;
