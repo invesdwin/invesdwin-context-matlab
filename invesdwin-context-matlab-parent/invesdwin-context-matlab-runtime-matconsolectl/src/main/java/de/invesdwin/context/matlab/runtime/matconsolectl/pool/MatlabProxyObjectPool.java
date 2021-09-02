@@ -18,14 +18,14 @@ import de.invesdwin.util.collections.iterable.buffer.NodeBufferingIterator.INode
 import de.invesdwin.util.concurrent.Executors;
 import de.invesdwin.util.concurrent.Threads;
 import de.invesdwin.util.concurrent.WrappedExecutorService;
-import de.invesdwin.util.concurrent.pool.AObjectPool;
+import de.invesdwin.util.concurrent.pool.commons.ACommonsObjectPool;
 import de.invesdwin.util.time.date.FDate;
 import de.invesdwin.util.time.duration.Duration;
 import matlabcontrol.MatlabProxy;
 
 @ThreadSafe
 @Named
-public final class MatlabProxyObjectPool extends AObjectPool<MatlabProxy>
+public final class MatlabProxyObjectPool extends ACommonsObjectPool<MatlabProxy>
         implements FactoryBean<MatlabProxyObjectPool> {
 
     public static final MatlabProxyObjectPool INSTANCE = new MatlabProxyObjectPool();

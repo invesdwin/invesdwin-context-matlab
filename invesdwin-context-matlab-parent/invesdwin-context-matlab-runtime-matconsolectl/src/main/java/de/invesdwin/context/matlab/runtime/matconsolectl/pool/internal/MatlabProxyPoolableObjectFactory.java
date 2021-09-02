@@ -12,7 +12,7 @@ import org.zeroturnaround.exec.stream.slf4j.Slf4jWarnOutputStream;
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskRunnerMatlab;
 import de.invesdwin.context.matlab.runtime.matconsolectl.MatConsoleCtlProperties;
 import de.invesdwin.context.matlab.runtime.matconsolectl.MatConsoleCtlScriptTaskEngineMatlab;
-import de.invesdwin.util.concurrent.pool.IPoolableObjectFactory;
+import de.invesdwin.util.concurrent.pool.commons.ICommonsPoolableObjectFactory;
 import matlabcontrol.MatlabConnectionException;
 import matlabcontrol.MatlabInvocationException;
 import matlabcontrol.MatlabProxy;
@@ -23,7 +23,7 @@ import matlabcontrol.MatlabProxyFactoryOptions.Builder;
 @ThreadSafe
 @Named
 public final class MatlabProxyPoolableObjectFactory
-        implements IPoolableObjectFactory<MatlabProxy>, FactoryBean<MatlabProxyPoolableObjectFactory> {
+        implements ICommonsPoolableObjectFactory<MatlabProxy>, FactoryBean<MatlabProxyPoolableObjectFactory> {
 
     public static final MatlabProxyPoolableObjectFactory INSTANCE = new MatlabProxyPoolableObjectFactory();
 

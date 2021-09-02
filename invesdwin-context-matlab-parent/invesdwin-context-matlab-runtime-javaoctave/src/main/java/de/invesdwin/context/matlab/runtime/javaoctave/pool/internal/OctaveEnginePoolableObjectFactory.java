@@ -13,14 +13,14 @@ import org.zeroturnaround.exec.stream.slf4j.Slf4jWarnOutputStream;
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskRunnerMatlab;
 import de.invesdwin.context.matlab.runtime.javaoctave.JavaOctaveProperties;
 import de.invesdwin.context.matlab.runtime.javaoctave.JavaOctaveScriptTaskEngineMatlab;
-import de.invesdwin.util.concurrent.pool.IPoolableObjectFactory;
+import de.invesdwin.util.concurrent.pool.commons.ICommonsPoolableObjectFactory;
 import dk.ange.octave.OctaveEngine;
 import dk.ange.octave.OctaveEngineFactory;
 
 @ThreadSafe
 @Named
 public final class OctaveEnginePoolableObjectFactory
-        implements IPoolableObjectFactory<OctaveEngine>, FactoryBean<OctaveEnginePoolableObjectFactory> {
+        implements ICommonsPoolableObjectFactory<OctaveEngine>, FactoryBean<OctaveEnginePoolableObjectFactory> {
 
     public static final OctaveEnginePoolableObjectFactory INSTANCE = new OctaveEnginePoolableObjectFactory();
 

@@ -17,14 +17,14 @@ import de.invesdwin.util.collections.iterable.buffer.IBufferingIterator;
 import de.invesdwin.util.concurrent.Executors;
 import de.invesdwin.util.concurrent.Threads;
 import de.invesdwin.util.concurrent.WrappedExecutorService;
-import de.invesdwin.util.concurrent.pool.AObjectPool;
+import de.invesdwin.util.concurrent.pool.commons.ACommonsObjectPool;
 import de.invesdwin.util.time.date.FDate;
 import de.invesdwin.util.time.duration.Duration;
 import dk.ange.octave.OctaveEngine;
 
 @ThreadSafe
 @Named
-public final class OctaveEngineObjectPool extends AObjectPool<OctaveEngine>
+public final class OctaveEngineObjectPool extends ACommonsObjectPool<OctaveEngine>
         implements FactoryBean<OctaveEngineObjectPool> {
 
     public static final OctaveEngineObjectPool INSTANCE = new OctaveEngineObjectPool();
