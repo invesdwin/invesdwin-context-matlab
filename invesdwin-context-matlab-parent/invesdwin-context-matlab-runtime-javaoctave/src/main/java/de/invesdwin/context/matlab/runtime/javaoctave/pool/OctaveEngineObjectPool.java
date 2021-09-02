@@ -12,8 +12,8 @@ import org.springframework.beans.factory.FactoryBean;
 
 import de.invesdwin.context.matlab.runtime.javaoctave.pool.internal.OctaveEnginePoolableObjectFactory;
 import de.invesdwin.util.assertions.Assertions;
-import de.invesdwin.util.collections.iterable.buffer.BufferingIterator;
-import de.invesdwin.util.collections.iterable.buffer.IBufferingIterator;
+import de.invesdwin.util.collections.iterable.buffer.NodeBufferingIterator;
+import de.invesdwin.util.collections.iterable.buffer.NodeBufferingIterator.INode;
 import de.invesdwin.util.concurrent.Executors;
 import de.invesdwin.util.concurrent.Threads;
 import de.invesdwin.util.concurrent.WrappedExecutorService;
@@ -32,7 +32,7 @@ public final class OctaveEngineObjectPool extends ACommonsObjectPool<OctaveEngin
     private final WrappedExecutorService timeoutMonitorExecutor = Executors
             .newFixedCallerRunsThreadPool(getClass().getSimpleName() + "_timeout", 1);
     @GuardedBy("this")
-    private final IBufferingIterator<OctaveEngineWrapper> octaveEngineRotation = new BufferingIterator<OctaveEngineWrapper>();
+    private final NodeBufferingIterator<OctaveEngineWrapper> octaveEngineRotation = new NodeBufferingIterator<OctaveEngineWrapper>();
 
     private OctaveEngineObjectPool() {
         super(OctaveEnginePoolableObjectFactory.INSTANCE);
@@ -111,10 +111,11 @@ public final class OctaveEngineObjectPool extends ACommonsObjectPool<OctaveEngin
         }
     }
 
-    private static final class OctaveEngineWrapper {
+    private static final class OctaveEngineWrapper implements INode<OctaveEngineWrapper> {
 
         private final OctaveEngine octaveEngine;
         private final FDate timeoutStart;
+        private OctaveEngineWrapper next;
 
         OctaveEngineWrapper(final OctaveEngine octaveEngine) {
             this.octaveEngine = octaveEngine;
@@ -144,6 +145,16 @@ public final class OctaveEngineObjectPool extends ACommonsObjectPool<OctaveEngin
             } else {
                 return false;
             }
+        }
+
+        @Override
+        public OctaveEngineWrapper getNext() {
+            return next;
+        }
+
+        @Override
+        public void setNext(final OctaveEngineWrapper next) {
+            this.next = next;
         }
 
     }
