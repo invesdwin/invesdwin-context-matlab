@@ -2,7 +2,6 @@ package de.invesdwin.context.matlab.runtime.javaoctave.pool;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.concurrent.GuardedBy;
@@ -13,6 +12,8 @@ import org.springframework.beans.factory.FactoryBean;
 
 import de.invesdwin.context.matlab.runtime.javaoctave.pool.internal.OctaveEnginePoolableObjectFactory;
 import de.invesdwin.util.assertions.Assertions;
+import de.invesdwin.util.collections.iterable.buffer.BufferingIterator;
+import de.invesdwin.util.collections.iterable.buffer.IBufferingIterator;
 import de.invesdwin.util.concurrent.Executors;
 import de.invesdwin.util.concurrent.Threads;
 import de.invesdwin.util.concurrent.WrappedExecutorService;
@@ -31,7 +32,7 @@ public final class OctaveEngineObjectPool extends AObjectPool<OctaveEngine>
     private final WrappedExecutorService timeoutMonitorExecutor = Executors
             .newFixedCallerRunsThreadPool(getClass().getSimpleName() + "_timeout", 1);
     @GuardedBy("this")
-    private final List<OctaveEngineWrapper> octaveEngineRotation = new ArrayList<OctaveEngineWrapper>();
+    private final IBufferingIterator<OctaveEngineWrapper> octaveEngineRotation = new BufferingIterator<OctaveEngineWrapper>();
 
     private OctaveEngineObjectPool() {
         super(OctaveEnginePoolableObjectFactory.INSTANCE);
@@ -43,7 +44,7 @@ public final class OctaveEngineObjectPool extends AObjectPool<OctaveEngine>
         if (octaveEngineRotation.isEmpty()) {
             return factory.makeObject();
         }
-        final OctaveEngineWrapper octaveEngine = octaveEngineRotation.remove(0);
+        final OctaveEngineWrapper octaveEngine = octaveEngineRotation.next();
         if (octaveEngine != null) {
             return octaveEngine.getOctaveEngine();
         } else {
@@ -60,7 +61,7 @@ public final class OctaveEngineObjectPool extends AObjectPool<OctaveEngine>
     public synchronized Collection<OctaveEngine> internalClear() {
         final Collection<OctaveEngine> removed = new ArrayList<OctaveEngine>();
         while (!octaveEngineRotation.isEmpty()) {
-            removed.add(octaveEngineRotation.remove(0).getOctaveEngine());
+            removed.add(octaveEngineRotation.next().getOctaveEngine());
         }
         return removed;
     }
@@ -96,9 +97,7 @@ public final class OctaveEngineObjectPool extends AObjectPool<OctaveEngine>
                     TimeUnit.MILLISECONDS.sleep(100);
                     synchronized (OctaveEngineObjectPool.this) {
                         if (!octaveEngineRotation.isEmpty()) {
-                            final List<OctaveEngineWrapper> copy = new ArrayList<OctaveEngineWrapper>(
-                                    octaveEngineRotation);
-                            for (final OctaveEngineWrapper octaveEngine : copy) {
+                            for (final OctaveEngineWrapper octaveEngine : octaveEngineRotation.snapshot()) {
                                 if (octaveEngine.isTimeoutExceeded()) {
                                     Assertions.assertThat(octaveEngineRotation.remove(octaveEngine)).isTrue();
                                 }

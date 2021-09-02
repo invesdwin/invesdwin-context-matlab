@@ -2,7 +2,7 @@ package de.invesdwin.context.matlab.runtime.matconsolectl.pool;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.concurrent.GuardedBy;
@@ -12,7 +12,9 @@ import javax.inject.Named;
 import org.springframework.beans.factory.FactoryBean;
 
 import de.invesdwin.context.matlab.runtime.matconsolectl.pool.internal.MatlabProxyPoolableObjectFactory;
-import de.invesdwin.util.assertions.Assertions;
+import de.invesdwin.util.collections.iterable.ICloseableIterator;
+import de.invesdwin.util.collections.iterable.buffer.NodeBufferingIterator;
+import de.invesdwin.util.collections.iterable.buffer.NodeBufferingIterator.INode;
 import de.invesdwin.util.concurrent.Executors;
 import de.invesdwin.util.concurrent.Threads;
 import de.invesdwin.util.concurrent.WrappedExecutorService;
@@ -31,7 +33,7 @@ public final class MatlabProxyObjectPool extends AObjectPool<MatlabProxy>
     private final WrappedExecutorService timeoutMonitorExecutor = Executors
             .newFixedCallerRunsThreadPool(getClass().getSimpleName() + "_timeout", 1);
     @GuardedBy("this")
-    private final List<MatlabProxyWrapper> matlabProxyRotation = new ArrayList<MatlabProxyWrapper>();
+    private final NodeBufferingIterator<MatlabProxyWrapper> matlabProxyRotation = new NodeBufferingIterator<MatlabProxyWrapper>();
 
     private MatlabProxyObjectPool() {
         super(MatlabProxyPoolableObjectFactory.INSTANCE);
@@ -43,7 +45,7 @@ public final class MatlabProxyObjectPool extends AObjectPool<MatlabProxy>
         if (matlabProxyRotation.isEmpty()) {
             return factory.makeObject();
         }
-        final MatlabProxyWrapper matlabProxy = matlabProxyRotation.remove(0);
+        final MatlabProxyWrapper matlabProxy = matlabProxyRotation.next();
         if (matlabProxy != null) {
             return matlabProxy.getMatlabProxy();
         } else {
@@ -60,7 +62,7 @@ public final class MatlabProxyObjectPool extends AObjectPool<MatlabProxy>
     public synchronized Collection<MatlabProxy> internalClear() {
         final Collection<MatlabProxy> removed = new ArrayList<MatlabProxy>();
         while (!matlabProxyRotation.isEmpty()) {
-            removed.add(matlabProxyRotation.remove(0).getMatlabProxy());
+            removed.add(matlabProxyRotation.next().getMatlabProxy());
         }
         return removed;
     }
@@ -96,12 +98,16 @@ public final class MatlabProxyObjectPool extends AObjectPool<MatlabProxy>
                     TimeUnit.MILLISECONDS.sleep(100);
                     synchronized (MatlabProxyObjectPool.this) {
                         if (!matlabProxyRotation.isEmpty()) {
-                            final List<MatlabProxyWrapper> copy = new ArrayList<MatlabProxyWrapper>(
-                                    matlabProxyRotation);
-                            for (final MatlabProxyWrapper matlabProxy : copy) {
-                                if (matlabProxy.isTimeoutExceeded()) {
-                                    Assertions.assertThat(matlabProxyRotation.remove(matlabProxy)).isTrue();
+                            final ICloseableIterator<MatlabProxyWrapper> iterator = matlabProxyRotation.iterator();
+                            try {
+                                while (true) {
+                                    final MatlabProxyWrapper matlabProxy = iterator.next();
+                                    if (matlabProxy.isTimeoutExceeded()) {
+                                        iterator.remove();
+                                    }
                                 }
+                            } catch (final NoSuchElementException e) {
+                                //end reached
                             }
                         }
                     }
@@ -112,10 +118,11 @@ public final class MatlabProxyObjectPool extends AObjectPool<MatlabProxy>
         }
     }
 
-    private static final class MatlabProxyWrapper {
+    private static final class MatlabProxyWrapper implements INode<MatlabProxyWrapper> {
 
         private final MatlabProxy matlabProxy;
         private final FDate timeoutStart;
+        private MatlabProxyWrapper next;
 
         MatlabProxyWrapper(final MatlabProxy matlabProxy) {
             this.matlabProxy = matlabProxy;
@@ -145,6 +152,16 @@ public final class MatlabProxyObjectPool extends AObjectPool<MatlabProxy>
             } else {
                 return false;
             }
+        }
+
+        @Override
+        public MatlabProxyWrapper getNext() {
+            return next;
+        }
+
+        @Override
+        public void setNext(final MatlabProxyWrapper next) {
+            this.next = next;
         }
 
     }
