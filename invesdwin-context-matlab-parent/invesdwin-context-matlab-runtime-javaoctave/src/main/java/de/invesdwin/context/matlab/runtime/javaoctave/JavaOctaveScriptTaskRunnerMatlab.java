@@ -24,7 +24,8 @@ public final class JavaOctaveScriptTaskRunnerMatlab
     /**
      * public for ServiceLoader support
      */
-    public JavaOctaveScriptTaskRunnerMatlab() {}
+    public JavaOctaveScriptTaskRunnerMatlab() {
+    }
 
     @Override
     public <T> T run(final AScriptTaskMatlab<T> scriptTask) {
@@ -46,7 +47,7 @@ public final class JavaOctaveScriptTaskRunnerMatlab
             OctaveEngineObjectPool.INSTANCE.returnObject(octaveEngine);
             return result;
         } catch (final Throwable t) {
-            OctaveEngineObjectPool.INSTANCE.invalidateObject(octaveEngine);
+            OctaveEngineObjectPool.INSTANCE.destroyObject(octaveEngine);
             throw Throwables.propagate(t);
         }
     }

@@ -24,7 +24,8 @@ public final class MatConsoleCtlScriptTaskRunnerMatlab
     /**
      * public for ServiceLoader support
      */
-    public MatConsoleCtlScriptTaskRunnerMatlab() {}
+    public MatConsoleCtlScriptTaskRunnerMatlab() {
+    }
 
     @Override
     public <T> T run(final AScriptTaskMatlab<T> scriptTask) {
@@ -46,7 +47,7 @@ public final class MatConsoleCtlScriptTaskRunnerMatlab
             MatlabProxyObjectPool.INSTANCE.returnObject(matlabProxy);
             return result;
         } catch (final Throwable t) {
-            MatlabProxyObjectPool.INSTANCE.invalidateObject(matlabProxy);
+            MatlabProxyObjectPool.INSTANCE.destroyObject(matlabProxy);
             throw Throwables.propagate(t);
         }
     }

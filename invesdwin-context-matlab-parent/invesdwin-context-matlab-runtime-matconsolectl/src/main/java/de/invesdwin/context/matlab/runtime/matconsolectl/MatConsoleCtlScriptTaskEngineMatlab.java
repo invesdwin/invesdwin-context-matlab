@@ -21,14 +21,22 @@ public class MatConsoleCtlScriptTaskEngineMatlab implements IScriptTaskEngine {
     private String expressionEnding;
 
     public MatConsoleCtlScriptTaskEngineMatlab(final MatlabProxy matlabProxy) {
-        this.matlabProxy = matlabProxy;
-        this.typeConverter = new MatlabTypeConverter(matlabProxy);
+        setMatlabProxy(matlabProxy);
         this.inputs = new MatConsoleCtlScriptTaskInputsMatlab(this);
         this.results = new MatConsoleCtlScriptTaskResultsMatlab(this);
         if (IScriptTaskRunnerMatlab.LOG.isDebugEnabled()) {
             expressionEnding = ";";
         } else {
             expressionEnding = "";
+        }
+    }
+
+    public void setMatlabProxy(final MatlabProxy matlabProxy) {
+        this.matlabProxy = matlabProxy;
+        if (matlabProxy != null) {
+            this.typeConverter = new MatlabTypeConverter(matlabProxy);
+        } else {
+            this.typeConverter = null;
         }
     }
 

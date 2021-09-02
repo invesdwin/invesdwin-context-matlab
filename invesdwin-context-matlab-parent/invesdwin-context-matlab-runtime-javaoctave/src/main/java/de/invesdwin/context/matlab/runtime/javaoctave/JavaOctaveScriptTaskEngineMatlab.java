@@ -28,6 +28,10 @@ public class JavaOctaveScriptTaskEngineMatlab implements IScriptTaskEngine {
         }
     }
 
+    public void setOctaveEngine(final OctaveEngine octaveEngine) {
+        this.octaveEngine = octaveEngine;
+    }
+
     @Override
     public void eval(final String expression) {
         octaveEngine.eval(expression + expressionEnding);

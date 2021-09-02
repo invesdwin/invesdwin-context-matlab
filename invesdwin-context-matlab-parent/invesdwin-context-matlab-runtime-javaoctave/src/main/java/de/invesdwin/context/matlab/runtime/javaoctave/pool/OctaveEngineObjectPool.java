@@ -1,166 +1,67 @@
 package de.invesdwin.context.matlab.runtime.javaoctave.pool;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.concurrent.TimeUnit;
+import java.io.File;
+import java.io.OutputStreamWriter;
 
-import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 import javax.inject.Named;
 
 import org.springframework.beans.factory.FactoryBean;
+import org.zeroturnaround.exec.stream.slf4j.Slf4jDebugOutputStream;
+import org.zeroturnaround.exec.stream.slf4j.Slf4jWarnOutputStream;
 
-import de.invesdwin.context.matlab.runtime.javaoctave.pool.internal.OctaveEnginePoolableObjectFactory;
-import de.invesdwin.util.assertions.Assertions;
-import de.invesdwin.util.collections.iterable.buffer.NodeBufferingIterator;
-import de.invesdwin.util.collections.iterable.buffer.NodeBufferingIterator.INode;
-import de.invesdwin.util.concurrent.Executors;
-import de.invesdwin.util.concurrent.Threads;
-import de.invesdwin.util.concurrent.WrappedExecutorService;
-import de.invesdwin.util.concurrent.pool.commons.ACommonsObjectPool;
-import de.invesdwin.util.time.date.FDate;
+import de.invesdwin.context.matlab.runtime.contract.IScriptTaskRunnerMatlab;
+import de.invesdwin.context.matlab.runtime.javaoctave.JavaOctaveProperties;
+import de.invesdwin.context.matlab.runtime.javaoctave.JavaOctaveScriptTaskEngineMatlab;
+import de.invesdwin.util.concurrent.pool.timeout.ATimeoutObjectPool;
+import de.invesdwin.util.time.date.FTimeUnit;
 import de.invesdwin.util.time.duration.Duration;
 import dk.ange.octave.OctaveEngine;
+import dk.ange.octave.OctaveEngineFactory;
 
 @ThreadSafe
 @Named
-public final class OctaveEngineObjectPool extends ACommonsObjectPool<OctaveEngine>
+public final class OctaveEngineObjectPool extends ATimeoutObjectPool<OctaveEngine>
         implements FactoryBean<OctaveEngineObjectPool> {
 
     public static final OctaveEngineObjectPool INSTANCE = new OctaveEngineObjectPool();
 
-    private final WrappedExecutorService timeoutMonitorExecutor = Executors
-            .newFixedCallerRunsThreadPool(getClass().getSimpleName() + "_timeout", 1);
-    @GuardedBy("this")
-    private final NodeBufferingIterator<OctaveEngineWrapper> octaveEngineRotation = new NodeBufferingIterator<OctaveEngineWrapper>();
+    private final JavaOctaveScriptTaskEngineMatlab reusableEngine = new JavaOctaveScriptTaskEngineMatlab(null);
 
     private OctaveEngineObjectPool() {
-        super(OctaveEnginePoolableObjectFactory.INSTANCE);
-        timeoutMonitorExecutor.execute(new OctaveEngineTimoutMonitor());
+        super(Duration.ONE_MINUTE, new Duration(10, FTimeUnit.SECONDS));
     }
 
     @Override
-    protected synchronized OctaveEngine internalBorrowObject() {
-        if (octaveEngineRotation.isEmpty()) {
-            return factory.makeObject();
+    protected OctaveEngine newObject() {
+        final OctaveEngineFactory factory = new OctaveEngineFactory();
+        factory.setErrorWriter(new OutputStreamWriter(new Slf4jWarnOutputStream(IScriptTaskRunnerMatlab.LOG)));
+        if (JavaOctaveProperties.OCTAVE_COMMAND != null) {
+            factory.setOctaveProgram(new File(JavaOctaveProperties.OCTAVE_COMMAND));
         }
-        final OctaveEngineWrapper octaveEngine = octaveEngineRotation.next();
-        if (octaveEngine != null) {
-            return octaveEngine.getOctaveEngine();
-        } else {
-            return factory.makeObject();
+        final OctaveEngine scriptEngine = factory.getScriptEngine();
+        scriptEngine.setWriter(new OutputStreamWriter(new Slf4jDebugOutputStream(IScriptTaskRunnerMatlab.LOG)));
+        return scriptEngine;
+    }
+
+    @Override
+    protected void passivateObject(final OctaveEngine obj) {
+        reusableEngine.setOctaveEngine(obj);
+        reusableEngine.eval(IScriptTaskRunnerMatlab.CLEANUP_SCRIPT);
+        reusableEngine.close();
+    }
+
+    @Override
+    public void destroyObject(final OctaveEngine element) {
+        try {
+            element.close();
+        } catch (final Throwable t) {
+            //ignore
         }
     }
 
     @Override
-    public synchronized int getNumIdle() {
-        return octaveEngineRotation.size();
-    }
-
-    @Override
-    public synchronized Collection<OctaveEngine> internalClear() {
-        final Collection<OctaveEngine> removed = new ArrayList<OctaveEngine>();
-        while (!octaveEngineRotation.isEmpty()) {
-            removed.add(octaveEngineRotation.next().getOctaveEngine());
-        }
-        return removed;
-    }
-
-    @Override
-    protected synchronized OctaveEngine internalAddObject() {
-        final OctaveEngine pooled = factory.makeObject();
-        octaveEngineRotation.add(new OctaveEngineWrapper(factory.makeObject()));
-        return pooled;
-    }
-
-    @Override
-    protected synchronized void internalReturnObject(final OctaveEngine obj) {
-        octaveEngineRotation.add(new OctaveEngineWrapper(obj));
-    }
-
-    @Override
-    protected void internalInvalidateObject(final OctaveEngine obj) {
-        //Nothing happens
-    }
-
-    @Override
-    protected synchronized void internalRemoveObject(final OctaveEngine obj) {
-        octaveEngineRotation.remove(new OctaveEngineWrapper(obj));
-    }
-
-    private class OctaveEngineTimoutMonitor implements Runnable {
-        @Override
-        public void run() {
-            try {
-                while (true) {
-                    Threads.throwIfInterrupted();
-                    TimeUnit.MILLISECONDS.sleep(100);
-                    synchronized (OctaveEngineObjectPool.this) {
-                        if (!octaveEngineRotation.isEmpty()) {
-                            for (final OctaveEngineWrapper octaveEngine : octaveEngineRotation.snapshot()) {
-                                if (octaveEngine.isTimeoutExceeded()) {
-                                    Assertions.assertThat(octaveEngineRotation.remove(octaveEngine)).isTrue();
-                                }
-                            }
-                        }
-                    }
-                }
-            } catch (final InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-        }
-    }
-
-    private static final class OctaveEngineWrapper implements INode<OctaveEngineWrapper> {
-
-        private final OctaveEngine octaveEngine;
-        private final FDate timeoutStart;
-        private OctaveEngineWrapper next;
-
-        OctaveEngineWrapper(final OctaveEngine octaveEngine) {
-            this.octaveEngine = octaveEngine;
-            this.timeoutStart = new FDate();
-        }
-
-        public OctaveEngine getOctaveEngine() {
-            return octaveEngine;
-        }
-
-        public boolean isTimeoutExceeded() {
-            return new Duration(timeoutStart, new FDate()).isGreaterThan(Duration.ONE_MINUTE);
-        }
-
-        @Override
-        public int hashCode() {
-            return octaveEngine.hashCode();
-        }
-
-        @Override
-        public boolean equals(final Object obj) {
-            if (obj instanceof OctaveEngineWrapper) {
-                final OctaveEngineWrapper cObj = (OctaveEngineWrapper) obj;
-                return octaveEngine.equals(cObj.getOctaveEngine());
-            } else if (obj instanceof OctaveEngine) {
-                return octaveEngine.equals(obj);
-            } else {
-                return false;
-            }
-        }
-
-        @Override
-        public OctaveEngineWrapper getNext() {
-            return next;
-        }
-
-        @Override
-        public void setNext(final OctaveEngineWrapper next) {
-            this.next = next;
-        }
-
-    }
-
-    @Override
-    public OctaveEngineObjectPool getObject() {
+    public OctaveEngineObjectPool getObject() throws Exception {
         return INSTANCE;
     }
 
@@ -173,5 +74,4 @@ public final class OctaveEngineObjectPool extends ACommonsObjectPool<OctaveEngin
     public boolean isSingleton() {
         return true;
     }
-
 }

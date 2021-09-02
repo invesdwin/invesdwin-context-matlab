@@ -1,169 +1,70 @@
 package de.invesdwin.context.matlab.runtime.matconsolectl.pool;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.NoSuchElementException;
-import java.util.concurrent.TimeUnit;
+import java.io.OutputStreamWriter;
 
-import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 import javax.inject.Named;
 
 import org.springframework.beans.factory.FactoryBean;
+import org.zeroturnaround.exec.stream.slf4j.Slf4jDebugOutputStream;
+import org.zeroturnaround.exec.stream.slf4j.Slf4jWarnOutputStream;
 
-import de.invesdwin.context.matlab.runtime.matconsolectl.pool.internal.MatlabProxyPoolableObjectFactory;
-import de.invesdwin.util.collections.iterable.ICloseableIterator;
-import de.invesdwin.util.collections.iterable.buffer.NodeBufferingIterator;
-import de.invesdwin.util.collections.iterable.buffer.NodeBufferingIterator.INode;
-import de.invesdwin.util.concurrent.Executors;
-import de.invesdwin.util.concurrent.Threads;
-import de.invesdwin.util.concurrent.WrappedExecutorService;
-import de.invesdwin.util.concurrent.pool.commons.ACommonsObjectPool;
-import de.invesdwin.util.time.date.FDate;
+import de.invesdwin.context.matlab.runtime.contract.IScriptTaskRunnerMatlab;
+import de.invesdwin.context.matlab.runtime.matconsolectl.MatConsoleCtlProperties;
+import de.invesdwin.context.matlab.runtime.matconsolectl.MatConsoleCtlScriptTaskEngineMatlab;
+import de.invesdwin.util.concurrent.pool.timeout.ATimeoutObjectPool;
+import de.invesdwin.util.time.date.FTimeUnit;
 import de.invesdwin.util.time.duration.Duration;
+import matlabcontrol.MatlabConnectionException;
+import matlabcontrol.MatlabInvocationException;
 import matlabcontrol.MatlabProxy;
+import matlabcontrol.MatlabProxyFactory;
+import matlabcontrol.MatlabProxyFactoryOptions;
+import matlabcontrol.MatlabProxyFactoryOptions.Builder;
 
 @ThreadSafe
 @Named
-public final class MatlabProxyObjectPool extends ACommonsObjectPool<MatlabProxy>
+public final class MatlabProxyObjectPool extends ATimeoutObjectPool<MatlabProxy>
         implements FactoryBean<MatlabProxyObjectPool> {
 
     public static final MatlabProxyObjectPool INSTANCE = new MatlabProxyObjectPool();
 
-    private final WrappedExecutorService timeoutMonitorExecutor = Executors
-            .newFixedCallerRunsThreadPool(getClass().getSimpleName() + "_timeout", 1);
-    @GuardedBy("this")
-    private final NodeBufferingIterator<MatlabProxyWrapper> matlabProxyRotation = new NodeBufferingIterator<MatlabProxyWrapper>();
+    private final MatConsoleCtlScriptTaskEngineMatlab reusableEngine = new MatConsoleCtlScriptTaskEngineMatlab(null);
 
     private MatlabProxyObjectPool() {
-        super(MatlabProxyPoolableObjectFactory.INSTANCE);
-        timeoutMonitorExecutor.execute(new MatlabProxyTimoutMonitor());
+        super(Duration.ONE_MINUTE, new Duration(10, FTimeUnit.SECONDS));
     }
 
     @Override
-    protected synchronized MatlabProxy internalBorrowObject() {
-        if (matlabProxyRotation.isEmpty()) {
-            return factory.makeObject();
+    protected MatlabProxy newObject() {
+        final Builder options = new MatlabProxyFactoryOptions.Builder().setHidden(true);
+        if (MatConsoleCtlProperties.MATLAB_COMMAND != null) {
+            options.setMatlabLocation(MatConsoleCtlProperties.MATLAB_COMMAND);
         }
-        final MatlabProxyWrapper matlabProxy = matlabProxyRotation.next();
-        if (matlabProxy != null) {
-            return matlabProxy.getMatlabProxy();
-        } else {
-            return factory.makeObject();
+        options.setOutputWriter(new OutputStreamWriter(new Slf4jDebugOutputStream(IScriptTaskRunnerMatlab.LOG)));
+        options.setErrorWriter(new OutputStreamWriter(new Slf4jWarnOutputStream(IScriptTaskRunnerMatlab.LOG)));
+        final MatlabProxyFactory factory = new MatlabProxyFactory(options.build());
+        try {
+            return factory.getProxy();
+        } catch (final MatlabConnectionException e) {
+            throw new RuntimeException(e);
         }
     }
 
     @Override
-    public synchronized int getNumIdle() {
-        return matlabProxyRotation.size();
+    protected void passivateObject(final MatlabProxy obj) {
+        reusableEngine.setMatlabProxy(obj);
+        reusableEngine.eval(IScriptTaskRunnerMatlab.CLEANUP_SCRIPT);
+        reusableEngine.close();
     }
 
     @Override
-    public synchronized Collection<MatlabProxy> internalClear() {
-        final Collection<MatlabProxy> removed = new ArrayList<MatlabProxy>();
-        while (!matlabProxyRotation.isEmpty()) {
-            removed.add(matlabProxyRotation.next().getMatlabProxy());
+    public void destroyObject(final MatlabProxy obj) {
+        try {
+            obj.exit();
+        } catch (final MatlabInvocationException e) {
+            throw new RuntimeException(e);
         }
-        return removed;
-    }
-
-    @Override
-    protected synchronized MatlabProxy internalAddObject() {
-        final MatlabProxy pooled = factory.makeObject();
-        matlabProxyRotation.add(new MatlabProxyWrapper(factory.makeObject()));
-        return pooled;
-    }
-
-    @Override
-    protected synchronized void internalReturnObject(final MatlabProxy obj) {
-        matlabProxyRotation.add(new MatlabProxyWrapper(obj));
-    }
-
-    @Override
-    protected void internalInvalidateObject(final MatlabProxy obj) {
-        //Nothing happens
-    }
-
-    @Override
-    protected synchronized void internalRemoveObject(final MatlabProxy obj) {
-        matlabProxyRotation.remove(new MatlabProxyWrapper(obj));
-    }
-
-    private class MatlabProxyTimoutMonitor implements Runnable {
-        @Override
-        public void run() {
-            try {
-                while (true) {
-                    Threads.throwIfInterrupted();
-                    TimeUnit.MILLISECONDS.sleep(100);
-                    synchronized (MatlabProxyObjectPool.this) {
-                        if (!matlabProxyRotation.isEmpty()) {
-                            final ICloseableIterator<MatlabProxyWrapper> iterator = matlabProxyRotation.iterator();
-                            try {
-                                while (true) {
-                                    final MatlabProxyWrapper matlabProxy = iterator.next();
-                                    if (matlabProxy.isTimeoutExceeded()) {
-                                        iterator.remove();
-                                    }
-                                }
-                            } catch (final NoSuchElementException e) {
-                                //end reached
-                            }
-                        }
-                    }
-                }
-            } catch (final InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-        }
-    }
-
-    private static final class MatlabProxyWrapper implements INode<MatlabProxyWrapper> {
-
-        private final MatlabProxy matlabProxy;
-        private final FDate timeoutStart;
-        private MatlabProxyWrapper next;
-
-        MatlabProxyWrapper(final MatlabProxy matlabProxy) {
-            this.matlabProxy = matlabProxy;
-            this.timeoutStart = new FDate();
-        }
-
-        public MatlabProxy getMatlabProxy() {
-            return matlabProxy;
-        }
-
-        public boolean isTimeoutExceeded() {
-            return new Duration(timeoutStart, new FDate()).isGreaterThan(Duration.ONE_MINUTE);
-        }
-
-        @Override
-        public int hashCode() {
-            return matlabProxy.hashCode();
-        }
-
-        @Override
-        public boolean equals(final Object obj) {
-            if (obj instanceof MatlabProxyWrapper) {
-                final MatlabProxyWrapper cObj = (MatlabProxyWrapper) obj;
-                return matlabProxy.equals(cObj.getMatlabProxy());
-            } else if (obj instanceof MatlabProxy) {
-                return matlabProxy.equals(obj);
-            } else {
-                return false;
-            }
-        }
-
-        @Override
-        public MatlabProxyWrapper getNext() {
-            return next;
-        }
-
-        @Override
-        public void setNext(final MatlabProxyWrapper next) {
-            this.next = next;
-        }
-
     }
 
     @Override
