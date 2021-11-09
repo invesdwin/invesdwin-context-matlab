@@ -21,14 +21,17 @@ public final class ScilabWrapper {
 
     public static final ScilabWrapper INSTANCE = new ScilabWrapper();
 
+    static {
+        for (final String path : JavasciProperties.JAVASCI_LIBRARY_PATHS) {
+            DynamicInstrumentationReflections.addPathToJavaLibraryPath(new File(path));
+        }
+    }
+
     @GuardedBy("lock")
     private final Scilab scilab;
     private final IReentrantLock lock;
 
     private ScilabWrapper() {
-        for (final String path : JavasciProperties.JAVASCI_LIBRARY_PATHS) {
-            DynamicInstrumentationReflections.addPathToJavaLibraryPath(new File(path));
-        }
         try {
             scilab = new Scilab(JavasciProperties.SCILAB_PATH, false);
             scilab.open();
