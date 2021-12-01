@@ -26,10 +26,6 @@
 			<groupId>dk.ange</groupId>
 			<artifactId>javaoctave</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.zeroturnaround</groupId>
-			<artifactId>zt-exec</artifactId>
-		</dependency>
 	</dependencies>
 
 </project>
