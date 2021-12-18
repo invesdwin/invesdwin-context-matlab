@@ -3,7 +3,7 @@ package de.invesdwin.context.matlab.runtime.matconsolectl;
 import javax.annotation.concurrent.NotThreadSafe;
 import javax.inject.Inject;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import de.invesdwin.context.matlab.runtime.contract.InputsAndResultsTests;
 import de.invesdwin.context.test.ATest;
