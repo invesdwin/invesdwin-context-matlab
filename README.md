@@ -85,11 +85,11 @@ The above configuration options for the invidiual runtimes can still be provided
 Similar integration modules like this one also exist for the following other programming languages: 
 
 - **R Modules**: Scripting with R
-	- https://github.com/subes/invesdwin-context-r 
+	- https://github.com/invesdwin/invesdwin-context-r 
 - **Python Modules**: Scripting with Python
-	- https://github.com/subes/invesdwin-context-python
+	- https://github.com/invesdwin/invesdwin-context-python
 - **Julia Modules**: Scripting with Julia
-	- https://github.com/subes/invesdwin-context-julia
+	- https://github.com/invesdwin/invesdwin-context-julia
 
 ## Support
 
