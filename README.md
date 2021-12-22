@@ -88,6 +88,8 @@ Similar integration modules like this one also exist for the following other pro
 	- https://github.com/subes/invesdwin-context-r 
 - **Python Modules**: Scripting with Python
 	- https://github.com/subes/invesdwin-context-python
+- **Julia Modules**: Scripting with Julia
+	- https://github.com/subes/invesdwin-context-julia
 
 ## Support
 
