@@ -8,6 +8,7 @@ import org.springframework.beans.factory.FactoryBean;
 import de.invesdwin.context.matlab.runtime.contract.AScriptTaskMatlab;
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskRunnerMatlab;
 import de.invesdwin.context.matlab.runtime.javasci.internal.ScilabWrapper;
+import de.invesdwin.util.concurrent.lock.ILock;
 import de.invesdwin.util.error.Throwables;
 
 @Immutable
@@ -30,7 +31,8 @@ public final class JavasciScriptTaskRunnerMatlab
     public <T> T run(final AScriptTaskMatlab<T> scriptTask) {
         //get session
         final JavasciScriptTaskEngineMatlab engine = new JavasciScriptTaskEngineMatlab(ScilabWrapper.INSTANCE);
-        engine.getSharedLock().lock();
+        final ILock lock = engine.getSharedLock();
+        lock.lock();
         try {
             //inputs
             scriptTask.populateInputs(engine.getInputs());
@@ -43,10 +45,10 @@ public final class JavasciScriptTaskRunnerMatlab
             engine.close();
 
             //return
-            engine.getSharedLock().unlock();
+            lock.unlock();
             return result;
         } catch (final Throwable t) {
-            engine.getSharedLock().unlock();
+            lock.unlock();
             throw Throwables.propagate(t);
         }
     }
