@@ -80,14 +80,20 @@ de.invesdwin.context.PlatformInitializerProperties.setAllowed(false);
 
 The above configuration options for the invidiual runtimes can still be provided by setting system properties before calling any script. An example for all of this can be found at: [ScriptingWithoutBootstrapMain.java](https://github.com/subes/invesdwin-context/blob/master/tests/otherproject-noparent-bom-test/src/main/java/com/otherproject/scripting/ScriptingWithoutBootstrapMain.java)
 
+## Recommended Editor
+
+For working with Matlab we recommend using the default user interface of Matlab. If you want to run your scripts from your main application, you can do this easily with `invesdwin-context-python-runtime-matconsolectl` (add this module as a `test` scope dependency) during development (you also need to add a dependecy to the type `test-jar` of `invesdwin-context-matlab-runtime-contract` for the log level to get activated, or alternatively change the log level of `de.invesdwin.context.matlab.runtime.contract.IScriptTaskRunnerMatlab` to `DEBUG` on your own). The actual deployment distribution can choose a different runtime then as a hard dependency.
+
 ## More Programming Languages
 
 Similar integration modules like this one also exist for the following other programming languages: 
 
 - **R Modules**: Scripting with R
-	- https://github.com/subes/invesdwin-context-r 
+	- https://github.com/invesdwin/invesdwin-context-r 
 - **Python Modules**: Scripting with Python
-	- https://github.com/subes/invesdwin-context-python
+	- https://github.com/invesdwin/invesdwin-context-python
+- **Julia Modules**: Scripting with Julia
+	- https://github.com/invesdwin/invesdwin-context-julia
 
 ## Support
 
