@@ -45,11 +45,11 @@ public final class JavasciScriptTaskRunnerMatlab
             engine.close();
 
             //return
-            lock.unlock();
             return result;
         } catch (final Throwable t) {
-            lock.unlock();
             throw Throwables.propagate(t);
+        } finally {
+            lock.unlock();
         }
     }
 

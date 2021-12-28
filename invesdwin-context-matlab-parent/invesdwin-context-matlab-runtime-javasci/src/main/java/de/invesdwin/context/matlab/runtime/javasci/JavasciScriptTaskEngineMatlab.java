@@ -10,6 +10,7 @@ import de.invesdwin.context.ContextProperties;
 import de.invesdwin.context.integration.script.IScriptTaskEngine;
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskRunnerMatlab;
 import de.invesdwin.context.matlab.runtime.javasci.internal.ScilabWrapper;
+import de.invesdwin.util.concurrent.WrappedExecutorService;
 import de.invesdwin.util.concurrent.lock.ILock;
 import de.invesdwin.util.lang.Files;
 import de.invesdwin.util.lang.UniqueNameGenerator;
@@ -88,6 +89,11 @@ public class JavasciScriptTaskEngineMatlab implements IScriptTaskEngine {
     @Override
     public ILock getSharedLock() {
         return unwrap().getLock();
+    }
+
+    @Override
+    public WrappedExecutorService getSharedExecutor() {
+        return null;
     }
 
     public static JavasciScriptTaskEngineMatlab newInstance() {

@@ -5,6 +5,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import de.invesdwin.context.integration.script.IScriptTaskEngine;
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskRunnerMatlab;
 import de.invesdwin.context.matlab.runtime.matconsolectl.pool.MatlabProxyObjectPool;
+import de.invesdwin.util.concurrent.WrappedExecutorService;
 import de.invesdwin.util.concurrent.lock.ILock;
 import de.invesdwin.util.concurrent.lock.disabled.DisabledLock;
 import matlabcontrol.MatlabInvocationException;
@@ -97,6 +98,11 @@ public class MatConsoleCtlScriptTaskEngineMatlab implements IScriptTaskEngine {
     @Override
     public ILock getSharedLock() {
         return DisabledLock.INSTANCE;
+    }
+
+    @Override
+    public WrappedExecutorService getSharedExecutor() {
+        return null;
     }
 
     public static MatConsoleCtlScriptTaskEngineMatlab newInstance() {
