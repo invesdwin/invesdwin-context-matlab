@@ -52,7 +52,7 @@ public final class OctaveEngineObjectPool extends ATimeoutObjectPool<OctaveEngin
     }
 
     @Override
-    public void destroyObject(final OctaveEngine element) {
+    public void invalidateObject(final OctaveEngine element) {
         try {
             element.close();
         } catch (final Throwable t) {

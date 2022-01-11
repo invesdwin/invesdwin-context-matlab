@@ -47,7 +47,7 @@ public final class JavaOctaveScriptTaskRunnerMatlab
             OctaveEngineObjectPool.INSTANCE.returnObject(octaveEngine);
             return result;
         } catch (final Throwable t) {
-            OctaveEngineObjectPool.INSTANCE.destroyObject(octaveEngine);
+            OctaveEngineObjectPool.INSTANCE.invalidateObject(octaveEngine);
             throw Throwables.propagate(t);
         }
     }

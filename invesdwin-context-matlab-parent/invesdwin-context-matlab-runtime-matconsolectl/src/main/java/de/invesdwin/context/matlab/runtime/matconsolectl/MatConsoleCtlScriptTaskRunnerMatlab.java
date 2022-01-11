@@ -47,7 +47,7 @@ public final class MatConsoleCtlScriptTaskRunnerMatlab
             MatlabProxyObjectPool.INSTANCE.returnObject(matlabProxy);
             return result;
         } catch (final Throwable t) {
-            MatlabProxyObjectPool.INSTANCE.destroyObject(matlabProxy);
+            MatlabProxyObjectPool.INSTANCE.invalidateObject(matlabProxy);
             throw Throwables.propagate(t);
         }
     }

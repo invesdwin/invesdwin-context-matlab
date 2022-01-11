@@ -59,7 +59,7 @@ public final class MatlabProxyObjectPool extends ATimeoutObjectPool<MatlabProxy>
     }
 
     @Override
-    public void destroyObject(final MatlabProxy obj) {
+    public void invalidateObject(final MatlabProxy obj) {
         try {
             obj.exit();
         } catch (final MatlabInvocationException e) {
