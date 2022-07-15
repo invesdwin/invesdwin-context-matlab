@@ -24,7 +24,6 @@
 		<module>invesdwin-context-matlab-runtime-javaoctave</module>
 		<module>invesdwin-context-matlab-runtime-matconsolectl</module>
 		<module>invesdwin-context-matlab-runtime-javasci</module>
-		<module>invesdwin-context-matlab-ornsteinuhlenbeck</module>
 	</modules>
 
 	<properties>
@@ -68,12 +67,6 @@
 			<dependency>
 				<groupId>de.invesdwin</groupId>
 				<artifactId>invesdwin-context-matlab-runtime-javasci</artifactId>
-				<version>${project.version.invesdwin-context-matlab}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>de.invesdwin</groupId>
-				<artifactId>invesdwin-context-matlab-ornsteinuhlenbeck</artifactId>
 				<version>${project.version.invesdwin-context-matlab}</version>
 			</dependency>
 
