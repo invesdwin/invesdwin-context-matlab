@@ -45,8 +45,8 @@ public final class OctaveEngineObjectPool extends ATimeoutObjectPool<OctaveEngin
     }
 
     @Override
-    protected void passivateObject(final OctaveEngine obj) {
-        reusableEngine.setOctaveEngine(obj);
+    protected void passivateObject(final OctaveEngine element) {
+        reusableEngine.setOctaveEngine(element);
         reusableEngine.eval(IScriptTaskRunnerMatlab.CLEANUP_SCRIPT);
         reusableEngine.close();
     }

@@ -52,16 +52,16 @@ public final class MatlabProxyObjectPool extends ATimeoutObjectPool<MatlabProxy>
     }
 
     @Override
-    protected void passivateObject(final MatlabProxy obj) {
-        reusableEngine.setMatlabProxy(obj);
+    protected void passivateObject(final MatlabProxy element) {
+        reusableEngine.setMatlabProxy(element);
         reusableEngine.eval(IScriptTaskRunnerMatlab.CLEANUP_SCRIPT);
         reusableEngine.close();
     }
 
     @Override
-    public void invalidateObject(final MatlabProxy obj) {
+    public void invalidateObject(final MatlabProxy element) {
         try {
-            obj.exit();
+            element.exit();
         } catch (final MatlabInvocationException e) {
             throw new RuntimeException(e);
         }
