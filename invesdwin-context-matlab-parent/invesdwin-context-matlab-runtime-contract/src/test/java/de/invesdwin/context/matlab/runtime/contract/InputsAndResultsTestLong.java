@@ -1,18 +1,17 @@
 package de.invesdwin.context.matlab.runtime.contract;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.concurrent.NotThreadSafe;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.core.io.ClassPathResource;
 
 import de.invesdwin.context.integration.script.IScriptTaskEngine;
 import de.invesdwin.context.integration.script.IScriptTaskInputs;
 import de.invesdwin.context.integration.script.IScriptTaskResults;
 import de.invesdwin.util.assertions.Assertions;
+import de.invesdwin.util.collections.Arrays;
 
 @NotThreadSafe
 public class InputsAndResultsTestLong {
@@ -34,7 +33,7 @@ public class InputsAndResultsTestLong {
         }
 
         //putLongVectorAsList
-        final List<Long> putLongVectorAsList = Arrays.asList(ArrayUtils.toObject(putLongVector));
+        final List<Long> putLongVectorAsList = Arrays.asList(Arrays.toObject(putLongVector));
 
         //putLongMatrix
         final long[][] putLongMatrix = new long[4][];
@@ -49,7 +48,7 @@ public class InputsAndResultsTestLong {
         //putLongMatrixAsList
         final List<List<Long>> putLongMatrixAsList = new ArrayList<List<Long>>(putLongMatrix.length);
         for (final long[] vector : putLongMatrix) {
-            putLongMatrixAsList.add(Arrays.asList(ArrayUtils.toObject(vector)));
+            putLongMatrixAsList.add(Arrays.asList(Arrays.toObject(vector)));
         }
 
         new AScriptTaskMatlab<Void>() {
