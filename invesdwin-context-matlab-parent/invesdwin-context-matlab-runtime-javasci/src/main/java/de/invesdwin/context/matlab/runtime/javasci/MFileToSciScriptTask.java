@@ -16,7 +16,7 @@ import de.invesdwin.context.integration.script.IScriptTaskInputs;
 import de.invesdwin.context.integration.script.IScriptTaskResults;
 import de.invesdwin.context.matlab.runtime.contract.AScriptTaskMatlab;
 import de.invesdwin.util.lang.Files;
-import de.invesdwin.util.lang.UniqueNameGenerator;
+import de.invesdwin.util.lang.string.UniqueNameGenerator;
 
 /**
  * Can be used to convert matlab files to scilab, or at least to get a starting point for further conversion.

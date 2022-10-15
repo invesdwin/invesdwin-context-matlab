@@ -5,7 +5,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskResultsMatlab;
 import de.invesdwin.util.assertions.Assertions;
 import de.invesdwin.util.error.UnknownArgumentException;
-import de.invesdwin.util.lang.Strings;
+import de.invesdwin.util.lang.string.Strings;
 import de.invesdwin.util.math.Booleans;
 import de.invesdwin.util.math.Bytes;
 import de.invesdwin.util.math.Characters;

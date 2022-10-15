@@ -4,7 +4,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskInputsMatlab;
 import de.invesdwin.util.assertions.Assertions;
-import de.invesdwin.util.lang.Strings;
+import de.invesdwin.util.lang.string.Strings;
 import de.invesdwin.util.math.Doubles;
 import matlabcontrol.MatlabInvocationException;
 import matlabcontrol.extensions.MatlabNumericArray;

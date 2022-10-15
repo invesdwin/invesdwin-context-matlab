@@ -12,7 +12,7 @@ import org.scilab.modules.types.ScilabType;
 
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskInputsMatlab;
 import de.invesdwin.util.lang.Objects;
-import de.invesdwin.util.lang.Strings;
+import de.invesdwin.util.lang.string.Strings;
 import de.invesdwin.util.math.Doubles;
 
 @NotThreadSafe

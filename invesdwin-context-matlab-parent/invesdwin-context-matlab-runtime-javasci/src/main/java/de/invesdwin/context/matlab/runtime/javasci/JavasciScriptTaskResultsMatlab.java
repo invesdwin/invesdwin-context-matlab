@@ -11,7 +11,7 @@ import org.scilab.modules.types.ScilabType;
 
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskResultsMatlab;
 import de.invesdwin.util.error.UnknownArgumentException;
-import de.invesdwin.util.lang.Strings;
+import de.invesdwin.util.lang.string.Strings;
 import de.invesdwin.util.math.Booleans;
 import de.invesdwin.util.math.Bytes;
 import de.invesdwin.util.math.Characters;

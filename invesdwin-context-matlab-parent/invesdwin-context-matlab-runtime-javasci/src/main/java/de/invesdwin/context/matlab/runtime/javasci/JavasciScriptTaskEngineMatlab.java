@@ -13,7 +13,7 @@ import de.invesdwin.context.matlab.runtime.javasci.internal.ScilabWrapper;
 import de.invesdwin.util.concurrent.WrappedExecutorService;
 import de.invesdwin.util.concurrent.lock.ILock;
 import de.invesdwin.util.lang.Files;
-import de.invesdwin.util.lang.UniqueNameGenerator;
+import de.invesdwin.util.lang.string.UniqueNameGenerator;
 
 @NotThreadSafe
 public class JavasciScriptTaskEngineMatlab implements IScriptTaskEngine {
