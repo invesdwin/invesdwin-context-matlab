@@ -1,7 +1,7 @@
 package de.invesdwin.context.matlab.runtime.contract.internal;
 
 import javax.annotation.concurrent.NotThreadSafe;
-import javax.inject.Named;
+import jakarta.inject.Named;
 
 import de.invesdwin.context.matlab.runtime.contract.ProvidedScriptTaskRunnerMatlab;
 import de.invesdwin.context.test.ATest;

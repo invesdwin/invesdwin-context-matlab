@@ -1,7 +1,7 @@
 package de.invesdwin.context.matlab.runtime.matconsolectl;
 
 import javax.annotation.concurrent.Immutable;
-import javax.inject.Named;
+import jakarta.inject.Named;
 
 import org.springframework.beans.factory.FactoryBean;
 
