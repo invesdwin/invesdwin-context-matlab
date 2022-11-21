@@ -31,7 +31,7 @@
 		<project.version.invesdwin-context-matlab>${project.version}</project.version.invesdwin-context-matlab>
 
 		<version.javaoctave>0.6.5-inv</version.javaoctave>
-		<version.matconsolectl>4.5.0</version.matconsolectl>
+		<version.matconsolectl>4.6.0</version.matconsolectl>
 		<version.javasci>6.0.1</version.javasci>
 	</properties>
 
