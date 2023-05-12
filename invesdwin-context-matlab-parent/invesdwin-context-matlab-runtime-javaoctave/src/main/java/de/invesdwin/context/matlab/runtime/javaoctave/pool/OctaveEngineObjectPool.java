@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.OutputStreamWriter;
 
 import javax.annotation.concurrent.ThreadSafe;
-import jakarta.inject.Named;
 
 import org.springframework.beans.factory.FactoryBean;
 import org.zeroturnaround.exec.stream.slf4j.Slf4jDebugOutputStream;
@@ -18,6 +17,7 @@ import de.invesdwin.util.time.date.FTimeUnit;
 import de.invesdwin.util.time.duration.Duration;
 import dk.ange.octave.OctaveEngine;
 import dk.ange.octave.OctaveEngineFactory;
+import jakarta.inject.Named;
 
 @ThreadSafe
 @Named
@@ -45,10 +45,11 @@ public final class OctaveEngineObjectPool extends ATimeoutObjectPool<OctaveEngin
     }
 
     @Override
-    protected void passivateObject(final OctaveEngine element) {
+    protected boolean passivateObject(final OctaveEngine element) {
         reusableEngine.setOctaveEngine(element);
         reusableEngine.eval(IScriptTaskRunnerMatlab.CLEANUP_SCRIPT);
         reusableEngine.close();
+        return true;
     }
 
     @Override

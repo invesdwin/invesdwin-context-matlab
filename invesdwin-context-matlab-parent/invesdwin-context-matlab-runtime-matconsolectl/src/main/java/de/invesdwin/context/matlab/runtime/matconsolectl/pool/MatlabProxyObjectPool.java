@@ -3,7 +3,6 @@ package de.invesdwin.context.matlab.runtime.matconsolectl.pool;
 import java.io.OutputStreamWriter;
 
 import javax.annotation.concurrent.ThreadSafe;
-import jakarta.inject.Named;
 
 import org.springframework.beans.factory.FactoryBean;
 import org.zeroturnaround.exec.stream.slf4j.Slf4jDebugOutputStream;
@@ -15,6 +14,7 @@ import de.invesdwin.context.matlab.runtime.matconsolectl.MatConsoleCtlScriptTask
 import de.invesdwin.util.concurrent.pool.timeout.ATimeoutObjectPool;
 import de.invesdwin.util.time.date.FTimeUnit;
 import de.invesdwin.util.time.duration.Duration;
+import jakarta.inject.Named;
 import matlabcontrol.MatlabConnectionException;
 import matlabcontrol.MatlabInvocationException;
 import matlabcontrol.MatlabProxy;
@@ -52,10 +52,11 @@ public final class MatlabProxyObjectPool extends ATimeoutObjectPool<MatlabProxy>
     }
 
     @Override
-    protected void passivateObject(final MatlabProxy element) {
+    protected boolean passivateObject(final MatlabProxy element) {
         reusableEngine.setMatlabProxy(element);
         reusableEngine.eval(IScriptTaskRunnerMatlab.CLEANUP_SCRIPT);
         reusableEngine.close();
+        return true;
     }
 
     @Override
