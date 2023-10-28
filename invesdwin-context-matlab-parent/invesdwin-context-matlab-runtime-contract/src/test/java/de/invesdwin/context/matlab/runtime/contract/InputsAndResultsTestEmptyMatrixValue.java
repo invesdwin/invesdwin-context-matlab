@@ -144,7 +144,7 @@ public class InputsAndResultsTestEmptyMatrixValue {
                 try {
                     final String script = IOUtils.toString(
                             new ClassPathResource(InputsAndResultsTestEmptyMatrixValue.class.getSimpleName() + ".m",
-                                    InputsAndResultsTestNull.class).getInputStream(),
+                                    InputsAndResultsTestEmptyMatrixValue.class).getInputStream(),
                             Charset.defaultCharset());
                     if (!engine.getResults().getBoolean("exist('OCTAVE_VERSION', 'builtin') > 0")) {
                         //workaround for matlab and isempty not counting empty cells there
