@@ -1,5 +1,6 @@
 package de.invesdwin.context.matlab.runtime.javasci;
 
+import java.io.File;
 import java.util.List;
 
 import javax.annotation.concurrent.Immutable;
@@ -21,13 +22,23 @@ public final class JavasciProperties {
             JAVASCI_LIBRARY_PATHS = Collections.emptyList();
         }
         if (systemProperties.containsValue("SCILAB_PATH")) {
-            SCILAB_PATH = systemProperties.getString("SCILAB_PATH");
+            SCILAB_PATH = detectScilabPath(systemProperties);
         } else {
             SCILAB_PATH = null;
         }
     }
 
-    private JavasciProperties() {
+    private JavasciProperties() {}
+
+    private static String detectScilabPath(final SystemProperties systemProperties) {
+        final List<String> scilabPaths = systemProperties.getList("SCILAB_PATH");
+        for (int i = 0; i < scilabPaths.size(); i++) {
+            final String scilabPath = scilabPaths.get(i);
+            if (new File(scilabPath).exists()) {
+                return scilabPath;
+            }
+        }
+        return null;
     }
 
 }

@@ -1,15 +1,18 @@
 package de.invesdwin.context.matlab.runtime.javasci;
 
+import java.io.File;
+
 import javax.annotation.concurrent.Immutable;
-import jakarta.inject.Named;
 
 import org.springframework.beans.factory.FactoryBean;
 
 import de.invesdwin.context.matlab.runtime.contract.AScriptTaskMatlab;
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskRunnerMatlab;
 import de.invesdwin.context.matlab.runtime.javasci.internal.ScilabWrapper;
+import de.invesdwin.instrument.DynamicInstrumentationReflections;
 import de.invesdwin.util.concurrent.lock.ILock;
 import de.invesdwin.util.error.Throwables;
+import jakarta.inject.Named;
 
 @Immutable
 @Named
@@ -21,11 +24,16 @@ public final class JavasciScriptTaskRunnerMatlab
 
     public static final JavasciScriptTaskRunnerMatlab INSTANCE = new JavasciScriptTaskRunnerMatlab();
 
+    static {
+        for (final String path : JavasciProperties.JAVASCI_LIBRARY_PATHS) {
+            DynamicInstrumentationReflections.addPathToJavaLibraryPath(new File(path));
+        }
+    }
+
     /**
      * public for ServiceLoader support
      */
-    public JavasciScriptTaskRunnerMatlab() {
-    }
+    public JavasciScriptTaskRunnerMatlab() {}
 
     @Override
     public <T> T run(final AScriptTaskMatlab<T> scriptTask) {

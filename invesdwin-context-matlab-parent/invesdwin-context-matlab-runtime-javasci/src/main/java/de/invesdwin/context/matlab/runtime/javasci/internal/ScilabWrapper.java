@@ -1,7 +1,5 @@
 package de.invesdwin.context.matlab.runtime.javasci.internal;
 
-import java.io.File;
-
 import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.NotThreadSafe;
 
@@ -9,7 +7,6 @@ import org.scilab.modules.javasci.Scilab;
 
 import de.invesdwin.context.log.error.Err;
 import de.invesdwin.context.matlab.runtime.javasci.JavasciProperties;
-import de.invesdwin.instrument.DynamicInstrumentationReflections;
 import de.invesdwin.util.concurrent.lock.IReentrantLock;
 import de.invesdwin.util.concurrent.lock.Locks;
 
@@ -20,12 +17,6 @@ import de.invesdwin.util.concurrent.lock.Locks;
 public final class ScilabWrapper {
 
     public static final ScilabWrapper INSTANCE = new ScilabWrapper();
-
-    static {
-        for (final String path : JavasciProperties.JAVASCI_LIBRARY_PATHS) {
-            DynamicInstrumentationReflections.addPathToJavaLibraryPath(new File(path));
-        }
-    }
 
     @GuardedBy("lock")
     private final Scilab scilab;
