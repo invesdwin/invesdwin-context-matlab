@@ -1,15 +1,15 @@
 package de.invesdwin.context.matlab.runtime.javasci;
 
-import java.io.File;
-
 import javax.annotation.concurrent.Immutable;
 
 import org.springframework.beans.factory.FactoryBean;
 
+import de.invesdwin.context.integration.script.callback.IScriptTaskCallback;
 import de.invesdwin.context.matlab.runtime.contract.AScriptTaskMatlab;
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskRunnerMatlab;
+import de.invesdwin.context.matlab.runtime.contract.callback.socket.SocketScriptTaskCallbackContext;
 import de.invesdwin.context.matlab.runtime.javasci.internal.ScilabWrapper;
-import de.invesdwin.instrument.DynamicInstrumentationReflections;
+import de.invesdwin.util.assertions.Assertions;
 import de.invesdwin.util.concurrent.lock.ILock;
 import de.invesdwin.util.error.Throwables;
 import jakarta.inject.Named;
@@ -25,9 +25,7 @@ public final class JavasciScriptTaskRunnerMatlab
     public static final JavasciScriptTaskRunnerMatlab INSTANCE = new JavasciScriptTaskRunnerMatlab();
 
     static {
-        for (final String path : JavasciProperties.JAVASCI_LIBRARY_PATHS) {
-            DynamicInstrumentationReflections.addPathToJavaLibraryPath(new File(path));
-        }
+        Assertions.checkNotNull(JavasciProperties.JAVASCI_LIBRARY_PATHS);
     }
 
     /**
@@ -39,10 +37,20 @@ public final class JavasciScriptTaskRunnerMatlab
     public <T> T run(final AScriptTaskMatlab<T> scriptTask) {
         //get session
         final JavasciScriptTaskEngineMatlab engine = new JavasciScriptTaskEngineMatlab(ScilabWrapper.INSTANCE);
+        final IScriptTaskCallback callback = scriptTask.getCallback();
+        final SocketScriptTaskCallbackContext context;
+        if (callback != null) {
+            context = new SocketScriptTaskCallbackContext(callback);
+        } else {
+            context = null;
+        }
         final ILock lock = engine.getSharedLock();
         lock.lock();
         try {
             //inputs
+            if (context != null) {
+                context.init(engine);
+            }
             scriptTask.populateInputs(engine.getInputs());
 
             //execute
@@ -58,6 +66,9 @@ public final class JavasciScriptTaskRunnerMatlab
             throw Throwables.propagate(t);
         } finally {
             lock.unlock();
+            if (context != null) {
+                context.close();
+            }
         }
     }
 

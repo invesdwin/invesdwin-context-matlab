@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.concurrent.Immutable;
 
 import de.invesdwin.context.system.properties.SystemProperties;
+import de.invesdwin.instrument.DynamicInstrumentationReflections;
 import de.invesdwin.util.collections.Collections;
 
 @Immutable
@@ -21,6 +22,10 @@ public final class JavasciProperties {
         } else {
             JAVASCI_LIBRARY_PATHS = Collections.emptyList();
         }
+        for (final String path : JavasciProperties.JAVASCI_LIBRARY_PATHS) {
+            DynamicInstrumentationReflections.addPathToJavaLibraryPath(new File(path));
+        }
+
         if (systemProperties.containsValue("SCILAB_PATH")) {
             SCILAB_PATH = detectScilabPath(systemProperties);
         } else {

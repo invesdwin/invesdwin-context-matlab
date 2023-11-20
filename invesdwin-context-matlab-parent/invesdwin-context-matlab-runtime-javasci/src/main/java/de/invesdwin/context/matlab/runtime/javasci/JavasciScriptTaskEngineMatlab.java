@@ -10,6 +10,7 @@ import de.invesdwin.context.ContextProperties;
 import de.invesdwin.context.integration.script.IScriptTaskEngine;
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskRunnerMatlab;
 import de.invesdwin.context.matlab.runtime.javasci.internal.ScilabWrapper;
+import de.invesdwin.util.assertions.Assertions;
 import de.invesdwin.util.concurrent.WrappedExecutorService;
 import de.invesdwin.util.concurrent.lock.ILock;
 import de.invesdwin.util.lang.Files;
@@ -26,6 +27,10 @@ public class JavasciScriptTaskEngineMatlab implements IScriptTaskEngine {
     };
     private static final File FOLDER = new File(ContextProperties.TEMP_DIRECTORY,
             JavasciScriptTaskEngineMatlab.class.getSimpleName());
+
+    static {
+        Assertions.checkNotNull(JavasciProperties.JAVASCI_LIBRARY_PATHS);
+    }
 
     private ScilabWrapper scilab;
     private final JavasciScriptTaskInputsMatlab inputs;
