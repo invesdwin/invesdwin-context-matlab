@@ -67,7 +67,7 @@ public class SocketScriptTaskCallbackContext implements Closeable {
         return server.getPort();
     }
 
-    public String invoke(final String methodName, final String dims, final String args) {
+    public String invoke(final String dims, final String args) {
         final ScriptTaskParametersMatlabFromJson parameters = ScriptTaskParametersMatlabFromJsonPool.INSTANCE
                 .borrowObject();
         final ScriptTaskReturnsMatlabToExpression returns = ScriptTaskReturnsMatlabToExpressionPool.INSTANCE
@@ -75,13 +75,14 @@ public class SocketScriptTaskCallbackContext implements Closeable {
         try {
             final JsonNode jsonDims = toJsonNode(dims);
             final JsonNode jsonArgs = toJsonNode(args);
-            parameters.setParameters(jsonDims, jsonArgs, 0);
+            parameters.setParameters(jsonDims, jsonArgs, 1);
+            final String methodName = parameters.getString(-1);
             callback.invoke(methodName, parameters, returns);
             return returns.getReturnExpression();
         } catch (final Throwable t) {
             final LoggedRuntimeException loggedError = Err.process(t);
             final String errorMessage = Strings.normalizeNewlines(Throwables.concatMessages(loggedError))
-                    .replace("\n", "\\n")
+                    .replace("\n", " ")
                     .replace("\"", "\\\"");
             returns.returnExpression("error('CallbackException: " + errorMessage + "')");
             return returns.getReturnExpression();

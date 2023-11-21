@@ -33,19 +33,14 @@ public class SocketScriptTaskCallbackServerHandler implements IAsynchronousHandl
             }
             return null;
         }
-        final int methodNameEndIndex = Strings.indexOf(input, ";");
-        if (methodNameEndIndex <= 0) {
-            throw new IllegalArgumentException("requiring request format [<methodName>;<dims>;<args>]: " + input);
-        }
-        final String methodName = input.substring(0, methodNameEndIndex);
-        final String dimsAndArgs = input.substring(methodNameEndIndex + 1, input.length());
-        final int dimsEndIndex = Strings.indexOf(dimsAndArgs, ";");
+        final int dimsEndIndex = Strings.indexOf(input, ";");
         if (dimsEndIndex <= 0) {
-            throw new IllegalArgumentException("requiring request format [<methodName>;<dims>;<args>]: " + input);
+            throw new IllegalArgumentException(
+                    "requiring request format [<dims>;<args>] where first arg is methodName: " + input);
         }
-        final String dims = dimsAndArgs.substring(0, dimsEndIndex);
-        final String args = dimsAndArgs.substring(dimsEndIndex + 1, dimsAndArgs.length());
-        return callbackContext.invoke(methodName, dims, args);
+        final String dims = input.substring(0, dimsEndIndex);
+        final String args = input.substring(dimsEndIndex + 1, input.length());
+        return callbackContext.invoke(dims, args);
     }
 
     @Override
