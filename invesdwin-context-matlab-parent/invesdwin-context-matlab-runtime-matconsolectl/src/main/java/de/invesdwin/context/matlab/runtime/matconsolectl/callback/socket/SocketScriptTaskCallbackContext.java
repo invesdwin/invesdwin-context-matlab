@@ -51,6 +51,8 @@ public class SocketScriptTaskCallbackContext implements Closeable {
         engine.getInputs().putString("socketScriptTaskCallbackContextUuid", getUuid());
         engine.getInputs().putString("socketScriptTaskCallbackServerHost", getServerHost());
         engine.getInputs().putInteger("socketScriptTaskCallbackServerPort", getServerPort());
+        System.out.println(
+                "TODO: https://stackoverflow.com/questions/7212467/how-to-call-a-user-defined-matlab-from-java-using-matlabcontrol-jar");
         engine.eval(new ClassPathResource(SocketScriptTaskCallbackContext.class.getSimpleName() + ".m",
                 SocketScriptTaskCallbackContext.class));
     }
