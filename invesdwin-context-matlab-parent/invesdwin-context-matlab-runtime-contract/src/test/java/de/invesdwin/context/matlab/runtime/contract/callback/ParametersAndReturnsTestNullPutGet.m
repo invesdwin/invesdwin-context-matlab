@@ -33,7 +33,7 @@ getByteMatrix = callback('getByteMatrix')
 if ~isnan(getByteMatrix)
 	error('getByteMatrix not nan!')
 end
-callback('setByteMatrix',geByteMatrix)
+callback('setByteMatrix',getByteMatrix)
 getByteMatrixAsList = callback('getByteMatrixAsList')
 if ~isnan(getByteMatrixAsList)
 	error('getByteMatrixAsList not nan!')

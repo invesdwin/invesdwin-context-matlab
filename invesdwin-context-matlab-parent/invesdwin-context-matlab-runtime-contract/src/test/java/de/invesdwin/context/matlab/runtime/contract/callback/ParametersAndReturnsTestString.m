@@ -112,7 +112,7 @@ end
 if ~isempty(getStringMatrixWithNull{3,3})
 	error('getStringMatrixWithNull{3,3} not empty!')
 end
-callback('set',get)
+callback('setStringMatrixWithNull',getStringMatrixWithNull)
 
 disp('getStringMatrixAsList')
 if exist('getStringMatrixAsList')
@@ -124,7 +124,7 @@ disp(getStringMatrixAsList)
 if ~isa(getStringMatrixAsList, 'cell')
 	error('getStringMatrixAsList not cell!')
 end
-callback('set',get)
+callback('setStringMatrixAsList',getStringMatrixAsList)
 
 disp('getStringMatrixAsListWithNull')
 if exist('getStringMatrixAsListWithNull')
@@ -145,4 +145,4 @@ end
 if ~isempty(getStringMatrixAsListWithNull{3,3})
 	error('getStringMatrixAsListWithNull{3,3} not empty!')
 end
-callback('set',get)
+callback('setStringMatrixAsListWithNull',getStringMatrixAsListWithNull)

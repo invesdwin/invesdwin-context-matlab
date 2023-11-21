@@ -17,7 +17,7 @@ public abstract class AScriptTaskReturnsMatlabToExpression implements IScriptTas
         if (value == null) {
             returnNull();
         } else {
-            returnExpression("\"+value+\"");
+            returnExpression("'" + value + "'");
         }
     }
 
@@ -35,11 +35,11 @@ public abstract class AScriptTaskReturnsMatlabToExpression implements IScriptTas
                 }
                 final String v = value[i];
                 if (v == null) {
-                    sb.append("");
+                    sb.append("{''}");
                 } else {
-                    sb.append("'");
+                    sb.append("{'");
                     sb.append(v);
-                    sb.append("'");
+                    sb.append("'}");
                 }
             }
             sb.append("]");
@@ -70,11 +70,11 @@ public abstract class AScriptTaskReturnsMatlabToExpression implements IScriptTas
                     }
                     final String v = value[row][col];
                     if (v == null) {
-                        sb.append("");
+                        sb.append("{''}");
                     } else {
-                        sb.append("\"");
+                        sb.append("{'");
                         sb.append(v);
-                        sb.append("\"");
+                        sb.append("'}");
                     }
                 }
             }

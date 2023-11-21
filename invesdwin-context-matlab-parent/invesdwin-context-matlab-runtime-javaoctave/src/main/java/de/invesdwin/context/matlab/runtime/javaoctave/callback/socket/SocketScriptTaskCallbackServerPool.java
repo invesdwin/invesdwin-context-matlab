@@ -1,4 +1,4 @@
-package de.invesdwin.context.matlab.runtime.contract.callback.socket;
+package de.invesdwin.context.matlab.runtime.javaoctave.callback.socket;
 
 import javax.annotation.concurrent.Immutable;
 

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.FactoryBean;
 import de.invesdwin.context.integration.script.callback.IScriptTaskCallback;
 import de.invesdwin.context.matlab.runtime.contract.AScriptTaskMatlab;
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskRunnerMatlab;
-import de.invesdwin.context.matlab.runtime.contract.callback.socket.SocketScriptTaskCallbackContext;
+import de.invesdwin.context.matlab.runtime.javaoctave.callback.socket.SocketScriptTaskCallbackContext;
 import de.invesdwin.context.matlab.runtime.javaoctave.pool.OctaveEngineObjectPool;
 import de.invesdwin.util.error.Throwables;
 import dk.ange.octave.OctaveEngine;

@@ -1,4 +1,4 @@
-package de.invesdwin.context.matlab.runtime.contract.callback.socket;
+package de.invesdwin.context.matlab.runtime.matconsolectl.callback.socket;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
