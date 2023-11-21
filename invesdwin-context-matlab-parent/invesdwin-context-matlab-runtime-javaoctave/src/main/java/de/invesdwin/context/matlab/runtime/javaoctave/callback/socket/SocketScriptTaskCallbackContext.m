@@ -20,49 +20,36 @@ pkg load io
 global globalSocketScriptTaskCallbackContextUuid = socketScriptTaskCallbackContextUuid
 global globalSocketScriptTaskCallbackServerHost = socketScriptTaskCallbackServerHost
 global globalSocketScriptTaskCallbackServerPort = socketScriptTaskCallbackServerPort
+global globalSocketScriptTaskCallbackConnected = false
 
 function callback_createSocket()
 	global globalSocketScriptTaskCallbackSocket
 	global globalSocketScriptTaskCallbackServerHost
 	global globalSocketScriptTaskCallbackServerPort
 	global globalSocketScriptTaskCallbackContextUuid
+	global globalSocketScriptTaskCallbackConnected
     globalSocketScriptTaskCallbackSocket = tcpclient(globalSocketScriptTaskCallbackServerHost, globalSocketScriptTaskCallbackServerPort)
     writeline(globalSocketScriptTaskCallbackSocket, globalSocketScriptTaskCallbackContextUuid)
+    globalSocketScriptTaskCallbackConnected = true
 end
 
 function result = callback_invokeSocket(parameters)
 	global globalSocketScriptTaskCallbackSocket
-    dims = arrayfun(@(x) size(x), parameters, "UniformOutput", false)
-    disp("1")
-    jsonDims = toJSON(dims)
-    disp("1a")
-    disp(parameters)
-    jsonParameters = toJSON(parameters)
-    disp("1b")
-    message = strcat(jsonDims, ';', jsonParameters)
-    disp("2")
-    writeline(globalSocketScriptTaskCallbackSocket, message)
-    disp("3")
+    writeline(globalSocketScriptTaskCallbackSocket, strcat(toJSON(arrayfun(@(x) size(x), parameters, "UniformOutput", false)), ';', toJSON(parameters)))
     returnExpression = readline(globalSocketScriptTaskCallbackSocket)
-    disp("4")
     result = eval(returnExpression)
 end
 
 function result = callback(varargin)
-	global globalSocketScriptTaskCallbackContext
-	disp("context")
-	disp(globalSocketScriptTaskCallbackContext)
-	disp(length(globalSocketScriptTaskCallbackContext))
-    if length(globalSocketScriptTaskCallbackContext) == 0
+	global globalSocketScriptTaskCallbackConnected
+    if !globalSocketScriptTaskCallbackConnected
     	global globalSocketScriptTaskCallbackContextUuid
         if globalSocketScriptTaskCallbackContextUuid != 0
-        	disp("create")
             callback_createSocket()
         else
             error('IScriptTaskCallback not available')
         end
     end
-    disp("invoke")
     result = callback_invokeSocket(varargin)
 end
 

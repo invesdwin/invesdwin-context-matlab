@@ -73,7 +73,7 @@ public abstract class AScriptTaskParametersMatlabFromJson extends AScriptTaskPar
         if (strsMatrix.size() == 0) {
             //https://stackoverflow.com/questions/23079625/extract-array-dimensions-in-julia
             final JsonNode dims = getAsJsonNodeDims(index);
-            final int rows = dims.get(0).asInt();
+            final int rows = dims.get(0).asInt() - 1;
             final String[][] emptyMatrix = new String[rows][];
             for (int i = 0; i < rows; i++) {
                 emptyMatrix[i] = Strings.EMPTY_ARRAY;

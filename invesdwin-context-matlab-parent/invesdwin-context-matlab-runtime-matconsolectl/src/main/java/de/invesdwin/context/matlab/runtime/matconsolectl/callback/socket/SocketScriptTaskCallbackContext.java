@@ -75,7 +75,7 @@ public class SocketScriptTaskCallbackContext implements Closeable {
         try {
             final JsonNode jsonDims = toJsonNode(dims);
             final JsonNode jsonArgs = toJsonNode(args);
-            parameters.setParameters(jsonDims, jsonArgs);
+            parameters.setParameters(jsonDims, jsonArgs, 0);
             callback.invoke(methodName, parameters, returns);
             return returns.getReturnExpression();
         } catch (final Throwable t) {
