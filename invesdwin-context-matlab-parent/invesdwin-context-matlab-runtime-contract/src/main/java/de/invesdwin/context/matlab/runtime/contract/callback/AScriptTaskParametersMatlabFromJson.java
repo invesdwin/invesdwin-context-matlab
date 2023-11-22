@@ -3,6 +3,7 @@ package de.invesdwin.context.matlab.runtime.contract.callback;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.NullNode;
 
 import de.invesdwin.context.integration.script.callback.AScriptTaskParametersFromString;
@@ -73,7 +74,7 @@ public abstract class AScriptTaskParametersMatlabFromJson extends AScriptTaskPar
         if (strsMatrix.size() == 0) {
             //https://stackoverflow.com/questions/23079625/extract-array-dimensions-in-julia
             final JsonNode dims = getAsJsonNodeDims(index);
-            final int rows = dims.get(0).asInt() - 1;
+            final int rows = dims.get(0).asInt();
             final String[][] emptyMatrix = new String[rows][];
             for (int i = 0; i < rows; i++) {
                 emptyMatrix[i] = Strings.EMPTY_ARRAY;
@@ -85,15 +86,19 @@ public abstract class AScriptTaskParametersMatlabFromJson extends AScriptTaskPar
         final int rows = strsMatrix.size();
         final int columns = strsMatrix.get(0).size();
         final String[][] valuesMatrix = new String[rows][];
-        for (int r = 0; r < rows; r++) {
-            final String[] values = new String[columns];
-            valuesMatrix[r] = values;
-            for (int c = 0; c < columns; c++) {
-                final String str = strsMatrix.get(r).get(c).asText();
-                if (Strings.isBlankOrNullText(str)) {
-                    values[c] = null;
-                } else {
-                    values[c] = str;
+        if (columns == 0 && !(strsMatrix.get(0) instanceof ArrayNode)) {
+            System.out.println("blaaaa");
+        } else {
+            for (int r = 0; r < rows; r++) {
+                final String[] values = new String[columns];
+                valuesMatrix[r] = values;
+                for (int c = 0; c < columns; c++) {
+                    final String str = strsMatrix.get(r).get(c).asText();
+                    if (Strings.isBlankOrNullText(str)) {
+                        values[c] = null;
+                    } else {
+                        values[c] = str;
+                    }
                 }
             }
         }

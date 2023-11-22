@@ -25,7 +25,7 @@ end
 
 function result = callback_invokeSocket(parameters)
 	global globalSocketScriptTaskCallbackSocket;
-	dims = arrayfun(@size, parameters, 'UniformOutput', false);
+	dims = cellfun(@size, parameters, 'UniformOutput', false);
 	message = strcat(jsonencode(dims), ';', jsonencode(parameters));
     write(globalSocketScriptTaskCallbackSocket, unicode2native(message, 'UTF-8'));
     prevAvailable = 0;
