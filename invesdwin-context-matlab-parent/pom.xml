@@ -33,7 +33,7 @@
 
 		<version.javaoctave>0.6.5-inv</version.javaoctave>
 		<version.matconsolectl>4.6.0</version.matconsolectl>
-		<version.javasci>2023.1.0</version.javasci>
+		<version.javasci>2024.0.0</version.javasci>
 	</properties>
 
 	<dependencyManagement>
