@@ -17,39 +17,39 @@ if !callback_packageInstalled("io")
 end
 pkg load io
 
-global globalSocketScriptTaskCallbackContextUuid = socketScriptTaskCallbackContextUuid
-global globalSocketScriptTaskCallbackServerHost = socketScriptTaskCallbackServerHost
-global globalSocketScriptTaskCallbackServerPort = socketScriptTaskCallbackServerPort
-global globalSocketScriptTaskCallbackConnected = false
+global globalSocketScriptTaskCallbackContextUuid = socketScriptTaskCallbackContextUuid;
+global globalSocketScriptTaskCallbackServerHost = socketScriptTaskCallbackServerHost;
+global globalSocketScriptTaskCallbackServerPort = socketScriptTaskCallbackServerPort;
+global globalSocketScriptTaskCallbackConnected = false;
 
 function callback_createSocket()
-	global globalSocketScriptTaskCallbackSocket
-	global globalSocketScriptTaskCallbackServerHost
-	global globalSocketScriptTaskCallbackServerPort
-	global globalSocketScriptTaskCallbackContextUuid
-	global globalSocketScriptTaskCallbackConnected
-    globalSocketScriptTaskCallbackSocket = tcpclient(globalSocketScriptTaskCallbackServerHost, globalSocketScriptTaskCallbackServerPort)
-    writeline(globalSocketScriptTaskCallbackSocket, globalSocketScriptTaskCallbackContextUuid)
-    globalSocketScriptTaskCallbackConnected = true
+	global globalSocketScriptTaskCallbackSocket;
+	global globalSocketScriptTaskCallbackServerHost;
+	global globalSocketScriptTaskCallbackServerPort;
+	global globalSocketScriptTaskCallbackContextUuid;
+	global globalSocketScriptTaskCallbackConnected;
+    globalSocketScriptTaskCallbackSocket = tcpclient(globalSocketScriptTaskCallbackServerHost, globalSocketScriptTaskCallbackServerPort);
+    writeline(globalSocketScriptTaskCallbackSocket, globalSocketScriptTaskCallbackContextUuid);
+    globalSocketScriptTaskCallbackConnected = true;
 end
 
 function result = callback_invokeSocket(parameters)
-	global globalSocketScriptTaskCallbackSocket
-    writeline(globalSocketScriptTaskCallbackSocket, strcat(toJSON(arrayfun(@(x) size(x), parameters, "UniformOutput", false)), ';', toJSON(parameters)))
-    returnExpression = readline(globalSocketScriptTaskCallbackSocket)
-    result = eval(returnExpression)
+	global globalSocketScriptTaskCallbackSocket;
+    writeline(globalSocketScriptTaskCallbackSocket, strcat(toJSON(arrayfun(@(x) size(x), parameters, "UniformOutput", false)), ';', toJSON(parameters)));
+    returnExpression = readline(globalSocketScriptTaskCallbackSocket);
+    result = eval(returnExpression);
 end
 
 function result = callback(varargin)
-	global globalSocketScriptTaskCallbackConnected
+	global globalSocketScriptTaskCallbackConnected;
     if !globalSocketScriptTaskCallbackConnected
-    	global globalSocketScriptTaskCallbackContextUuid
+    	global globalSocketScriptTaskCallbackContextUuid;
         if length(globalSocketScriptTaskCallbackContextUuid) != 0
-            callback_createSocket()
+            callback_createSocket();
         else
-            error('IScriptTaskCallback not available')
+            error('IScriptTaskCallback not available');
         end
     end
-    result = callback_invokeSocket(varargin)
+    result = callback_invokeSocket(varargin);
 end
 
