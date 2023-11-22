@@ -44,7 +44,7 @@ function result = callback(varargin)
 	global globalSocketScriptTaskCallbackConnected
     if !globalSocketScriptTaskCallbackConnected
     	global globalSocketScriptTaskCallbackContextUuid
-        if globalSocketScriptTaskCallbackContextUuid != 0
+        if length(globalSocketScriptTaskCallbackContextUuid) != 0
             callback_createSocket()
         else
             error('IScriptTaskCallback not available')

@@ -13,7 +13,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.NullNode;
 
 import de.invesdwin.context.integration.marshaller.MarshallerJsonJackson;
-import de.invesdwin.context.integration.script.IScriptTaskEngine;
 import de.invesdwin.context.integration.script.callback.IScriptTaskCallback;
 import de.invesdwin.context.log.error.Err;
 import de.invesdwin.context.log.error.LoggedRuntimeException;
@@ -21,6 +20,7 @@ import de.invesdwin.context.matlab.runtime.contract.callback.ScriptTaskParameter
 import de.invesdwin.context.matlab.runtime.contract.callback.ScriptTaskParametersMatlabFromJsonPool;
 import de.invesdwin.context.matlab.runtime.contract.callback.ScriptTaskReturnsMatlabToExpression;
 import de.invesdwin.context.matlab.runtime.contract.callback.ScriptTaskReturnsMatlabToExpressionPool;
+import de.invesdwin.context.matlab.runtime.matconsolectl.MatConsoleCtlScriptTaskEngineMatlab;
 import de.invesdwin.util.error.Throwables;
 import de.invesdwin.util.lang.UUIDs;
 import de.invesdwin.util.lang.string.Strings;
@@ -47,14 +47,13 @@ public class SocketScriptTaskCallbackContext implements Closeable {
         return UUID_CONTEXT.get(uuid);
     }
 
-    public void init(final IScriptTaskEngine engine) {
+    public void init(final MatConsoleCtlScriptTaskEngineMatlab engine) {
         engine.getInputs().putString("socketScriptTaskCallbackContextUuid", getUuid());
         engine.getInputs().putString("socketScriptTaskCallbackServerHost", getServerHost());
         engine.getInputs().putInteger("socketScriptTaskCallbackServerPort", getServerPort());
-        System.out.println(
-                "TODO: https://stackoverflow.com/questions/7212467/how-to-call-a-user-defined-matlab-from-java-using-matlabcontrol-jar");
         engine.eval(new ClassPathResource(SocketScriptTaskCallbackContext.class.getSimpleName() + ".m",
                 SocketScriptTaskCallbackContext.class));
+        engine.addPath(new ClassPathResource("callback.m", SocketScriptTaskCallbackContext.class));
     }
 
     public String getUuid() {
