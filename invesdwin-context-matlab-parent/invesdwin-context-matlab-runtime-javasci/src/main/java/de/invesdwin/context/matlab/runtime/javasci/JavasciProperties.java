@@ -25,7 +25,6 @@ public final class JavasciProperties {
         for (final String path : JavasciProperties.JAVASCI_LIBRARY_PATHS) {
             DynamicInstrumentationReflections.addPathToJavaLibraryPath(new File(path));
         }
-
         if (systemProperties.containsValue("SCILAB_PATH")) {
             SCILAB_PATH = detectScilabPath(systemProperties);
         } else {
