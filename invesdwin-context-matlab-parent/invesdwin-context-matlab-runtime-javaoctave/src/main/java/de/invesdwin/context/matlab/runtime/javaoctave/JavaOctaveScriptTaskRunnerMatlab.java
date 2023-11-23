@@ -52,6 +52,9 @@ public final class JavaOctaveScriptTaskRunnerMatlab
 
             //results
             final T result = scriptTask.extractResults(engine.getResults());
+            if (context != null) {
+                context.deinit(engine);
+            }
             engine.close();
 
             //return
