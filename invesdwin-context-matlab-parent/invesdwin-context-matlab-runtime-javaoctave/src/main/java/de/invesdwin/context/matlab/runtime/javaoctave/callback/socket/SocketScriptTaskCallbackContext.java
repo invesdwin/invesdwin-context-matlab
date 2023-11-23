@@ -55,6 +55,12 @@ public class SocketScriptTaskCallbackContext implements Closeable {
                 SocketScriptTaskCallbackContext.class));
     }
 
+    public void deinit(final IScriptTaskEngine engine) {
+        //The device can be closed by clearing the object variable.
+        //https://octave.sourceforge.io/instrument-control/package_doc/Basic-TCP.html
+        engine.eval("clear globalSocketScriptTaskCallbackSocket;");
+    }
+
     public String getUuid() {
         return uuid;
     }
