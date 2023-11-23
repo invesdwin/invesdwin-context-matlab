@@ -1,4 +1,4 @@
-package de.invesdwin.context.matlab.runtime.javasci;
+package de.invesdwin.context.matlab.runtime.jascib;
 
 import javax.annotation.concurrent.Immutable;
 
@@ -7,36 +7,28 @@ import org.springframework.beans.factory.FactoryBean;
 import de.invesdwin.context.integration.script.callback.IScriptTaskCallback;
 import de.invesdwin.context.matlab.runtime.contract.AScriptTaskMatlab;
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskRunnerMatlab;
-import de.invesdwin.context.matlab.runtime.javasci.callback.socket.SocketScriptTaskCallbackContext;
-import de.invesdwin.context.matlab.runtime.javasci.internal.ScilabWrapper;
-import de.invesdwin.util.assertions.Assertions;
-import de.invesdwin.util.concurrent.lock.ILock;
+import de.invesdwin.context.matlab.runtime.jascib.callback.socket.SocketScriptTaskCallbackContext;
+import de.invesdwin.context.matlab.runtime.jascib.pool.ExtendedScilabBridge;
+import de.invesdwin.context.matlab.runtime.jascib.pool.JascibObjectPool;
 import de.invesdwin.util.error.Throwables;
 import jakarta.inject.Named;
 
 @Immutable
 @Named
-public final class JavasciScriptTaskRunnerMatlab
-        implements IScriptTaskRunnerMatlab, FactoryBean<JavasciScriptTaskRunnerMatlab> {
+public final class JascibScriptTaskRunnerMatlab
+        implements IScriptTaskRunnerMatlab, FactoryBean<JascibScriptTaskRunnerMatlab> {
 
-    public static final String CLEANUP_SCRIPT = "clear; clc";
-    public static final String INTERNAL_RESULT_VARIABLE = "JSTRM_result";
-
-    public static final JavasciScriptTaskRunnerMatlab INSTANCE = new JavasciScriptTaskRunnerMatlab();
-
-    static {
-        Assertions.checkNotNull(JavasciProperties.JAVASCI_LIBRARY_PATHS);
-    }
+    public static final JascibScriptTaskRunnerMatlab INSTANCE = new JascibScriptTaskRunnerMatlab();
 
     /**
      * public for ServiceLoader support
      */
-    public JavasciScriptTaskRunnerMatlab() {}
+    public JascibScriptTaskRunnerMatlab() {}
 
     @Override
     public <T> T run(final AScriptTaskMatlab<T> scriptTask) {
         //get session
-        final JavasciScriptTaskEngineMatlab engine = new JavasciScriptTaskEngineMatlab(ScilabWrapper.INSTANCE);
+        final ExtendedScilabBridge pythonBridge = JascibObjectPool.INSTANCE.borrowObject();
         final IScriptTaskCallback callback = scriptTask.getCallback();
         final SocketScriptTaskCallbackContext context;
         if (callback != null) {
@@ -44,10 +36,9 @@ public final class JavasciScriptTaskRunnerMatlab
         } else {
             context = null;
         }
-        final ILock lock = engine.getSharedLock();
-        lock.lock();
         try {
             //inputs
+            final JascibScriptTaskEngineMatlab engine = new JascibScriptTaskEngineMatlab(pythonBridge);
             if (context != null) {
                 context.init(engine);
             }
@@ -64,11 +55,13 @@ public final class JavasciScriptTaskRunnerMatlab
             engine.close();
 
             //return
+            JascibObjectPool.INSTANCE.returnObject(pythonBridge);
             return result;
         } catch (final Throwable t) {
+            //we have to destroy instances on exceptions, otherwise e.g. SFrontiers.jl might get stuck with some inconsistent state
+            JascibObjectPool.INSTANCE.invalidateObject(pythonBridge);
             throw Throwables.propagate(t);
         } finally {
-            lock.unlock();
             if (context != null) {
                 context.close();
             }
@@ -76,13 +69,13 @@ public final class JavasciScriptTaskRunnerMatlab
     }
 
     @Override
-    public JavasciScriptTaskRunnerMatlab getObject() throws Exception {
+    public JascibScriptTaskRunnerMatlab getObject() throws Exception {
         return INSTANCE;
     }
 
     @Override
     public Class<?> getObjectType() {
-        return JavasciScriptTaskRunnerMatlab.class;
+        return JascibScriptTaskRunnerMatlab.class;
     }
 
     @Override

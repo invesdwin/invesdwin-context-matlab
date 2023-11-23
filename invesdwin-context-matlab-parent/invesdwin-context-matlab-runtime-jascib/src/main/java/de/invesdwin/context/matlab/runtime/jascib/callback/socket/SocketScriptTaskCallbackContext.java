@@ -1,4 +1,4 @@
-package de.invesdwin.context.matlab.runtime.javasci.callback.socket;
+package de.invesdwin.context.matlab.runtime.jascib.callback.socket;
 
 import java.io.Closeable;
 import java.util.Map;
