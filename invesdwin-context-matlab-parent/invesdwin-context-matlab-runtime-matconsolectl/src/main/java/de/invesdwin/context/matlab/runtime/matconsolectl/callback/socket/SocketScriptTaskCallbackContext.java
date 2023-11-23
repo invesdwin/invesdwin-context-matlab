@@ -56,6 +56,12 @@ public class SocketScriptTaskCallbackContext implements Closeable {
         engine.addPath(new ClassPathResource("callback.m", SocketScriptTaskCallbackContext.class));
     }
 
+    public void deinit(final MatConsoleCtlScriptTaskEngineMatlab engine) {
+        //The fclose function is not available in the updated interface. The clear function disconnects the object when it removes the object from the workspace.
+        //https://de.mathworks.com/help/instrument/transition-your-code-to-tcpclient-interface.html
+        engine.eval("clear globalSocketScriptTaskCallbackSocket;");
+    }
+
     public String getUuid() {
         return uuid;
     }
