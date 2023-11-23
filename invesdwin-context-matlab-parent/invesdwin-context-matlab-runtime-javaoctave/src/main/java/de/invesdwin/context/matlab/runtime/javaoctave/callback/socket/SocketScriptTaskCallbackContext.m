@@ -35,7 +35,8 @@ end
 
 function result = callback_invokeSocket(parameters)
 	global globalSocketScriptTaskCallbackSocket;
-    writeline(globalSocketScriptTaskCallbackSocket, strcat(toJSON(cellfun(@(x) size(x), parameters, "UniformOutput", false)), ';', toJSON(parameters)));
+	dims = cellfun(@(x) size(x), parameters, "UniformOutput", false);
+    writeline(globalSocketScriptTaskCallbackSocket, strcat(toJSON(dims), ';', toJSON(parameters)));
     returnExpression = readline(globalSocketScriptTaskCallbackSocket);
     result = eval(returnExpression);
 end

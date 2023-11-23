@@ -66,13 +66,11 @@ public abstract class AScriptTaskParametersMatlabFromJson extends AScriptTaskPar
 
     @Override
     public String[][] getStringMatrix(final int index) {
-        //json returns the columns instead of rows
         final JsonNode strsMatrix = getAsJsonNode(index);
         if (strsMatrix == null) {
             return null;
         }
         if (strsMatrix.size() == 0) {
-            //https://stackoverflow.com/questions/23079625/extract-array-dimensions-in-julia
             final JsonNode dims = getAsJsonNodeDims(index);
             final int rows = dims.get(0).asInt();
             final String[][] emptyMatrix = new String[rows][];
@@ -81,14 +79,42 @@ public abstract class AScriptTaskParametersMatlabFromJson extends AScriptTaskPar
             }
             return emptyMatrix;
         }
-        //[11 12 13;21 22 23;31 32 33;41 42 43]
-        //[[11,21,31,41],[12,22,32,42],[13,23,33,43]]
-        final int rows = strsMatrix.size();
-        final int columns = strsMatrix.get(0).size();
-        final String[][] valuesMatrix = new String[rows][];
-        if (columns == 0 && !(strsMatrix.get(0) instanceof ArrayNode)) {
-            System.out.println("blaaaa");
+        final int jsonRows = strsMatrix.size();
+        final int jsonColumns = strsMatrix.get(0).size();
+        if (jsonColumns == 0 && !(strsMatrix.get(0) instanceof ArrayNode)) {
+            //            >> a=[{'1-1'} {'1-2'} {'1-3'}; {'2-1'} {'2-2'} {'2-3'}; {'3-1'} {'3-2'} {'3-3'}; {'4-1'} {'4-2'} {'4-3'}]
+            //              4×3 cell array
+            //                {'1-1'}    {'1-2'}    {'1-3'}
+            //                {'2-1'}    {'2-2'}    {'2-3'}
+            //                {'3-1'}    {'3-2'}    {'3-3'}
+            //                {'4-1'}    {'4-2'}    {'4-3'}
+            //            >> jsonencode(a)
+            //                '["1-1","2-1","3-1","4-1","1-2","2-2","3-2","4-2","1-3","2-3","3-3","4-3"]'
+            final JsonNode dims = getAsJsonNodeDims(index);
+            final int rows = dims.get(0).asInt();
+            final int columns = dims.get(1).asInt();
+            final String[][] valuesMatrix = new String[rows][];
+            for (int i = 0; i < rows; i++) {
+                valuesMatrix[i] = new String[columns];
+            }
+            int jsonIdx = 0;
+            for (int c = 0; c < columns; c++) {
+                for (int r = 0; r < rows; r++) {
+                    final String str = strsMatrix.get(jsonIdx).asText();
+                    if (Strings.isBlankOrNullText(str)) {
+                        valuesMatrix[r][c] = null;
+                    } else {
+                        valuesMatrix[r][c] = str;
+                    }
+                    jsonIdx++;
+                }
+            }
+            assert jsonIdx == jsonRows;
+            return valuesMatrix;
         } else {
+            final int rows = jsonRows;
+            final int columns = jsonColumns;
+            final String[][] valuesMatrix = new String[rows][];
             for (int r = 0; r < rows; r++) {
                 final String[] values = new String[columns];
                 valuesMatrix[r] = values;
@@ -101,8 +127,8 @@ public abstract class AScriptTaskParametersMatlabFromJson extends AScriptTaskPar
                     }
                 }
             }
+            return valuesMatrix;
         }
-        return valuesMatrix;
     }
 
 }
