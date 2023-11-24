@@ -40,7 +40,7 @@ public class SimpleCallbackTest {
 
     @ReturnExpression
     public String getSecretExpression(final String uuid) {
-        return "strcat('secret', '123')";
+        return "strcat(['secret', '123'])";
     }
 
     public void voidMethod() {

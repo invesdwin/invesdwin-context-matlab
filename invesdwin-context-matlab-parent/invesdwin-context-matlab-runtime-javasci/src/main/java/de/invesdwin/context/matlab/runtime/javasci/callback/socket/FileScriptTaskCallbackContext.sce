@@ -1,30 +1,36 @@
+global globalSocketScriptTaskCallbackContextRequestPartFile;
+globalSocketScriptTaskCallbackContextRequestPartFile = socketScriptTaskCallbackContextRequestPartFile;
 global globalSocketScriptTaskCallbackContextRequestFile;
-globalSocketScriptTaskCallbackContextRequestFile = globalSocketScriptTaskCallbackContextRequestFile;
+globalSocketScriptTaskCallbackContextRequestFile = socketScriptTaskCallbackContextRequestFile;
 global globalSocketScriptTaskCallbackContextResponseFile;
-globalSocketScriptTaskCallbackContextResponseFile = globalSocketScriptTaskCallbackContextResponseFile;
+globalSocketScriptTaskCallbackContextResponseFile = socketScriptTaskCallbackContextResponseFile;
 
 function B = callback_dims(A)
     for i = 1 : length(A)
-    	if ismatrix(A(i)) && typeof(A(i)) ~= 'string'
-    		disp(A(i))
-        	B(i) = size(A(i));
-        else
-        	B(i) = %nan;
-        end
+    	try
+		    B(i) = size(A(i));
+		catch
+		    B(i) = "";
+		end
     end
 endfunction
 
 function result = callback(varargin)
+	disp("***************");
+	global globalSocketScriptTaskCallbackContextRequestPartFile;
 	global globalSocketScriptTaskCallbackContextRequestFile;
 	global globalSocketScriptTaskCallbackContextResponseFile;
-    if length(globalSocketScriptTaskCallbackContextRequestFile) == 0 || length(globalSocketScriptTaskCallbackContextResponseFile) == 0
+    if length(globalSocketScriptTaskCallbackContextRequestPartFile) == 0 || length(globalSocketScriptTaskCallbackContextRequestFile) == 0 || length(globalSocketScriptTaskCallbackContextResponseFile) == 0
         error('IScriptTaskCallback not available');
     end
+    disp(varargin);
     dims = callback_dims(varargin);
+    disp(dims);
 	message = strcat([toJSON(dims), ';', toJSON(varargin)]);
-	requestFd = mopen(globalSocketScriptTaskCallbackContextRequestFile, "wt");
+	requestFd = mopen(globalSocketScriptTaskCallbackContextRequestPartFile, "wt");
     mputstr(message, requestFd);
     mclose(requestFd);
+    movefile(globalSocketScriptTaskCallbackContextRequestPartFile, globalSocketScriptTaskCallbackContextRequestFile);
     while ~isfile(globalSocketScriptTaskCallbackContextResponseFile)
     	sleep(1);
     end

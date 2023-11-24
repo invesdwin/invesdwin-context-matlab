@@ -58,9 +58,6 @@ public final class JavasciScriptTaskRunnerMatlab
 
             //results
             final T result = scriptTask.extractResults(engine.getResults());
-            if (context != null) {
-                context.deinit(engine);
-            }
             engine.close();
 
             //return
