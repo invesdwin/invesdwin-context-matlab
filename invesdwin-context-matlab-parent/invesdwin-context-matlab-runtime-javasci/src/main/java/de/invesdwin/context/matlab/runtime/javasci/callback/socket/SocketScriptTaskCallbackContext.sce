@@ -1,7 +1,17 @@
-global globalSocketScriptTaskCallbackContextUuid = socketScriptTaskCallbackContextUuid;
-global globalSocketScriptTaskCallbackServerHost = socketScriptTaskCallbackServerHost;
-global globalSocketScriptTaskCallbackServerPort = socketScriptTaskCallbackServerPort;
-global globalSocketScriptTaskCallbackConnected = false;
+global globalSocketScriptTaskCallbackContextUuid;
+globalSocketScriptTaskCallbackContextUuid = socketScriptTaskCallbackContextUuid;
+global globalSocketScriptTaskCallbackServerHost;
+globalSocketScriptTaskCallbackServerHost = socketScriptTaskCallbackServerHost;
+global globalSocketScriptTaskCallbackServerPort;
+ globalSocketScriptTaskCallbackServerPort = socketScriptTaskCallbackServerPort;
+global globalSocketScriptTaskCallbackConnected;
+globalSocketScriptTaskCallbackConnected = %F;
+
+function B = callback_cellfun(func,A)
+    for i = 1 : size(A,'r')
+        B(i) = func(A(i))
+    end
+endfunction
 
 function callback_createSocket()
 	global globalSocketScriptTaskCallbackSocket;
@@ -11,20 +21,20 @@ function callback_createSocket()
 	global globalSocketScriptTaskCallbackConnected;
     globalSocketScriptTaskCallbackSocket = tcpclient(globalSocketScriptTaskCallbackServerHost, globalSocketScriptTaskCallbackServerPort);
     writeline(globalSocketScriptTaskCallbackSocket, globalSocketScriptTaskCallbackContextUuid);
-    globalSocketScriptTaskCallbackConnected = true;
-end
+    globalSocketScriptTaskCallbackConnected = %T;
+endfunction
 
 function result = callback_invokeSocket(parameters)
 	global globalSocketScriptTaskCallbackSocket;
-	dims = cellfun(@(x) size(x), parameters, "UniformOutput", false);
+	dims = callback_cellfun(size, parameters);
     writeline(globalSocketScriptTaskCallbackSocket, strcat(toJSON(dims), ';', toJSON(parameters)));
     returnExpression = readline(globalSocketScriptTaskCallbackSocket);
     result = eval(returnExpression);
-end
+endfunction
 
 function result = callback(varargin)
 	global globalSocketScriptTaskCallbackConnected;
-    if !globalSocketScriptTaskCallbackConnected
+    if ~globalSocketScriptTaskCallbackConnected
     	global globalSocketScriptTaskCallbackContextUuid;
         if length(globalSocketScriptTaskCallbackContextUuid) != 0
             callback_createSocket();
@@ -33,5 +43,5 @@ function result = callback(varargin)
         end
     end
     result = callback_invokeSocket(varargin);
-end
+endfunction
 
