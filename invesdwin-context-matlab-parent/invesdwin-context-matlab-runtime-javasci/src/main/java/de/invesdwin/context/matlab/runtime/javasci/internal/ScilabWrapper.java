@@ -24,7 +24,7 @@ public final class ScilabWrapper {
 
     private ScilabWrapper() {
         try {
-            scilab = new Scilab(JavasciProperties.SCILAB_PATH, true);
+            scilab = new Scilab(JavasciProperties.SCILAB_PATH, false);
             scilab.open();
         } catch (final Exception e) {
             throw Err.process(e);

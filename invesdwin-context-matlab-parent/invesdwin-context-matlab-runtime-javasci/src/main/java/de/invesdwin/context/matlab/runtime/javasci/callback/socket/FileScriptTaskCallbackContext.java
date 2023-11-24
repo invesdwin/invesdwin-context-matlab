@@ -21,54 +21,49 @@ import de.invesdwin.context.matlab.runtime.contract.callback.ScriptTaskParameter
 import de.invesdwin.context.matlab.runtime.contract.callback.ScriptTaskParametersMatlabFromJsonPool;
 import de.invesdwin.context.matlab.runtime.contract.callback.ScriptTaskReturnsMatlabToExpression;
 import de.invesdwin.context.matlab.runtime.contract.callback.ScriptTaskReturnsMatlabToExpressionPool;
+import de.invesdwin.util.concurrent.Executors;
+import de.invesdwin.util.concurrent.WrappedExecutorService;
 import de.invesdwin.util.error.Throwables;
 import de.invesdwin.util.lang.UUIDs;
 import de.invesdwin.util.lang.string.Strings;
 
 @ThreadSafe
-public class SocketScriptTaskCallbackContext implements Closeable {
+public class FileScriptTaskCallbackContext implements Closeable {
 
-    private static final Map<String, SocketScriptTaskCallbackContext> UUID_CONTEXT = new ConcurrentHashMap<>();
+    private static final Map<String, FileScriptTaskCallbackContext> UUID_CONTEXT = new ConcurrentHashMap<>();
 
     private final String uuid;
     private final IScriptTaskCallback callback;
     private final ObjectMapper mapper;
-    private final SocketScriptTaskCallbackServer server;
+    private final WrappedExecutorService handlerExecutor;
 
-    public SocketScriptTaskCallbackContext(final IScriptTaskCallback callback) {
+    public FileScriptTaskCallbackContext(final IScriptTaskCallback callback) {
         this.uuid = UUIDs.newPseudoRandomUUID();
         this.callback = callback;
         UUID_CONTEXT.put(uuid, this);
         this.mapper = MarshallerJsonJackson.getInstance().getJsonMapper(false);
-        this.server = SocketScriptTaskCallbackServerPool.INSTANCE.borrowObject();
+        this.handlerExecutor = Executors
+                .newFixedThreadPool(FileScriptTaskCallbackContext.class.getSimpleName() + "_" + uuid, 1);
     }
 
-    public static SocketScriptTaskCallbackContext getContext(final String uuid) {
+    public static FileScriptTaskCallbackContext getContext(final String uuid) {
         return UUID_CONTEXT.get(uuid);
     }
 
     public void init(final IScriptTaskEngine engine) {
-        engine.getInputs().putString("socketScriptTaskCallbackContextUuid", getUuid());
-        engine.getInputs().putString("socketScriptTaskCallbackServerHost", getServerHost());
-        engine.getInputs().putInteger("socketScriptTaskCallbackServerPort", getServerPort());
-        engine.eval(new ClassPathResource(SocketScriptTaskCallbackContext.class.getSimpleName() + ".sce",
-                SocketScriptTaskCallbackContext.class));
+        System.out.println("init dir");
+        engine.getInputs().putString("socketScriptTaskCallbackContextRequestFile", getUuid());
+        engine.getInputs().putString("socketScriptTaskCallbackContextResponseFile", getUuid());
+        engine.eval(new ClassPathResource(FileScriptTaskCallbackContext.class.getSimpleName() + ".sce",
+                FileScriptTaskCallbackContext.class));
     }
 
     public void deinit(final IScriptTaskEngine engine) {
-        engine.eval("SOCKET_close(globalSocketScriptTaskCallbackSocket);");
+        System.out.println("delete dir");
     }
 
     public String getUuid() {
         return uuid;
-    }
-
-    public String getServerHost() {
-        return server.getHost();
-    }
-
-    public int getServerPort() {
-        return server.getPort();
     }
 
     public String invoke(final String dims, final String args) {
@@ -112,7 +107,7 @@ public class SocketScriptTaskCallbackContext implements Closeable {
     @Override
     public void close() {
         UUID_CONTEXT.remove(uuid);
-        SocketScriptTaskCallbackServerPool.INSTANCE.returnObject(server);
+        handlerExecutor.shutdownNow();
     }
 
 }

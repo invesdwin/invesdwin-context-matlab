@@ -7,7 +7,7 @@ import org.springframework.beans.factory.FactoryBean;
 import de.invesdwin.context.integration.script.callback.IScriptTaskCallback;
 import de.invesdwin.context.matlab.runtime.contract.AScriptTaskMatlab;
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskRunnerMatlab;
-import de.invesdwin.context.matlab.runtime.javasci.callback.socket.SocketScriptTaskCallbackContext;
+import de.invesdwin.context.matlab.runtime.javasci.callback.socket.FileScriptTaskCallbackContext;
 import de.invesdwin.context.matlab.runtime.javasci.internal.ScilabWrapper;
 import de.invesdwin.util.assertions.Assertions;
 import de.invesdwin.util.concurrent.lock.ILock;
@@ -38,9 +38,9 @@ public final class JavasciScriptTaskRunnerMatlab
         //get session
         final JavasciScriptTaskEngineMatlab engine = new JavasciScriptTaskEngineMatlab(ScilabWrapper.INSTANCE);
         final IScriptTaskCallback callback = scriptTask.getCallback();
-        final SocketScriptTaskCallbackContext context;
+        final FileScriptTaskCallbackContext context;
         if (callback != null) {
-            context = new SocketScriptTaskCallbackContext(callback);
+            context = new FileScriptTaskCallbackContext(callback);
         } else {
             context = null;
         }
