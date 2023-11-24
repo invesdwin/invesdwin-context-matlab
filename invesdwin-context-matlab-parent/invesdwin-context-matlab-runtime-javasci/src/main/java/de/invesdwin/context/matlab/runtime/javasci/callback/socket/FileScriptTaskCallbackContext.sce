@@ -16,16 +16,13 @@ function B = callback_dims(A)
 endfunction
 
 function result = callback(varargin)
-	disp("***************");
 	global globalSocketScriptTaskCallbackContextRequestPartFile;
 	global globalSocketScriptTaskCallbackContextRequestFile;
 	global globalSocketScriptTaskCallbackContextResponseFile;
     if length(globalSocketScriptTaskCallbackContextRequestPartFile) == 0 || length(globalSocketScriptTaskCallbackContextRequestFile) == 0 || length(globalSocketScriptTaskCallbackContextResponseFile) == 0
         error('IScriptTaskCallback not available');
     end
-    disp(varargin);
     dims = callback_dims(varargin);
-    disp(dims);
 	message = strcat([toJSON(dims), ';', toJSON(varargin)]);
 	requestFd = mopen(globalSocketScriptTaskCallbackContextRequestPartFile, "wt");
     mputstr(message, requestFd);
