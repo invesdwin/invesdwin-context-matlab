@@ -31,6 +31,8 @@ function result = callback(varargin)
     responseLength = fileinfo(globalSocketScriptTaskCallbackContextResponseFile)(1); 
     responseFd = mopen(globalSocketScriptTaskCallbackContextResponseFile, "rt");
     returnExpression = mgetstr(responseLength, responseFd);
+    mclose(responseFd);
+    mdelete(globalSocketScriptTaskCallbackContextResponseFile);
     result = evstr(returnExpression);
 endfunction
 
