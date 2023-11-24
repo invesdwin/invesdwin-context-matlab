@@ -5,7 +5,7 @@ end
 getBoolean = putBoolean
 disp(typeof(getBoolean))
 disp(getBoolean)
-if ~type(getBoolean)==4 then
+if typeof(getBoolean)~='boolean' then
 	error('getBoolean not logical!')
 end
 
@@ -16,7 +16,7 @@ end
 getBooleanVector = putBooleanVector
 disp(typeof(getBooleanVector))
 disp(getBooleanVector)
-if ~type(getBooleanVector)==4 then
+if typeof(getBooleanVector)~='boolean' then
 	error('getBooleanVector not logical!')
 end
 
@@ -27,7 +27,7 @@ end
 getBooleanVectorAsList = putBooleanVectorAsList
 disp(typeof(getBooleanVectorAsList))
 disp(getBooleanVectorAsList)
-if ~type(getBooleanVectorAsList)==4 then
+if typeof(getBooleanVectorAsList)~='boolean' then
 	error('getBooleanVectorAsList not logical!')
 end
 
@@ -38,7 +38,7 @@ end
 getBooleanMatrix = putBooleanMatrix
 disp(typeof(getBooleanMatrix))
 disp(getBooleanMatrix)
-if ~type(getBooleanMatrix)==4 then
+if typeof(getBooleanMatrix)~='boolean' then
 	error('getBooleanMatrix not logical!')
 end
 
@@ -49,6 +49,6 @@ end
 getBooleanMatrixAsList = putBooleanMatrixAsList
 disp(typeof(getBooleanMatrixAsList))
 disp(getBooleanMatrixAsList)
-if ~type(getBooleanMatrixAsList)==4 then
+if typeof(getBooleanMatrixAsList)~='boolean' then
 	error('getBooleanMatrixAsList not logical!')
 end

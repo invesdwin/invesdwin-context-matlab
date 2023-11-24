@@ -5,7 +5,7 @@ end
 getShort = putShort
 disp(typeof(getShort))
 disp(getShort)
-if ~typeof(getShort)=="int16" then
+if typeof(getShort)~='int16' then
 	error('getShort not int16!')
 end
 
@@ -16,7 +16,7 @@ end
 getShortVector = putShortVector
 disp(typeof(getShortVector))
 disp(getShortVector)
-if ~typeof(getShortVector)=="int16" then
+if typeof(getShortVector)~='int16' then
 	error('getShortVector not int16!')
 end
 
@@ -27,7 +27,7 @@ end
 getShortVectorAsList = putShortVectorAsList
 disp(typeof(getShortVectorAsList))
 disp(getShortVectorAsList)
-if ~typeof(getShortVectorAsList)=="int16" then
+if typeof(getShortVectorAsList)~='int16' then
 	error('getShortVectorAsList not int16!')
 end
 
@@ -38,7 +38,7 @@ end
 getShortMatrix = putShortMatrix
 disp(typeof(getShortMatrix))
 disp(getShortMatrix)
-if ~typeof(getShortMatrix)=="int16" then
+if typeof(getShortMatrix)~='int16' then
 	error('getShortMatrix not int16!')
 end
 
@@ -49,6 +49,6 @@ end
 getShortMatrixAsList = putShortMatrixAsList
 disp(typeof(getShortMatrixAsList))
 disp(getShortMatrixAsList)
-if ~typeof(getShortMatrixAsList)=="int16" then
+if typeof(getShortMatrixAsList)~='int16' then
 	error('getShortMatrixAsList not int16!')
 end

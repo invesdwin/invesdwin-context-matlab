@@ -5,7 +5,7 @@ end
 getDouble = putDouble
 disp(typeof(getDouble))
 disp(getDouble)
-if ~type(getDouble)==1 then
+if typeof(getDouble)~='constant' then
 	error('getDouble not double!')
 end
 
@@ -16,7 +16,7 @@ end
 getDoubleVector = putDoubleVector
 disp(typeof(getDoubleVector))
 disp(getDoubleVector)
-if ~type(getDoubleVector)==1 then
+if typeof(getDoubleVector)~='constant' then
 	error('getDoubleVector not double!')
 end
 
@@ -27,7 +27,7 @@ end
 getDoubleVectorAsList = putDoubleVectorAsList
 disp(typeof(getDoubleVectorAsList))
 disp(getDoubleVectorAsList)
-if ~type(getDoubleVectorAsList)==1 then
+if typeof(getDoubleVectorAsList)~='constant' then
 	error('getDoubleVectorAsList not double!')
 end
 
@@ -38,7 +38,7 @@ end
 getDoubleMatrix = putDoubleMatrix
 disp(typeof(getDoubleMatrix))
 disp(getDoubleMatrix)
-if ~type(getDoubleMatrix)==1 then
+if typeof(getDoubleMatrix)~='constant' then
 	error('getDoubleMatrix not double!')
 end
 
@@ -49,6 +49,6 @@ end
 getDoubleMatrixAsList = putDoubleMatrixAsList
 disp(typeof(getDoubleMatrixAsList))
 disp(getDoubleMatrixAsList)
-if ~type(getDoubleMatrixAsList)==1 then
+if typeof(getDoubleMatrixAsList)~='constant' then
 	error('getDoubleMatrixAsList not double!')
 end

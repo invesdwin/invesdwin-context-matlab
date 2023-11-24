@@ -5,7 +5,7 @@ end
 getString = putString
 disp(typeof(getString))
 disp(getString)
-if ~type(getString)==10 then
+if typeof(getString)~='string' then
 	error('getString not char!')
 end
 
@@ -16,7 +16,7 @@ end
 getStringWithNull = putStringWithNull
 disp(typeof(getStringWithNull))
 disp(getStringWithNull)
-if ~type(getStringWithNull)==1 then
+if typeof(getStringWithNull)==1 then
 	error('getStringWithNull not double!')
 end
 if ~isnan(getStringWithNull) then
@@ -30,7 +30,7 @@ end
 getStringVector = putStringVector
 disp(typeof(getStringVector))
 disp(getStringVector)
-if ~type(getStringVector)==10 then
+if typeof(getStringVector)~='string' then
 	error('getStringVector not cell!')
 end
 
@@ -42,7 +42,7 @@ end
 getStringVectorWithNull = putStringVectorWithNull
 disp(typeof(getStringVectorWithNull))
 disp(getStringVectorWithNull)
-if ~type(getStringVectorWithNull)==10 then
+if typeof(getStringVectorWithNull)~='string' then
 	error('getStringVectorWithNull not cell!')
 end
 if ~isempty(getStringVectorWithNull(2)) then
@@ -56,7 +56,7 @@ end
 getStringVectorAsList = putStringVectorAsList
 disp(typeof(getStringVectorAsList))
 disp(getStringVectorAsList)
-if ~type(getStringVectorAsList)==10 then
+if typeof(getStringVectorAsList)~='string' then
 	error('getStringVectorAsList not cell!')
 end
 
@@ -67,7 +67,7 @@ end
 getStringVectorAsListWN = putStringVectorAsListWN
 disp(typeof(getStringVectorAsListWN))
 disp(getStringVectorAsListWN)
-if ~type(getStringVectorAsListWN)==10 then
+if typeof(getStringVectorAsListWN)~='string' then
 	error('getStringVectorAsListWN not cell!')
 end
 if ~isempty(getStringVectorAsListWN(2)) then
@@ -81,7 +81,7 @@ end
 getStringMatrix = putStringMatrix
 disp(typeof(getStringMatrix))
 disp(getStringMatrix)
-if ~type(getStringMatrix)==10 then
+if typeof(getStringMatrix)~='string' then
 	error('getStringMatrix not cell!')
 end
 
@@ -93,7 +93,7 @@ end
 getStringMatrixWithNull = putStringMatrixWithNull
 disp(typeof(getStringMatrixWithNull))
 disp(getStringMatrixWithNull)
-if ~type(getStringMatrixWithNull)==10 then
+if typeof(getStringMatrixWithNull)~='string' then
 	error('getStringMatrixWithNull not cell!')
 end
 if ~isempty(getStringMatrixWithNull(1,1)) then
@@ -113,7 +113,7 @@ end
 getStringMatrixAsList = putStringMatrixAsList
 disp(typeof(getStringMatrixAsList))
 disp(getStringMatrixAsList)
-if ~type(getStringMatrixAsList)==10 then
+if typeof(getStringMatrixAsList)~='string' then
 	error('getStringMatrixAsList not cell!')
 end
 
@@ -124,7 +124,7 @@ end
 getStringMatrixAsListWN = putStringMatrixAsListWN
 disp(typeof(getStringMatrixAsListWN))
 disp(getStringMatrixAsListWN)
-if ~type(getStringMatrixAsListWN)==10 then
+if typeof(getStringMatrixAsListWN)~='string' then
 	error('getStringMatrixAsListWN not cell!')
 end
 if ~isempty(getStringMatrixAsListWN(1,1)) then
