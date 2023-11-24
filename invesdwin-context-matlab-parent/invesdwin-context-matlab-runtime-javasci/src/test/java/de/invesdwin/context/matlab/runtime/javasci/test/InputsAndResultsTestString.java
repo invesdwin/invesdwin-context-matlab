@@ -40,8 +40,8 @@ public class InputsAndResultsTestString {
 
         //putStringVectorAsList
         final List<String> putStringVectorAsList = Arrays.asList(putStringVector);
-        final List<String> putStringVectorAsListWN = Objects.deepClone(putStringVectorAsList);
-        putStringVectorAsListWN.set(1, null);
+        final List<String> putStringVectorAsListWithNull = Objects.deepClone(putStringVectorAsList);
+        putStringVectorAsListWithNull.set(1, null);
 
         //putStringMatrix
         final String[][] putStringMatrix = new String[4][];
@@ -62,9 +62,9 @@ public class InputsAndResultsTestString {
         for (final String[] vector : putStringMatrix) {
             putStringMatrixAsList.add(Arrays.asList(vector));
         }
-        final List<List<String>> putStringMatrixAsListWN = Objects.deepClone(putStringMatrixAsList);
-        for (int i = 0; i < putStringMatrixAsListWN.get(0).size(); i++) {
-            putStringMatrixAsListWN.get(i).set(i, null);
+        final List<List<String>> putStringMatrixAsListWithNull = Objects.deepClone(putStringMatrixAsList);
+        for (int i = 0; i < putStringMatrixAsListWithNull.get(0).size(); i++) {
+            putStringMatrixAsListWithNull.get(i).set(i, null);
         }
 
         new AScriptTaskMatlab<Void>() {
@@ -78,13 +78,13 @@ public class InputsAndResultsTestString {
                 inputs.putStringVector("putStringVectorWithNull", putStringVectorWithNull);
 
                 inputs.putStringVectorAsList("putStringVectorAsList", putStringVectorAsList);
-                inputs.putStringVectorAsList("putStringVectorAsListWN", putStringVectorAsListWN);
+                inputs.putStringVectorAsList("putStringVectorAsListWithNull", putStringVectorAsListWithNull);
 
                 inputs.putStringMatrix("putStringMatrix", putStringMatrix);
                 inputs.putStringMatrix("putStringMatrixWithNull", putStringMatrixWithNull);
 
                 inputs.putStringMatrixAsList("putStringMatrixAsList", putStringMatrixAsList);
-                inputs.putStringMatrixAsList("putStringMatrixAsListWN", putStringMatrixAsListWN);
+                inputs.putStringMatrixAsList("putStringMatrixAsListWithNull", putStringMatrixAsListWithNull);
             }
 
             @Override
@@ -110,8 +110,9 @@ public class InputsAndResultsTestString {
                 //getStringVectorAsList
                 final List<String> getStringVectorAsList = results.getStringVectorAsList("getStringVectorAsList");
                 Assertions.assertThat(putStringVectorAsList).isEqualTo(getStringVectorAsList);
-                final List<String> getStringVectorAsListWN = results.getStringVectorAsList("getStringVectorAsListWN");
-                Assertions.assertThat(putStringVectorAsListWN).isEqualTo(getStringVectorAsListWN);
+                final List<String> getStringVectorAsListWithNull = results
+                        .getStringVectorAsList("getStringVectorAsListWithNull");
+                Assertions.assertThat(putStringVectorAsListWithNull).isEqualTo(getStringVectorAsListWithNull);
 
                 //getStringMatrix
                 final String[][] getStringMatrix = results.getStringMatrix("getStringMatrix");
@@ -122,9 +123,9 @@ public class InputsAndResultsTestString {
                 //getStringMatrixAsList
                 final List<List<String>> getStringMatrixAsList = results.getStringMatrixAsList("getStringMatrixAsList");
                 Assertions.assertThat(putStringMatrixAsList).isEqualTo(getStringMatrixAsList);
-                final List<List<String>> getStringMatrixAsListWN = results
-                        .getStringMatrixAsList("getStringMatrixAsListWN");
-                Assertions.assertThat(putStringMatrixAsListWN).isEqualTo(getStringMatrixAsListWN);
+                final List<List<String>> getStringMatrixAsListWithNull = results
+                        .getStringMatrixAsList("getStringMatrixAsListWithNull");
+                Assertions.assertThat(putStringMatrixAsListWithNull).isEqualTo(getStringMatrixAsListWithNull);
                 return null;
             }
         }.run(runner);

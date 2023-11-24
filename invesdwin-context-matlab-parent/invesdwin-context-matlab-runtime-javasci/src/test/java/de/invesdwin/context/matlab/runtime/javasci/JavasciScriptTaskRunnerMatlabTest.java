@@ -4,9 +4,9 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import org.junit.jupiter.api.Test;
 
-import de.invesdwin.context.matlab.runtime.contract.callback.ParametersAndReturnsTests;
-import de.invesdwin.context.matlab.runtime.contract.callback.SimpleCallbackTest;
 import de.invesdwin.context.matlab.runtime.javasci.test.InputsAndResultsTests;
+import de.invesdwin.context.matlab.runtime.javasci.test.callback.ParametersAndReturnsTests;
+import de.invesdwin.context.matlab.runtime.javasci.test.callback.SimpleCallbackTest;
 import de.invesdwin.context.test.ATest;
 import jakarta.inject.Inject;
 

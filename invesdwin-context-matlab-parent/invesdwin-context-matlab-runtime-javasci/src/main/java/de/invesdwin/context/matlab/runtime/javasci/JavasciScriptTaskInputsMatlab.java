@@ -296,16 +296,23 @@ public class JavasciScriptTaskInputsMatlab implements IScriptTaskInputsMatlab {
     @Override
     public void putLong(final String variable, final long value) {
         putDouble(variable, value);
+        putExpression(variable, "int64(" + variable + ")");
     }
 
     @Override
     public void putLongVector(final String variable, final long[] value) {
         putDoubleVector(variable, Doubles.checkedCastVector(value));
+        if (value != null) {
+            putExpression(variable, "int64(" + variable + ")");
+        }
     }
 
     @Override
     public void putLongMatrix(final String variable, final long[][] value) {
         putDoubleMatrix(variable, Doubles.checkedCastMatrix(value));
+        if (value != null) {
+            putExpression(variable, "int64(" + variable + ")");
+        }
     }
 
     @Override

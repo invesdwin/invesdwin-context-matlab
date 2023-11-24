@@ -338,7 +338,8 @@ public class JavasciScriptTaskResultsMatlab implements IScriptTaskResultsMatlab 
 
     @Override
     public long getLong(final String variable) {
-        final Object obj = get(variable);
+        //UnsupportedTypeException: 64 bit (signed and unsigned) integer types not managed in Scilab 5.X
+        final Object obj = get("double(" + variable + ")");
         return Longs.checkedCast(obj);
     }
 
@@ -349,7 +350,7 @@ public class JavasciScriptTaskResultsMatlab implements IScriptTaskResultsMatlab 
         } else if (isEmpty(variable)) {
             return new long[0];
         } else {
-            final Object obj = get(variable);
+            final Object obj = get("double(" + variable + ")");
             return Longs.checkedCastVector(obj);
         }
     }
@@ -366,7 +367,7 @@ public class JavasciScriptTaskResultsMatlab implements IScriptTaskResultsMatlab 
             }
             return matrix;
         } else {
-            final Object obj = get(variable);
+            final Object obj = get("double(" + variable + ")");
             return Longs.checkedCastMatrix(obj);
         }
     }

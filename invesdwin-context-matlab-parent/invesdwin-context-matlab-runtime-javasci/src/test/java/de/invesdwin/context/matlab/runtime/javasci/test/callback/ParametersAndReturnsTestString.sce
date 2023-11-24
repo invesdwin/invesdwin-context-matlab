@@ -2,18 +2,19 @@ disp('getString')
 if exists('getString') then
 	error('getString already defined!')
 end
-getString = putString
+getString = callback('getString')
 disp(typeof(getString))
 disp(getString)
 if typeof(getString)~='string' then
 	error('getString not char!')
 end
+callback('setString',getString)
 
 disp('getStringWithNull')
 if exists('getStringWithNull') then
 	error('getStringWithNull already defined!')
 end
-getStringWithNull = putStringWithNull
+getStringWithNull = callback('getStringWithNull')
 disp(typeof(getStringWithNull))
 disp(getStringWithNull)
 if typeof(getStringWithNull)==1 then
@@ -22,24 +23,26 @@ end
 if ~isnan(getStringWithNull) then
 	error('getStringWithNull not nan!')
 end
+callback('setStringWithNull',getStringWithNull)
 
 disp('getStringVector')
 if exists('getStringVector') then
 	error('getStringVector already defined!')
 end
-getStringVector = putStringVector
+getStringVector = callback('getStringVector')
 disp(typeof(getStringVector))
 disp(getStringVector)
 if typeof(getStringVector)~='string' then
 	error('getStringVector not cell!')
 end
+callback('setStringVector',getStringVector)
 
 
 disp('getStringVectorWithNull')
 if exists('getStringVectorWithNull') then
 	error('getStringVectorWithNull already defined!')
 end
-getStringVectorWithNull = putStringVectorWithNull
+getStringVectorWithNull = callback('getStringVectorWithNull')
 disp(typeof(getStringVectorWithNull))
 disp(getStringVectorWithNull)
 if typeof(getStringVectorWithNull)~='string' then
@@ -48,23 +51,25 @@ end
 if ~isempty(getStringVectorWithNull(2)) then
 	error('getStringVectorWithNull(2) not empty!')
 end
+callback('setStringVectorWithNull',getStringVectorWithNull)
 
 disp('getStringVectorAsList')
 if exists('getStringVectorAsList') then
 	error('getStringVectorAsList already defined!')
 end
-getStringVectorAsList = putStringVectorAsList
+getStringVectorAsList = callback('getStringVectorAsList')
 disp(typeof(getStringVectorAsList))
 disp(getStringVectorAsList)
 if typeof(getStringVectorAsList)~='string' then
 	error('getStringVectorAsList not cell!')
 end
+callback('setStringVectorAsList',getStringVectorAsList)
 
 disp('getStringVectorAsListWithNull')
 if exists('getStringVectorAsListWithNull') then
 	error('getStringVectorAsListWithNull already defined!')
 end
-getStringVectorAsListWithNull = putStringVectorAsListWithNull
+getStringVectorAsListWithNull = callback('getStringVectorAsListWithNull')
 disp(typeof(getStringVectorAsListWithNull))
 disp(getStringVectorAsListWithNull)
 if typeof(getStringVectorAsListWithNull)~='string' then
@@ -73,24 +78,26 @@ end
 if ~isempty(getStringVectorAsListWithNull(2)) then
 	error('getStringVectorAsListWithNull(2) not empty!')
 end
+callback('setStringVectorAsListWithNull',getStringVectorAsListWithNull)
 
 disp('getStringMatrix')
 if exists('getStringMatrix') then
 	error('getStringMatrix already defined!')
 end
-getStringMatrix = putStringMatrix
+getStringMatrix = callback('getStringMatrix')
 disp(typeof(getStringMatrix))
 disp(getStringMatrix)
 if typeof(getStringMatrix)~='string' then
 	error('getStringMatrix not cell!')
 end
+callback('setStringMatrix',getStringMatrix)
 
 
 disp('getStringMatrixWithNull')
 if exists('getStringMatrixWithNull') then
 	error('getStringMatrixWithNull already defined!')
 end
-getStringMatrixWithNull = putStringMatrixWithNull
+getStringMatrixWithNull = callback('getStringMatrixWithNull')
 disp(typeof(getStringMatrixWithNull))
 disp(getStringMatrixWithNull)
 if typeof(getStringMatrixWithNull)~='string' then
@@ -105,23 +112,25 @@ end
 if ~isempty(getStringMatrixWithNull(3,3)) then
 	error('getStringMatrixWithNull(3,3) not empty!')
 end
+callback('setStringMatrixWithNull',getStringMatrixWithNull)
 
 disp('getStringMatrixAsList')
 if exists('getStringMatrixAsList') then
 	error('getStringMatrixAsList already defined!')
 end
-getStringMatrixAsList = putStringMatrixAsList
+getStringMatrixAsList = callback('getStringMatrixAsList')
 disp(typeof(getStringMatrixAsList))
 disp(getStringMatrixAsList)
 if typeof(getStringMatrixAsList)~='string' then
 	error('getStringMatrixAsList not cell!')
 end
+callback('setStringMatrixAsList',getStringMatrixAsList)
 
 disp('getStringMatrixAsListWithNull')
 if exists('getStringMatrixAsListWithNull') then
 	error('getStringMatrixAsListWithNull already defined!')
 end
-getStringMatrixAsListWithNull = putStringMatrixAsListWithNull
+getStringMatrixAsListWithNull = callback('getStringMatrixAsListWithNull')
 disp(typeof(getStringMatrixAsListWithNull))
 disp(getStringMatrixAsListWithNull)
 if typeof(getStringMatrixAsListWithNull)~='string' then
@@ -136,3 +145,4 @@ end
 if ~isempty(getStringMatrixAsListWithNull(3,3)) then
 	error('getStringMatrixAsListWithNull(3,3) not empty!')
 end
+callback('setStringMatrixAsListWithNull',getStringMatrixAsListWithNull)
