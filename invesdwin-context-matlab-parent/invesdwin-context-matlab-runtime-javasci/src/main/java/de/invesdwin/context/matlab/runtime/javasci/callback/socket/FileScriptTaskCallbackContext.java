@@ -20,8 +20,6 @@ import de.invesdwin.context.log.error.Err;
 import de.invesdwin.context.log.error.LoggedRuntimeException;
 import de.invesdwin.context.matlab.runtime.contract.callback.ScriptTaskParametersMatlabFromJson;
 import de.invesdwin.context.matlab.runtime.contract.callback.ScriptTaskParametersMatlabFromJsonPool;
-import de.invesdwin.context.matlab.runtime.contract.callback.ScriptTaskReturnsMatlabToExpression;
-import de.invesdwin.context.matlab.runtime.contract.callback.ScriptTaskReturnsMatlabToExpressionPool;
 import de.invesdwin.util.concurrent.Executors;
 import de.invesdwin.util.concurrent.WrappedExecutorService;
 import de.invesdwin.util.error.Throwables;
@@ -99,7 +97,7 @@ public class FileScriptTaskCallbackContext implements Closeable {
     public String invoke(final String dims, final String args) {
         final ScriptTaskParametersMatlabFromJson parameters = ScriptTaskParametersMatlabFromJsonPool.INSTANCE
                 .borrowObject();
-        final ScriptTaskReturnsMatlabToExpression returns = ScriptTaskReturnsMatlabToExpressionPool.INSTANCE
+        final JavasciScriptTaskReturnsMatlabToExpression returns = JavasciScriptTaskReturnsMatlabToExpressionPool.INSTANCE
                 .borrowObject();
         try {
             final JsonNode jsonDims = toJsonNode(dims);
@@ -116,7 +114,7 @@ public class FileScriptTaskCallbackContext implements Closeable {
             returns.returnExpression("error('CallbackException: " + errorMessage + "')");
             return returns.getReturnExpression();
         } finally {
-            ScriptTaskReturnsMatlabToExpressionPool.INSTANCE.returnObject(returns);
+            JavasciScriptTaskReturnsMatlabToExpressionPool.INSTANCE.returnObject(returns);
             ScriptTaskParametersMatlabFromJsonPool.INSTANCE.returnObject(parameters);
         }
     }
