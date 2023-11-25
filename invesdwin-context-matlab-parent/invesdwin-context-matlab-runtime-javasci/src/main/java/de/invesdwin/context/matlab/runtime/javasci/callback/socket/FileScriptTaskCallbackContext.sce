@@ -22,6 +22,7 @@ function result = callback(varargin)
     if length(globalSocketScriptTaskCallbackContextRequestPartFile) == 0 || length(globalSocketScriptTaskCallbackContextRequestFile) == 0 || length(globalSocketScriptTaskCallbackContextResponseFile) == 0
         error('IScriptTaskCallback not available');
     end
+    //jackson does not support nan values: https://github.com/FasterXML/jackson-databind/issues/1818
     dims = callback_dims(varargin);
 	message = strcat([toJSON(dims), ';', toJSON(varargin)]);
 	requestFd = mopen(globalSocketScriptTaskCallbackContextRequestPartFile, "wt");
