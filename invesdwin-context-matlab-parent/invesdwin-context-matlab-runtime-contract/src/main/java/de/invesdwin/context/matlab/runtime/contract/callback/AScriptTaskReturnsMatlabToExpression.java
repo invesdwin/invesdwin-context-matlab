@@ -8,7 +8,7 @@ import de.invesdwin.util.lang.string.Strings;
 @NotThreadSafe
 public abstract class AScriptTaskReturnsMatlabToExpression implements IScriptTaskReturnsMatlab {
 
-    private void returnEmptyRows(final int rows) {
+    protected void returnEmptyRows(final int rows) {
         returnExpression("cell(" + rows + ",1)");
     }
 

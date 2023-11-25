@@ -3,10 +3,78 @@ package de.invesdwin.context.matlab.runtime.javasci.callback.socket;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import de.invesdwin.context.matlab.runtime.contract.callback.ScriptTaskReturnsMatlabToExpression;
+import de.invesdwin.util.assertions.Assertions;
 import de.invesdwin.util.math.Doubles;
 
 @NotThreadSafe
 public class JavasciScriptTaskReturnsMatlabToExpression extends ScriptTaskReturnsMatlabToExpression {
+
+    @Override
+    public void returnNull() {
+        returnExpression("%nan");
+    }
+
+    @Override
+    public void returnStringVector(final String[] value) {
+        if (value == null) {
+            returnNull();
+        } else if (value.length == 0) {
+            returnEmpty();
+        } else {
+            final StringBuilder sb = new StringBuilder("[");
+            for (int i = 0; i < value.length; i++) {
+                if (i > 0) {
+                    sb.append(" ");
+                }
+                final String v = value[i];
+                if (v == null) {
+                    sb.append("''");
+                } else {
+                    sb.append("'");
+                    sb.append(v);
+                    sb.append("'");
+                }
+            }
+            sb.append("]");
+            returnExpression(sb.toString());
+        }
+    }
+
+    @Override
+    public void returnStringMatrix(final String[][] value) {
+        if (value == null) {
+            returnNull();
+        } else if (value.length == 0) {
+            returnEmpty();
+        } else if (value[0].length == 0) {
+            returnEmptyRows(value.length);
+        } else {
+            final int rows = value.length;
+            final int cols = value[0].length;
+            final StringBuilder sb = new StringBuilder("[");
+            for (int row = 0; row < rows; row++) {
+                Assertions.checkEquals(value[row].length, cols);
+                if (row > 0) {
+                    sb.append("; ");
+                }
+                for (int col = 0; col < cols; col++) {
+                    if (col > 0) {
+                        sb.append(" ");
+                    }
+                    final String v = value[row][col];
+                    if (v == null) {
+                        sb.append("''");
+                    } else {
+                        sb.append("'");
+                        sb.append(v);
+                        sb.append("'");
+                    }
+                }
+            }
+            sb.append("]");
+            returnExpression(sb.toString());
+        }
+    }
 
     @Override
     public void returnFloat(final float value) {
