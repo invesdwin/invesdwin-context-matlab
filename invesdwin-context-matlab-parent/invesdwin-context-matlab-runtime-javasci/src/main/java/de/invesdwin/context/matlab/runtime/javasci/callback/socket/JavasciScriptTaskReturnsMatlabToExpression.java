@@ -91,4 +91,71 @@ public class JavasciScriptTaskReturnsMatlabToExpression extends ScriptTaskReturn
         returnDoubleMatrix(Doubles.checkedCastMatrix(value));
     }
 
+    @Override
+    public void returnBoolean(final boolean value) {
+        if (value) {
+            returnExpression("%T");
+        } else {
+            returnExpression("%F");
+        }
+    }
+
+    @Override
+    public void returnBooleanVector(final boolean[] value) {
+        if (value == null) {
+            returnNull();
+        } else if (value.length == 0) {
+            returnEmpty();
+        } else {
+            final StringBuilder sb = new StringBuilder("[");
+            for (int i = 0; i < value.length; i++) {
+                if (i > 0) {
+                    sb.append(" ");
+                }
+                final boolean v = value[i];
+                if (v) {
+                    sb.append("%T");
+                } else {
+                    sb.append("%F");
+                }
+            }
+            sb.append("]");
+            returnExpression(sb.toString());
+        }
+    }
+
+    @Override
+    public void returnBooleanMatrix(final boolean[][] value) {
+        if (value == null) {
+            returnNull();
+        } else if (value.length == 0) {
+            returnEmpty();
+        } else if (value[0].length == 0) {
+            returnEmptyRows(value.length);
+        } else {
+            final int rows = value.length;
+            final int cols = value[0].length;
+            final StringBuilder sb = new StringBuilder("[");
+            for (int row = 0; row < rows; row++) {
+                Assertions.checkEquals(value[row].length, cols);
+                if (row > 0) {
+                    sb.append("; ");
+                }
+                for (int col = 0; col < cols; col++) {
+                    if (col > 0) {
+                        sb.append(" ");
+                    }
+                    final boolean v = value[row][col];
+                    if (v) {
+                        sb.append("%T");
+                    } else {
+                        sb.append("%F");
+                    }
+                }
+            }
+            sb.append("]");
+            returnExpression(sb.toString());
+        }
+    }
+
 }
