@@ -14,6 +14,8 @@ import de.invesdwin.util.time.date.FTimeUnit;
 @NotThreadSafe
 public class FileScriptTaskCallbackServerHandler implements Runnable {
 
+    private static final String[] REPLACE_SEARCH = new String[] { "[nan,", "[nan]", ",nan]", ",nan," };
+    private static final String[] REPLACE_REPLACEMENT = new String[] { "[null,", "[null]", ",null]", ",null," };
     private final FileScriptTaskCallbackContext callbackContext;
     private final ASpinWait requestSpinWait;
 
@@ -65,7 +67,9 @@ public class FileScriptTaskCallbackServerHandler implements Runnable {
         }
         final String dims = input.substring(0, dimsEndIndex);
         final String args = input.substring(dimsEndIndex + 1, input.length());
-        return callbackContext.invoke(dims, args);
+        //jackson does not support "nan" values: https://github.com/FasterXML/jackson-databind/issues/1818
+        final String adjArgs = Strings.replaceEach(args, REPLACE_SEARCH, REPLACE_REPLACEMENT);
+        return callbackContext.invoke(dims, adjArgs);
     }
 
 }

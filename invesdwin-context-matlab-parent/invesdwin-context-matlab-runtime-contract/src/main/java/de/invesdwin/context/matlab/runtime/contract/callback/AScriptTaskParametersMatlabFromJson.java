@@ -4,6 +4,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.DoubleNode;
 import com.fasterxml.jackson.databind.node.NullNode;
 
 import de.invesdwin.context.integration.script.callback.AScriptTaskParametersFromString;
@@ -34,6 +35,12 @@ public abstract class AScriptTaskParametersMatlabFromJson extends AScriptTaskPar
         if (node == null) {
             return null;
         }
+        if (node instanceof DoubleNode) {
+            final DoubleNode cNode = (DoubleNode) node;
+            if (cNode.isNaN()) {
+                return null;
+            }
+        }
         final String str = node.asText();
         if (Strings.isBlankOrNullText(str)) {
             return null;
@@ -54,7 +61,15 @@ public abstract class AScriptTaskParametersMatlabFromJson extends AScriptTaskPar
         }
         final String[] values = new String[strs.size()];
         for (int i = 0; i < values.length; i++) {
-            final String str = strs.get(i).asText();
+            final JsonNode node = strs.get(i);
+            if (node instanceof DoubleNode) {
+                final DoubleNode cNode = (DoubleNode) node;
+                if (cNode.isNaN()) {
+                    values[i] = null;
+                    continue;
+                }
+            }
+            final String str = node.asText();
             if (Strings.isBlankOrNullText(str)) {
                 values[i] = null;
             } else {
@@ -100,7 +115,16 @@ public abstract class AScriptTaskParametersMatlabFromJson extends AScriptTaskPar
             int jsonIdx = 0;
             for (int c = 0; c < columns; c++) {
                 for (int r = 0; r < rows; r++) {
-                    final String str = strsMatrix.get(jsonIdx).asText();
+                    final JsonNode node = strsMatrix.get(jsonIdx);
+                    if (node instanceof DoubleNode) {
+                        final DoubleNode cNode = (DoubleNode) node;
+                        if (cNode.isNaN()) {
+                            valuesMatrix[r][c] = null;
+                            jsonIdx++;
+                            continue;
+                        }
+                    }
+                    final String str = node.asText();
                     if (Strings.isBlankOrNullText(str)) {
                         valuesMatrix[r][c] = null;
                     } else {
@@ -118,8 +142,17 @@ public abstract class AScriptTaskParametersMatlabFromJson extends AScriptTaskPar
             for (int r = 0; r < rows; r++) {
                 final String[] values = new String[columns];
                 valuesMatrix[r] = values;
+                final JsonNode nodeRow = strsMatrix.get(r);
                 for (int c = 0; c < columns; c++) {
-                    final String str = strsMatrix.get(r).get(c).asText();
+                    final JsonNode node = nodeRow.get(c);
+                    if (node instanceof DoubleNode) {
+                        final DoubleNode cNode = (DoubleNode) node;
+                        if (cNode.isNaN()) {
+                            values[c] = null;
+                            continue;
+                        }
+                    }
+                    final String str = node.asText();
                     if (Strings.isBlankOrNullText(str)) {
                         values[c] = null;
                     } else {
