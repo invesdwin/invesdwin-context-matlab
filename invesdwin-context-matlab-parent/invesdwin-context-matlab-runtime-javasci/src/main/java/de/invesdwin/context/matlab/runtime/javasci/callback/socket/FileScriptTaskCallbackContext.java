@@ -40,8 +40,8 @@ public class FileScriptTaskCallbackContext implements Closeable {
     private final ObjectMapper mapper;
     private final File requestFile;
     private final File responseFile;
-    private final File requestPartFile;
-    private final File responsePartFile;
+    private final File requestDoneFile;
+    private final File responseDoneFile;
     private final WrappedExecutorService handlerExecutor;
 
     public FileScriptTaskCallbackContext(final IScriptTaskCallback callback) {
@@ -55,12 +55,9 @@ public class FileScriptTaskCallbackContext implements Closeable {
         }
         this.requestFile = new File(DIRECTORY, uuid + ".request");
         this.responseFile = new File(DIRECTORY, uuid + ".response");
-        this.requestPartFile = new File(DIRECTORY, uuid + ".request.part");
-        this.responsePartFile = new File(DIRECTORY, uuid + ".response.part");
-        Files.deleteQuietly(requestFile);
-        Files.deleteQuietly(responseFile);
-        Files.deleteQuietly(requestPartFile);
-        Files.deleteQuietly(responsePartFile);
+        this.requestDoneFile = new File(DIRECTORY, uuid + ".request.done");
+        this.responseDoneFile = new File(DIRECTORY, uuid + ".response.done");
+        deleteFiles();
         this.handlerExecutor = Executors
                 .newFixedThreadPool(FileScriptTaskCallbackContext.class.getSimpleName() + "_" + uuid, 1);
         this.handlerExecutor.execute(new FileScriptTaskCallbackServerHandler(this));
@@ -68,11 +65,13 @@ public class FileScriptTaskCallbackContext implements Closeable {
     }
 
     public void init(final IScriptTaskEngine engine) {
-        engine.getInputs()
-                .putString("socketScriptTaskCallbackContextRequestPartFile", getRequestPartFile().getAbsolutePath());
         engine.getInputs().putString("socketScriptTaskCallbackContextRequestFile", getRequestFile().getAbsolutePath());
         engine.getInputs()
                 .putString("socketScriptTaskCallbackContextResponseFile", getResponseFile().getAbsolutePath());
+        engine.getInputs()
+                .putString("socketScriptTaskCallbackContextRequestDoneFile", getRequestDoneFile().getAbsolutePath());
+        engine.getInputs()
+                .putString("socketScriptTaskCallbackContextResponseDoneFile", getResponseDoneFile().getAbsolutePath());
         engine.eval(new ClassPathResource(FileScriptTaskCallbackContext.class.getSimpleName() + ".sce",
                 FileScriptTaskCallbackContext.class));
     }
@@ -89,12 +88,12 @@ public class FileScriptTaskCallbackContext implements Closeable {
         return responseFile;
     }
 
-    public File getRequestPartFile() {
-        return requestPartFile;
+    public File getRequestDoneFile() {
+        return requestDoneFile;
     }
 
-    public File getResponsePartFile() {
-        return responsePartFile;
+    public File getResponseDoneFile() {
+        return responseDoneFile;
     }
 
     public String invoke(final String dims, final String args) {
@@ -138,10 +137,14 @@ public class FileScriptTaskCallbackContext implements Closeable {
     @Override
     public void close() {
         handlerExecutor.shutdownNow();
+        deleteFiles();
+    }
+
+    private void deleteFiles() {
         Files.deleteQuietly(requestFile);
         Files.deleteQuietly(responseFile);
-        Files.deleteQuietly(requestPartFile);
-        Files.deleteQuietly(responsePartFile);
+        Files.deleteQuietly(requestDoneFile);
+        Files.deleteQuietly(responseDoneFile);
     }
 
 }

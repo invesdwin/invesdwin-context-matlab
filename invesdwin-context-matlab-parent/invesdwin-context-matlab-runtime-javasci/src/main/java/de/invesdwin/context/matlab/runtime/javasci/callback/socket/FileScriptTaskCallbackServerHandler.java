@@ -9,7 +9,6 @@ import de.invesdwin.util.concurrent.loop.ASpinWait;
 import de.invesdwin.util.error.Throwables;
 import de.invesdwin.util.lang.Files;
 import de.invesdwin.util.lang.string.Strings;
-import de.invesdwin.util.time.date.FTimeUnit;
 
 @NotThreadSafe
 public class FileScriptTaskCallbackServerHandler implements Runnable {
@@ -23,7 +22,7 @@ public class FileScriptTaskCallbackServerHandler implements Runnable {
 
             @Override
             public boolean isConditionFulfilled() throws Exception {
-                return callbackContext.getRequestFile().exists();
+                return callbackContext.getRequestDoneFile().exists();
             }
         };
     }
@@ -33,26 +32,17 @@ public class FileScriptTaskCallbackServerHandler implements Runnable {
         try {
             while (true) {
                 requestSpinWait.awaitFulfill(System.nanoTime());
-                final String request = readRequest();
+                final String request = Files.readFileToString(callbackContext.getRequestFile(),
+                        Charset.defaultCharset());
                 Files.deleteQuietly(callbackContext.getRequestFile());
+                Files.deleteQuietly(callbackContext.getRequestDoneFile());
                 final String response = handle(request);
-                Files.writeStringToFile(callbackContext.getResponsePartFile(), response, Charset.defaultCharset());
-                callbackContext.getResponsePartFile().renameTo(callbackContext.getResponseFile());
+                Files.writeStringToFile(callbackContext.getResponseFile(), response, Charset.defaultCharset());
+                Files.touchQuietly(callbackContext.getResponseDoneFile());
             }
         } catch (final Throwable t) {
             if (!Throwables.isCausedByInterrupt(t)) {
                 throw Throwables.propagate(t);
-            }
-        }
-    }
-
-    private String readRequest() throws InterruptedException {
-        while (true) {
-            try {
-                return Files.readFileToString(callbackContext.getRequestFile(), Charset.defaultCharset());
-            } catch (final IOException e) {
-                FTimeUnit.MILLISECONDS.sleep(1);
-                continue;
             }
         }
     }

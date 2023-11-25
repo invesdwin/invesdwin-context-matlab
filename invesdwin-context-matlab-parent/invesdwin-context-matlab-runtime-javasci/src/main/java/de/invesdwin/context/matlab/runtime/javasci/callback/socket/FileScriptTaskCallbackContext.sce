@@ -1,9 +1,15 @@
-global globalSocketScriptTaskCallbackContextRequestPartFile;
-globalSocketScriptTaskCallbackContextRequestPartFile = socketScriptTaskCallbackContextRequestPartFile;
 global globalSocketScriptTaskCallbackContextRequestFile;
 globalSocketScriptTaskCallbackContextRequestFile = socketScriptTaskCallbackContextRequestFile;
 global globalSocketScriptTaskCallbackContextResponseFile;
 globalSocketScriptTaskCallbackContextResponseFile = socketScriptTaskCallbackContextResponseFile;
+global globalSocketScriptTaskCallbackContextRequestDoneFile;
+globalSocketScriptTaskCallbackContextRequestDoneFile = socketScriptTaskCallbackContextRequestDoneFile;
+global globalSocketScriptTaskCallbackContextResponseDoneFile;
+globalSocketScriptTaskCallbackContextResponseDoneFile = socketScriptTaskCallbackContextResponseDoneFile;
+
+if length(globalSocketScriptTaskCallbackContextRequestDoneFile) == 0 || length(globalSocketScriptTaskCallbackContextResponseDoneFile) == 0 || length(globalSocketScriptTaskCallbackContextRequestFile) == 0 || length(globalSocketScriptTaskCallbackContextResponseFile) == 0
+    error('IScriptTaskCallback not available');
+end
 
 function B = callback_dims(A)
     for i = 1 : length(A)
@@ -16,19 +22,19 @@ function B = callback_dims(A)
 endfunction
 
 function result = callback(varargin)
-	global globalSocketScriptTaskCallbackContextRequestPartFile;
 	global globalSocketScriptTaskCallbackContextRequestFile;
 	global globalSocketScriptTaskCallbackContextResponseFile;
-    if length(globalSocketScriptTaskCallbackContextRequestPartFile) == 0 || length(globalSocketScriptTaskCallbackContextRequestFile) == 0 || length(globalSocketScriptTaskCallbackContextResponseFile) == 0
-        error('IScriptTaskCallback not available');
-    end
+	global globalSocketScriptTaskCallbackContextRequestDoneFile;
+	global globalSocketScriptTaskCallbackContextResponseDoneFile;
     dims = callback_dims(varargin);
 	message = strcat([toJSON(dims), ';', toJSON(varargin)]);
-	requestFd = mopen(globalSocketScriptTaskCallbackContextRequestPartFile, "wt");
+	requestFd = mopen(globalSocketScriptTaskCallbackContextRequestFile, "wt");
     mputstr(message, requestFd);
     mclose(requestFd);
-    movefile(globalSocketScriptTaskCallbackContextRequestPartFile, globalSocketScriptTaskCallbackContextRequestFile);
-    while ~isfile(globalSocketScriptTaskCallbackContextResponseFile)
+    requestDoneFd = mopen(globalSocketScriptTaskCallbackContextRequestDoneFile, "wt");
+    mputstr('', requestDoneFd);
+    mclose(requestDoneFd);
+    while ~isfile(globalSocketScriptTaskCallbackContextResponseDoneFile)
     	sleep(1);
     end
     responseLength = fileinfo(globalSocketScriptTaskCallbackContextResponseFile)(1); 
@@ -36,6 +42,7 @@ function result = callback(varargin)
     returnExpression = mgetstr(responseLength, responseFd);
     mclose(responseFd);
     mdelete(globalSocketScriptTaskCallbackContextResponseFile);
+    mdelete(globalSocketScriptTaskCallbackContextResponseDoneFile);
     result = evstr(returnExpression);
 endfunction
 
