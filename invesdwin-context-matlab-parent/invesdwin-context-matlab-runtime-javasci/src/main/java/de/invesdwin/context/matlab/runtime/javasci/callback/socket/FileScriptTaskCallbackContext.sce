@@ -5,12 +5,16 @@ globalSocketScriptTaskCallbackContextRequestFile = socketScriptTaskCallbackConte
 global globalSocketScriptTaskCallbackContextResponseFile;
 globalSocketScriptTaskCallbackContextResponseFile = socketScriptTaskCallbackContextResponseFile;
 
-function B = callback_dims(A)
-    for i = 1 : length(A)
+function result = callback_dims(parameters)
+    for i = 1 : length(parameters)
     	try
-		    B(i) = size(A(i));
+		    result(i) = size(parameters(i));
 		catch
-		    B(i) = "";
+			try
+				result(i) = length(parameters(i));
+			catch
+		    	result(i) = 0;
+		    end
 		end
     end
 endfunction
@@ -31,11 +35,20 @@ function result = callback(varargin)
     while ~isfile(globalSocketScriptTaskCallbackContextResponseFile)
     	sleep(1);
     end
-    responseLength = fileinfo(globalSocketScriptTaskCallbackContextResponseFile)(1); 
-    responseFd = mopen(globalSocketScriptTaskCallbackContextResponseFile, "rt");
-    returnExpression = mgetstr(responseLength, responseFd);
-    mclose(responseFd);
-    mdelete(globalSocketScriptTaskCallbackContextResponseFile);
-    result = evstr(returnExpression);
+    responseLength = fileinfo(globalSocketScriptTaskCallbackContextResponseFile)(1);
+    retry = %T;
+    while retry
+    	try
+	    	responseFd = mopen(globalSocketScriptTaskCallbackContextResponseFile, "rt");
+		    returnExpression = mgetstr(responseLength, responseFd);
+		    mclose(responseFd);
+		    mdelete(globalSocketScriptTaskCallbackContextResponseFile);
+		    result = evstr(returnExpression);
+		    retry = %F;
+		catch
+			//windows file lock might still be active
+			sleep(1);
+		end
+    end
 endfunction
 

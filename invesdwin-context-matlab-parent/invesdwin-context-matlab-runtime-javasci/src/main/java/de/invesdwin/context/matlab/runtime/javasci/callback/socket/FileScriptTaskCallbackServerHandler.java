@@ -14,8 +14,8 @@ import de.invesdwin.util.time.date.FTimeUnit;
 @NotThreadSafe
 public class FileScriptTaskCallbackServerHandler implements Runnable {
 
-    private static final String[] REPLACE_SEARCH = new String[] { "[nan,", "[nan]", ",nan]", ",nan," };
-    private static final String[] REPLACE_REPLACEMENT = new String[] { "[null,", "[null]", ",null]", ",null," };
+    private static final String[] REPLACE_SEARCH = new String[] { "[nan,", "[nan]", ",nan]", ",nan,", ",]" };
+    private static final String[] REPLACE_REPLACEMENT = new String[] { "[null,", "[null]", ",null]", ",null,", ",[]]" };
     private final FileScriptTaskCallbackContext callbackContext;
     private final ASpinWait requestSpinWait;
 
@@ -53,6 +53,7 @@ public class FileScriptTaskCallbackServerHandler implements Runnable {
             try {
                 return Files.readFileToString(callbackContext.getRequestFile(), Charset.defaultCharset());
             } catch (final IOException e) {
+                //windows file lock might still be active
                 FTimeUnit.MILLISECONDS.sleep(1);
                 continue;
             }
