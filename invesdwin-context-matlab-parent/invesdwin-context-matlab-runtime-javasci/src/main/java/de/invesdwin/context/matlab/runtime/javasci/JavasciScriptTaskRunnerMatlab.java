@@ -5,6 +5,7 @@ import javax.annotation.concurrent.Immutable;
 import org.springframework.beans.factory.FactoryBean;
 
 import de.invesdwin.context.integration.script.callback.IScriptTaskCallback;
+import de.invesdwin.context.integration.script.callback.LoggingDelegateScriptTaskCallback;
 import de.invesdwin.context.matlab.runtime.contract.AScriptTaskMatlab;
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskRunnerMatlab;
 import de.invesdwin.context.matlab.runtime.javasci.callback.socket.FileScriptTaskCallbackContext;
@@ -40,7 +41,7 @@ public final class JavasciScriptTaskRunnerMatlab
         final IScriptTaskCallback callback = scriptTask.getCallback();
         final FileScriptTaskCallbackContext context;
         if (callback != null) {
-            context = new FileScriptTaskCallbackContext(callback);
+            context = new FileScriptTaskCallbackContext(LoggingDelegateScriptTaskCallback.maybeWrap(LOG, callback));
         } else {
             context = null;
         }

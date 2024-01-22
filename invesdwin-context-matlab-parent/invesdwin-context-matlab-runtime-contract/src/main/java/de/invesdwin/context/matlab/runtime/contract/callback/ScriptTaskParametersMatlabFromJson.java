@@ -6,6 +6,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
+import de.invesdwin.util.lang.string.Strings;
+
 @NotThreadSafe
 public class ScriptTaskParametersMatlabFromJson extends AScriptTaskParametersMatlabFromJson implements Closeable {
 
@@ -39,6 +41,11 @@ public class ScriptTaskParametersMatlabFromJson extends AScriptTaskParametersMat
         dims = null;
         parameters = null;
         offset = 0;
+    }
+
+    @Override
+    public String toString() {
+        return Strings.asString(dims) + "," + Strings.asString(parameters);
     }
 
 }

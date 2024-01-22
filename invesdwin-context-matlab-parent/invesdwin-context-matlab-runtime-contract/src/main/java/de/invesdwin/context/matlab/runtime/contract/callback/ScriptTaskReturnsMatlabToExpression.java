@@ -24,4 +24,9 @@ public class ScriptTaskReturnsMatlabToExpression extends AScriptTaskReturnsMatla
         returnExpression = null;
     }
 
+    @Override
+    public String toString() {
+        return returnExpression;
+    }
+
 }
