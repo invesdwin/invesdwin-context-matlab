@@ -18,16 +18,18 @@ function callback_createSocket()
 	global globalSocketScriptTaskCallbackContextUuid;
 	global globalSocketScriptTaskCallbackConnected;
     globalSocketScriptTaskCallbackSocket = tcpclient(globalSocketScriptTaskCallbackServerHost, globalSocketScriptTaskCallbackServerPort);
-    message = globalSocketScriptTaskCallbackContextUuid;
+    message = strcat(globalSocketScriptTaskCallbackContextUuid);
     write(globalSocketScriptTaskCallbackSocket, unicode2native(message, 'UTF-8'));
+    write(globalSocketScriptTaskCallbackSocket, uint8(newline));
     globalSocketScriptTaskCallbackConnected = true;
 end
 
 function result = callback_invokeSocket(parameters)
 	global globalSocketScriptTaskCallbackSocket;
 	dims = cellfun(@size, parameters, 'UniformOutput', false);
-	message = strcat(jsonencode(dims), ';', jsonencode(parameters));
+	message = strcat(jsonencode(dims), ';', jsonencode(parameters), newline);
     write(globalSocketScriptTaskCallbackSocket, unicode2native(message, 'UTF-8'));
+    write(globalSocketScriptTaskCallbackSocket, uint8(newline));
     prevAvailable = 0;
     while true
     	newAvailable = globalSocketScriptTaskCallbackSocket.BytesAvailable;
