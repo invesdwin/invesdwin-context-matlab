@@ -1,9 +1,17 @@
 function installed = callback_packageInstalled(package)
-	[user_packages, system_packages] = pkg ("list", "package);
-	if length(user_packages) == 0 && length(system_packages) == 0
-		installed = false;
-	else	
-		installed = true;
+	[user_packages, system_packages] = pkg ("list", package);
+	installed = false;
+	for k = 1:numel(user_packages)
+   		if strcmp(user_packages{k}.name, package)
+   			installed = true;
+   			return;
+   		end
+	end
+	for k = 1:numel(system_packages)
+   		if strcmp(system_packages{k}.name, package)
+   			installed = true;
+   			return;
+   		end
 	end
 end
 
