@@ -1,5 +1,5 @@
 function installed = callback_packageInstalled(package)
-	[user_packages, system_packages] = pkg ("list", "instrument-control");
+	[user_packages, system_packages] = pkg ("list", "package);
 	if length(user_packages) == 0 && length(system_packages) == 0
 		installed = false;
 	else	
