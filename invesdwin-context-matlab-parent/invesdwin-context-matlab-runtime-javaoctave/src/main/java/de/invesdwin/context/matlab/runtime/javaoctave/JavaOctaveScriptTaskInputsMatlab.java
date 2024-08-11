@@ -64,8 +64,9 @@ public class JavaOctaveScriptTaskInputsMatlab implements IScriptTaskInputsMatlab
             final int cols = value[0].length;
             final OctaveCell matrix = new OctaveCell(rows, cols);
             for (int row = 0; row < rows; row++) {
+                final String[] valueRow = value[row];
                 for (int col = 0; col < cols; col++) {
-                    String str = value[row][col];
+                    String str = valueRow[col];
                     if (str == null) {
                         str = "";
                     }
@@ -107,8 +108,9 @@ public class JavaOctaveScriptTaskInputsMatlab implements IScriptTaskInputsMatlab
             final int cols = value[0].length;
             final OctaveDouble matrix = new OctaveDouble(rows, cols);
             for (int row = 0; row < rows; row++) {
+                final double[] valueRow = value[row];
                 for (int col = 0; col < cols; col++) {
-                    matrix.set(value[row][col], row + 1, col + 1);
+                    matrix.set(valueRow[col], row + 1, col + 1);
                 }
             }
             engine.unwrap().put(variable, matrix);
@@ -181,8 +183,9 @@ public class JavaOctaveScriptTaskInputsMatlab implements IScriptTaskInputsMatlab
             final int cols = value[0].length;
             final OctaveBoolean matrix = new OctaveBoolean(rows, cols);
             for (int row = 0; row < rows; row++) {
+                final boolean[] valueRow = value[row];
                 for (int col = 0; col < cols; col++) {
-                    matrix.set(value[row][col], row + 1, col + 1);
+                    matrix.set(valueRow[col], row + 1, col + 1);
                 }
             }
             engine.unwrap().put(variable, matrix);

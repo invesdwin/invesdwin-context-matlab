@@ -84,9 +84,10 @@ public class MatConsoleCtlScriptTaskInputsMatlab implements IScriptTaskInputsMat
             final int[] size = new int[] { rows, cols };
             final String[] flatMatrix = new String[rows * cols];
             for (int row = 0; row < rows; row++) {
-                Assertions.checkEquals(value[row].length, cols);
+                final String[] valueRow = value[row];
+                Assertions.checkEquals(valueRow.length, cols);
                 for (int col = 0; col < cols; col++) {
-                    flatMatrix[engine.pos2ind(size, row, col)] = value[row][col];
+                    flatMatrix[engine.pos2ind(size, row, col)] = valueRow[col];
                 }
             }
             putStringVector(variable, flatMatrix);

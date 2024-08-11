@@ -53,7 +53,8 @@ public class JavasciScriptTaskReturnsMatlabToExpression extends ScriptTaskReturn
             final int cols = value[0].length;
             final StringBuilder sb = new StringBuilder("[");
             for (int row = 0; row < rows; row++) {
-                Assertions.checkEquals(value[row].length, cols);
+                final String[] valueRow = value[row];
+                Assertions.checkEquals(valueRow.length, cols);
                 if (row > 0) {
                     sb.append("; ");
                 }
@@ -61,7 +62,7 @@ public class JavasciScriptTaskReturnsMatlabToExpression extends ScriptTaskReturn
                     if (col > 0) {
                         sb.append(" ");
                     }
-                    final String v = value[row][col];
+                    final String v = valueRow[col];
                     if (v == null) {
                         sb.append("''");
                     } else {
@@ -137,7 +138,8 @@ public class JavasciScriptTaskReturnsMatlabToExpression extends ScriptTaskReturn
             final int cols = value[0].length;
             final StringBuilder sb = new StringBuilder("[");
             for (int row = 0; row < rows; row++) {
-                Assertions.checkEquals(value[row].length, cols);
+                final boolean[] valueRow = value[row];
+                Assertions.checkEquals(valueRow.length, cols);
                 if (row > 0) {
                     sb.append("; ");
                 }
@@ -145,7 +147,7 @@ public class JavasciScriptTaskReturnsMatlabToExpression extends ScriptTaskReturn
                     if (col > 0) {
                         sb.append(" ");
                     }
-                    final boolean v = value[row][col];
+                    final boolean v = valueRow[col];
                     if (v) {
                         sb.append("%T");
                     } else {

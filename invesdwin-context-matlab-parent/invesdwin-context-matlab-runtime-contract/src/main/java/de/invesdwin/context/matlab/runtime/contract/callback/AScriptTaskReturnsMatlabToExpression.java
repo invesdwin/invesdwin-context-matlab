@@ -60,7 +60,8 @@ public abstract class AScriptTaskReturnsMatlabToExpression implements IScriptTas
             final int cols = value[0].length;
             final StringBuilder sb = new StringBuilder("[");
             for (int row = 0; row < rows; row++) {
-                Assertions.checkEquals(value[row].length, cols);
+                final String[] valueRow = value[row];
+                Assertions.checkEquals(valueRow.length, cols);
                 if (row > 0) {
                     sb.append("; ");
                 }
@@ -68,7 +69,7 @@ public abstract class AScriptTaskReturnsMatlabToExpression implements IScriptTas
                     if (col > 0) {
                         sb.append(" ");
                     }
-                    final String v = value[row][col];
+                    final String v = valueRow[col];
                     if (v == null) {
                         sb.append("{''}");
                     } else {
@@ -121,7 +122,8 @@ public abstract class AScriptTaskReturnsMatlabToExpression implements IScriptTas
             final int cols = value[0].length;
             final StringBuilder sb = new StringBuilder("[");
             for (int row = 0; row < rows; row++) {
-                Assertions.checkEquals(value[row].length, cols);
+                final double[] valueRow = value[row];
+                Assertions.checkEquals(valueRow.length, cols);
                 if (row > 0) {
                     sb.append("; ");
                 }
@@ -129,7 +131,7 @@ public abstract class AScriptTaskReturnsMatlabToExpression implements IScriptTas
                     if (col > 0) {
                         sb.append(" ");
                     }
-                    final double v = value[row][col];
+                    final double v = valueRow[col];
                     sb.append(v);
                 }
             }
@@ -176,7 +178,8 @@ public abstract class AScriptTaskReturnsMatlabToExpression implements IScriptTas
             final int cols = value[0].length;
             final StringBuilder sb = new StringBuilder("[");
             for (int row = 0; row < rows; row++) {
-                Assertions.checkEquals(value[row].length, cols);
+                final int[] valueRow = value[row];
+                Assertions.checkEquals(valueRow.length, cols);
                 if (row > 0) {
                     sb.append("; ");
                 }
@@ -184,7 +187,7 @@ public abstract class AScriptTaskReturnsMatlabToExpression implements IScriptTas
                     if (col > 0) {
                         sb.append(" ");
                     }
-                    final int v = value[row][col];
+                    final int v = valueRow[col];
                     sb.append(v);
                 }
             }
@@ -231,7 +234,8 @@ public abstract class AScriptTaskReturnsMatlabToExpression implements IScriptTas
             final int cols = value[0].length;
             final StringBuilder sb = new StringBuilder("[");
             for (int row = 0; row < rows; row++) {
-                Assertions.checkEquals(value[row].length, cols);
+                final boolean[] valueRow = value[row];
+                Assertions.checkEquals(valueRow.length, cols);
                 if (row > 0) {
                     sb.append("; ");
                 }
@@ -239,7 +243,7 @@ public abstract class AScriptTaskReturnsMatlabToExpression implements IScriptTas
                     if (col > 0) {
                         sb.append(" ");
                     }
-                    final boolean v = value[row][col];
+                    final boolean v = valueRow[col];
                     sb.append(v);
                 }
             }
@@ -286,7 +290,8 @@ public abstract class AScriptTaskReturnsMatlabToExpression implements IScriptTas
             final int cols = value[0].length;
             final StringBuilder sb = new StringBuilder("[");
             for (int row = 0; row < rows; row++) {
-                Assertions.checkEquals(value[row].length, cols);
+                final byte[] valueRow = value[row];
+                Assertions.checkEquals(valueRow.length, cols);
                 if (row > 0) {
                     sb.append("; ");
                 }
@@ -294,7 +299,7 @@ public abstract class AScriptTaskReturnsMatlabToExpression implements IScriptTas
                     if (col > 0) {
                         sb.append(" ");
                     }
-                    final byte v = value[row][col];
+                    final byte v = valueRow[col];
                     sb.append(v);
                 }
             }
@@ -358,7 +363,8 @@ public abstract class AScriptTaskReturnsMatlabToExpression implements IScriptTas
             final int cols = value[0].length;
             final StringBuilder sb = new StringBuilder("[");
             for (int row = 0; row < rows; row++) {
-                Assertions.checkEquals(value[row].length, cols);
+                final float[] valueRow = value[row];
+                Assertions.checkEquals(valueRow.length, cols);
                 if (row > 0) {
                     sb.append("; ");
                 }
@@ -366,7 +372,7 @@ public abstract class AScriptTaskReturnsMatlabToExpression implements IScriptTas
                     if (col > 0) {
                         sb.append(" ");
                     }
-                    final float v = value[row][col];
+                    final float v = valueRow[col];
                     sb.append(v);
                 }
             }
@@ -413,7 +419,8 @@ public abstract class AScriptTaskReturnsMatlabToExpression implements IScriptTas
             final int cols = value[0].length;
             final StringBuilder sb = new StringBuilder("[");
             for (int row = 0; row < rows; row++) {
-                Assertions.checkEquals(value[row].length, cols);
+                final short[] valueRow = value[row];
+                Assertions.checkEquals(valueRow.length, cols);
                 if (row > 0) {
                     sb.append("; ");
                 }
@@ -421,7 +428,7 @@ public abstract class AScriptTaskReturnsMatlabToExpression implements IScriptTas
                     if (col > 0) {
                         sb.append(" ");
                     }
-                    final short v = value[row][col];
+                    final short v = valueRow[col];
                     sb.append(v);
                 }
             }
@@ -468,7 +475,8 @@ public abstract class AScriptTaskReturnsMatlabToExpression implements IScriptTas
             final int cols = value[0].length;
             final StringBuilder sb = new StringBuilder("[");
             for (int row = 0; row < rows; row++) {
-                Assertions.checkEquals(value[row].length, cols);
+                final long[] valueRow = value[row];
+                Assertions.checkEquals(valueRow.length, cols);
                 if (row > 0) {
                     sb.append("; ");
                 }
@@ -476,7 +484,7 @@ public abstract class AScriptTaskReturnsMatlabToExpression implements IScriptTas
                     if (col > 0) {
                         sb.append(" ");
                     }
-                    final long v = value[row][col];
+                    final long v = valueRow[col];
                     sb.append(v);
                 }
             }
