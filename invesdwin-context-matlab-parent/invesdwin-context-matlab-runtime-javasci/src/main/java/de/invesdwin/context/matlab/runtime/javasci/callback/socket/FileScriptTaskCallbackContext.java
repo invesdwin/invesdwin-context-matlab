@@ -13,7 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.NullNode;
 
 import de.invesdwin.context.ContextProperties;
-import de.invesdwin.context.integration.marshaller.MarshallerJsonJackson;
+import de.invesdwin.context.integration.marshaller.MarshallerYamlJackson;
 import de.invesdwin.context.integration.script.IScriptTaskEngine;
 import de.invesdwin.context.integration.script.callback.IScriptTaskCallback;
 import de.invesdwin.context.log.error.Err;
@@ -45,7 +45,7 @@ public class FileScriptTaskCallbackContext implements Closeable {
     public FileScriptTaskCallbackContext(final IScriptTaskCallback callback) {
         this.uuid = UUIDs.newPseudoRandomUUID();
         this.callback = callback;
-        this.mapper = MarshallerJsonJackson.getInstance().getJsonMapper(false);
+        this.mapper = MarshallerYamlJackson.getInstance().getYamlMapper();
         try {
             Files.forceMkdir(DIRECTORY);
         } catch (final IOException e) {
