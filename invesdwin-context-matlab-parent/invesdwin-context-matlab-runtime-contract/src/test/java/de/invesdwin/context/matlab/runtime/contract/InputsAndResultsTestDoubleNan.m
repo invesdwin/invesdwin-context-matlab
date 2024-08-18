@@ -23,7 +23,7 @@ if ~isa(getDoubleVector, 'double')
 	error('getDoubleVector not double!')
 end
 if ~isnan(getDoubleVector(2))
-	error('getDoubleVector[1] not NaN!')
+	error('getDoubleVector[2] not NaN!')
 end
 
 disp('getDoubleVectorAsList')
@@ -37,7 +37,7 @@ if ~isa(getDoubleVectorAsList, 'double')
 	error('getDoubleVectorAsList not double!')
 end
 if ~isnan(getDoubleVectorAsList(2))
-	error('getDoubleVectorAsList[1] not NaN!')
+	error('getDoubleVectorAsList[2] not NaN!')
 end
 	
 disp('getDoubleMatrix')
@@ -51,13 +51,13 @@ if ~isa(getDoubleMatrix, 'double')
 	error('getDoubleMatrix not double!')
 end
 if ~isnan(getDoubleMatrix(1,1))
-	error('getDoubleMatrix[0][0] not NaN!')
-end
-if ~isnan(getDoubleMatrix(2,2))
 	error('getDoubleMatrix[1][1] not NaN!')
 end
-if ~isnan(getDoubleMatrix(3,3))
+if ~isnan(getDoubleMatrix(2,2))
 	error('getDoubleMatrix[2][2] not NaN!')
+end
+if ~isnan(getDoubleMatrix(3,3))
+	error('getDoubleMatrix[3][3] not NaN!')
 end
 
 disp('getDoubleMatrixAsList')
@@ -71,11 +71,11 @@ if ~isa(getDoubleMatrixAsList, 'double')
 	error('getDoubleMatrixAsList not double!')
 end
 if ~isnan(getDoubleMatrixAsList(1,1))
-	error('getDoubleMatrixAsList[0][0] not NaN!')
-end
-if ~isnan(getDoubleMatrixAsList(2,2))
 	error('getDoubleMatrixAsList[1][1] not NaN!')
 end
-if ~isnan(getDoubleMatrixAsList(3,3))
+if ~isnan(getDoubleMatrixAsList(2,2))
 	error('getDoubleMatrixAsList[2][2] not NaN!')
+end
+if ~isnan(getDoubleMatrixAsList(3,3))
+	error('getDoubleMatrixAsList[3][3] not NaN!')
 end
