@@ -85,23 +85,23 @@ public class SimpleCallbackTest {
             final int p5, final long p6, final float p7, final double p8, final String p9, final Decimal p10) {
         final StringBuilder expression = new StringBuilder("value = ");
         expression.append(p1 ? 1 : 0);
-        expression.append("\n value += ");
+        expression.append("\n value = value + ");
         expression.append(p2);
-        expression.append("\n value += ");
+        expression.append("\n value = value + ");
         expression.append(p3);
-        expression.append("\n value += ");
+        expression.append("\n value = value + ");
         expression.append(Double.parseDouble(String.valueOf(p4)));
-        expression.append("\n value += ");
+        expression.append("\n value = value + ");
         expression.append(p5);
-        expression.append("\n value += ");
+        expression.append("\n value = value + ");
         expression.append(p6);
-        expression.append("\n value += ");
+        expression.append("\n value = value + ");
         expression.append(p7);
-        expression.append("\n value += ");
+        expression.append("\n value = value + ");
         expression.append(p8);
-        expression.append("\n value += ");
+        expression.append("\n value = value + ");
         expression.append(p9.length());
-        expression.append("\n value += ");
+        expression.append("\n value = value + ");
         expression.append(p10.doubleValue());
         return expression.toString();
     }
@@ -111,23 +111,23 @@ public class SimpleCallbackTest {
             final String p9, final Decimal p10) {
         final StringBuilder expression = new StringBuilder(variable + " = ");
         expression.append(p1 ? 1 : 0);
-        expression.append("\n " + variable + " += ");
+        expression.append("\n " + variable + " = " + variable + " + ");
         expression.append(p2);
-        expression.append("\n " + variable + " += ");
+        expression.append("\n " + variable + " = " + variable + " + ");
         expression.append(p3);
-        expression.append("\n " + variable + " += ");
+        expression.append("\n " + variable + " = " + variable + " + ");
         expression.append(Double.parseDouble(String.valueOf(p4)));
-        expression.append("\n " + variable + " += ");
+        expression.append("\n " + variable + " = " + variable + " + ");
         expression.append(p5);
-        expression.append("\n " + variable + " += ");
+        expression.append("\n " + variable + " = " + variable + " + ");
         expression.append(p6);
-        expression.append("\n " + variable + " += ");
+        expression.append("\n " + variable + " = " + variable + " + ");
         expression.append(p7);
-        expression.append("\n " + variable + " += ");
+        expression.append("\n " + variable + " = " + variable + " + ");
         expression.append(p8);
-        expression.append("\n " + variable + " += ");
+        expression.append("\n " + variable + " = " + variable + " + ");
         expression.append(p9.length());
-        expression.append("\n " + variable + " += ");
+        expression.append("\n " + variable + " = " + variable + " + ");
         expression.append(p10.doubleValue());
         return expression.toString();
     }
