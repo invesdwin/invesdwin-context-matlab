@@ -14,3 +14,26 @@ disp('getSecretExpressionCallback')
 disp(getSecretExpressionCallback)
 
 callback('voidMethod')
+
+callManyParams = callback('callManyParams', true, 2, 3, '4', 5, 6, 7.0, 8.0, '123456789', 10.0)
+if callManyParams ~= 55
+	error(strcat('callManyParams unexpected result: ',callManyParams))
+end
+callManyParamsExpression = callback('callManyParamsExpression', true, 2, 3, '4', 5, 6, 7.0, 8.0, '123456789', 10.0)
+if callManyParamsExpression ~= 55
+	error(strcat('callManyParamsExpression unexpected result: ',callManyParamsExpression))
+end
+callManyParamsExpressionMultiline = callback('callManyParamsExpressionMultiline', true, 2, 3, '4', 5, 6, 7.0, 8.0, '123456789', 10.0)
+if callManyParamsExpressionMultiline ~= 55
+	error(strcat('callManyParamsExpressionMultiline unexpected result: ',callManyParamsExpressionMultiline))
+end
+
+getManyParamsExpression = putManyParamsExpression
+disp('getManyParamsExpression')
+disp(getManyParamsExpression)
+getManyParamsExpressionMultilineWrong = putManyParamsExpressionMultilineWrong
+disp('getManyParamsExpressionMultilineWrong')
+disp(getManyParamsExpressionMultilineWrong)
+getManyParamsExpressionMultiline = putManyParamsExpressionMultiline
+disp('getManyParamsExpressionMultiline')
+disp(getManyParamsExpressionMultiline)

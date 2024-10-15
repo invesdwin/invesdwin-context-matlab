@@ -39,6 +39,6 @@ function result = callback_invokeSocket(parameters)
     	prevAvailable = newAvailable;
     	pause(0.001);
     end
-    returnExpression = native2unicode(read(globalSocketScriptTaskCallbackSocket), 'UTF-8');
+    returnExpression = strrep(native2unicode(read(globalSocketScriptTaskCallbackSocket), 'UTF-8'), '__##M@NL@C##__', newline);
     result = eval(returnExpression);
 end
