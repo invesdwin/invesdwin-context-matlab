@@ -40,5 +40,15 @@ function result = callback_invokeSocket(parameters)
     	pause(0.001);
     end
     returnExpression = strrep(native2unicode(read(globalSocketScriptTaskCallbackSocket), 'UTF-8'), '__##M@NL@C##__', newline);
-    result = eval(returnExpression);
+    % https://de.mathworks.com/matlabcentral/answers/638910-how-can-i-capture-the-numerical-output-from-eval
+    returnExpressionLines = split(strtrim(returnExpression), newline);
+    returnExpressionLinesLength = length(returnExpressionLines);
+    if returnExpressionLinesLength > 1
+        returnExpressionExec = strjoin(returnExpressionLines(1:end-1), newline);
+        returnExpressionEval = returnExpressionLines{end};
+        eval(returnExpressionExec);
+        result = eval(returnExpressionEval);
+    else
+        result = eval(returnExpression);
+    end
 end
