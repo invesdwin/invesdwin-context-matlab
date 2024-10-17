@@ -1,4 +1,4 @@
-package de.invesdwin.context.matlab.runtime.javasci.callback.socket;
+package de.invesdwin.context.matlab.runtime.javasci.callback.file;
 
 import javax.annotation.concurrent.NotThreadSafe;
 

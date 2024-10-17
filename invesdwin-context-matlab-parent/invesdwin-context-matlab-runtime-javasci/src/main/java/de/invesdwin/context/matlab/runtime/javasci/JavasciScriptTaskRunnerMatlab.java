@@ -8,7 +8,7 @@ import de.invesdwin.context.integration.script.callback.IScriptTaskCallback;
 import de.invesdwin.context.integration.script.callback.LoggingDelegateScriptTaskCallback;
 import de.invesdwin.context.matlab.runtime.contract.AScriptTaskMatlab;
 import de.invesdwin.context.matlab.runtime.contract.IScriptTaskRunnerMatlab;
-import de.invesdwin.context.matlab.runtime.javasci.callback.socket.FileScriptTaskCallbackContext;
+import de.invesdwin.context.matlab.runtime.javasci.callback.file.FileScriptTaskCallbackContext;
 import de.invesdwin.context.matlab.runtime.javasci.internal.ScilabWrapper;
 import de.invesdwin.util.assertions.Assertions;
 import de.invesdwin.util.concurrent.lock.ILock;
