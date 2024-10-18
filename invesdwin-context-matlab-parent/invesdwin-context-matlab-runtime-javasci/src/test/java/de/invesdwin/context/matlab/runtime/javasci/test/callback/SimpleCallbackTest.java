@@ -85,49 +85,50 @@ public class SimpleCallbackTest {
             final int p5, final long p6, final float p7, final double p8, final String p9, final Decimal p10) {
         final StringBuilder expression = new StringBuilder("value = ");
         expression.append(p1 ? 1 : 0);
-        expression.append("\n value += ");
+        expression.append("\n value = value + ");
         expression.append(p2);
-        expression.append("\n value += ");
+        expression.append("\n value = value + ");
         expression.append(p3);
-        expression.append("\n value += ");
+        expression.append("\n value = value + ");
         expression.append(Double.parseDouble(String.valueOf(p4)));
-        expression.append("\n value += ");
+        expression.append("\n value = value + ");
         expression.append(p5);
-        expression.append("\n value += ");
+        expression.append("\n value = value + ");
         expression.append(p6);
-        expression.append("\n value += ");
+        expression.append("\n value = value + ");
         expression.append(p7);
-        expression.append("\n value += ");
+        expression.append("\n value = value + ");
         expression.append(p8);
-        expression.append("\n value += ");
+        expression.append("\n value = value + ");
         expression.append(p9.length());
-        expression.append("\n value += ");
+        expression.append("\n value = value + ");
         expression.append(p10.doubleValue());
+        expression.append("\n value");
         return expression.toString();
     }
 
     private String putManyParamsExpressionMultiline(final String variable, final boolean p1, final byte p2,
             final short p3, final char p4, final int p5, final long p6, final float p7, final double p8,
             final String p9, final Decimal p10) {
-        final StringBuilder expression = new StringBuilder(variable + " = ");
+        final StringBuilder expression = new StringBuilder();
         expression.append(p1 ? 1 : 0);
-        expression.append("\n " + variable + " += ");
+        expression.append("\n " + variable + " = " + variable + " + ");
         expression.append(p2);
-        expression.append("\n " + variable + " += ");
+        expression.append("\n " + variable + " = " + variable + " + ");
         expression.append(p3);
-        expression.append("\n " + variable + " += ");
+        expression.append("\n " + variable + " = " + variable + " + ");
         expression.append(Double.parseDouble(String.valueOf(p4)));
-        expression.append("\n " + variable + " += ");
+        expression.append("\n " + variable + " = " + variable + " + ");
         expression.append(p5);
-        expression.append("\n " + variable + " += ");
+        expression.append("\n " + variable + " = " + variable + " + ");
         expression.append(p6);
-        expression.append("\n " + variable + " += ");
+        expression.append("\n " + variable + " = " + variable + " + ");
         expression.append(p7);
-        expression.append("\n " + variable + " += ");
+        expression.append("\n " + variable + " = " + variable + " + ");
         expression.append(p8);
-        expression.append("\n " + variable + " += ");
+        expression.append("\n " + variable + " = " + variable + " + ");
         expression.append(p9.length());
-        expression.append("\n " + variable + " += ");
+        expression.append("\n " + variable + " = " + variable + " + ");
         expression.append(p10.doubleValue());
         return expression.toString();
     }
@@ -153,8 +154,9 @@ public class SimpleCallbackTest {
                             putManyParamsExpressionMultiline("putManyParamsExpressionMultilineWrong", true, (byte) 2,
                                     (short) 3, '4', 5, 6L, 7f, 8.0, "123456789", new Decimal("10")));
                     inputs.getEngine()
-                            .eval(putManyParamsExpressionMultiline("putManyParamsExpressionMultiline", true, (byte) 2,
-                                    (short) 3, '4', 5, 6L, 7f, 8.0, "123456789", new Decimal("10")));
+                            .eval("putManyParamsExpressionMultiline = "
+                                    + putManyParamsExpressionMultiline("putManyParamsExpressionMultiline", true,
+                                            (byte) 2, (short) 3, '4', 5, 6L, 7f, 8.0, "123456789", new Decimal("10")));
                 }
 
                 @Override

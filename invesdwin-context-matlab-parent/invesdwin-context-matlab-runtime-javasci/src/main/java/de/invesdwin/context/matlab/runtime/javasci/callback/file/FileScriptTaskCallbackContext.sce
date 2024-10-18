@@ -43,7 +43,16 @@ function result = callback(varargin)
 		    returnExpression = mgetstr(responseLength, responseFd);
 		    mclose(responseFd);
 		    mdelete(globalSocketScriptTaskCallbackContextResponseFile);
-		    result = evstr(returnExpression);
+		    returnExpressionLines = strsplit(returnExpression, ascii(10));
+		    returnExpressionLinesLength = size(returnExpressionLines, 'r');
+		    if returnExpressionLinesLength > 1
+		        returnExpressionExec = strcat(returnExpressionLines(1:returnExpressionLinesLength-1), ascii(10));
+		        returnExpressionEval = returnExpressionLines(returnExpressionLinesLength);
+		        execstr(returnExpressionExec);
+		        result = evstr(returnExpressionEval);
+		    else
+		        result = evstr(returnExpression);
+		    end
 		    retry = %F;
 		catch
 			//windows file lock might still be active
